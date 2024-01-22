@@ -13,6 +13,7 @@ package edu.wpi.first.wpilibj;
 
 // import java.lang.FdLibm.Pow;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.SimBoolean;
 import edu.wpi.first.hal.SimDevice;
@@ -253,6 +254,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
   private volatile boolean m_thread_idle = false;
   private boolean m_auto_configured = false;
   private double m_scaled_sample_rate = 2500.0;
+  private Rotation3d m_angleOffset = new Rotation3d();
 
   // Resources
   private SPI m_spi;
@@ -1024,6 +1026,18 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
   }
 
   /**
+   * Reset the gyro.
+   * 
+   * <p>Resets the gyro accumulations to a heading of zero, with an offset rotation added. This can be used if there is significant
+   * drift in the gyro and it needs to be recalibrated after running.
+   * @param offset 3d angle to offset readings by
+   */
+  public void reset(Rotation3d offset) {
+    reset();
+    m_angleOffset = offset;
+  }
+
+  /**
    * Allow the designated gyro angle to be set to a given value. This may happen with unread values
    * in the buffer, it is suggested that the IMU is not moving when this method is run.
    *
@@ -1117,19 +1131,19 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
     switch (axis) {
       case kX:
         if (m_simGyroAngleX != null) {
-          return m_simGyroAngleX.get();
+          return m_simGyroAngleX.get() + m_angleOffset.getX();
         }
-        return m_integ_angle_x;
+        return m_integ_angle_x + m_angleOffset.getX();
       case kY:
         if (m_simGyroAngleY != null) {
-          return m_simGyroAngleY.get();
+          return m_simGyroAngleY.get() + m_angleOffset.getY();
         }
-        return m_integ_angle_y;
+        return m_integ_angle_y + m_angleOffset.getY();
       case kZ:
         if (m_simGyroAngleZ != null) {
-          return m_simGyroAngleZ.get();
+          return m_simGyroAngleZ.get() + m_angleOffset.getZ();
         }
-        return m_integ_angle_z;
+        return m_integ_angle_z + m_angleOffset.getZ();
       default:
     }
 
@@ -1145,19 +1159,19 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
     switch (m_yaw_axis) {
       case kX:
         if (m_simGyroAngleX != null) {
-          return m_simGyroAngleX.get();
+          return m_simGyroAngleX.get() + m_angleOffset.getX();
         }
-        return m_integ_angle_x;
+        return m_integ_angle_x + m_angleOffset.getX();
       case kY:
         if (m_simGyroAngleY != null) {
-          return m_simGyroAngleY.get();
+          return m_simGyroAngleY.get() + m_angleOffset.getY();
         }
-        return m_integ_angle_y;
+        return m_integ_angle_y + m_angleOffset.getY();
       case kZ:
         if (m_simGyroAngleZ != null) {
-          return m_simGyroAngleZ.get();
+          return m_simGyroAngleZ.get() + m_angleOffset.getZ();
         }
-        return m_integ_angle_z;
+        return m_integ_angle_z + m_angleOffset.getZ();
       default:
     }
     return 0.0;

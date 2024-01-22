@@ -14,6 +14,7 @@
 package edu.wpi.first.wpilibj;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.SimBoolean;
 import edu.wpi.first.hal.SimDevice;
@@ -192,6 +193,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
   private volatile boolean m_thread_idle = false;
   private boolean m_auto_configured = false;
   private boolean m_start_up_mode = true;
+  private Rotation3d m_angleOffset;
 
   /* Resources */
   private SPI m_spi;
@@ -673,6 +675,11 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
     }
   }
 
+  public void reset(Rotation3d offset) {
+    reset();
+    m_angleOffset = offset;
+  }
+
   /** Delete (free) the spi port used for the IMU. */
   @Override
   public void close() {
@@ -1049,9 +1056,9 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    */
   public synchronized double getGyroAngleX() {
     if (m_simGyroAngleX != null) {
-      return m_simGyroAngleX.get();
+      return m_simGyroAngleX.get() + m_angleOffset.getX();
     }
-    return m_integ_gyro_angle_x;
+    return m_integ_gyro_angle_x + m_angleOffset.getX();
   }
 
   /**
@@ -1061,9 +1068,9 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    */
   public synchronized double getGyroAngleY() {
     if (m_simGyroAngleY != null) {
-      return m_simGyroAngleY.get();
+      return m_simGyroAngleY.get() + m_angleOffset.getY();
     }
-    return m_integ_gyro_angle_y;
+    return m_integ_gyro_angle_y + m_angleOffset.getY();
   }
 
   /**
@@ -1073,9 +1080,9 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    */
   public synchronized double getGyroAngleZ() {
     if (m_simGyroAngleZ != null) {
-      return m_simGyroAngleZ.get();
+      return m_simGyroAngleZ.get() + m_angleOffset.getZ();
     }
-    return m_integ_gyro_angle_z;
+    return m_integ_gyro_angle_z + m_angleOffset.getZ();
   }
 
   /**
