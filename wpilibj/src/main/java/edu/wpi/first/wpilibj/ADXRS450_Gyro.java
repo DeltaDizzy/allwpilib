@@ -224,7 +224,8 @@ public class ADXRS450_Gyro implements Sendable, AutoCloseable {
     if (m_spi == null) {
       return 0.0;
     }
-    return m_spi.getAccumulatorIntegratedValue() * kDegreePerSecondPerLSB + m_angleOffset.getDegrees();
+    return m_spi.getAccumulatorIntegratedValue() * kDegreePerSecondPerLSB
+        + m_angleOffset.getDegrees();
   }
 
   /**

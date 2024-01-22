@@ -110,7 +110,8 @@ double ADXRS450_Gyro::GetAngle() const {
   if (m_simAngle) {
     return m_simAngle.Get() + angleOffset.Degrees();
   }
-  return m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB + angleOffset.Degrees();
+  return m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB +
+         angleOffset.Degrees();
 }
 
 double ADXRS450_Gyro::GetRate() const {

@@ -13,11 +13,11 @@ package edu.wpi.first.wpilibj;
 
 // import java.lang.FdLibm.Pow;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.SimBoolean;
 import edu.wpi.first.hal.SimDevice;
 import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import java.nio.ByteBuffer;
@@ -1027,9 +1027,11 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
 
   /**
    * Reset the gyro.
-   * 
-   * <p>Resets the gyro accumulations to a heading of zero, with an offset rotation added. This can be used if there is significant
-   * drift in the gyro and it needs to be recalibrated after running.
+   *
+   * <p>Resets the gyro accumulations to a heading of zero, with an offset rotation added. This can
+   * be used if there is significant drift in the gyro and it needs to be recalibrated after
+   * running.
+   *
    * @param offset 3d angle to offset readings by
    */
   public void reset(Rotation3d offset) {

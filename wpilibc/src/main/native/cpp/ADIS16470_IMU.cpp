@@ -892,7 +892,7 @@ units::degree_t ADIS16470_IMU::GetAngle(IMUAxis axis) const {
       }
     case kY:
       if (m_simGyroAngleY) {
-        return units::degree_t{m_simGyroAngleY.Get()}  + angleOffset.Y();
+        return units::degree_t{m_simGyroAngleY.Get()} + angleOffset.Y();
       }
       {
         std::scoped_lock sync(m_mutex);
