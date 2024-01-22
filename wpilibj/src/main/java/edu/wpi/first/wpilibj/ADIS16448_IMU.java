@@ -678,9 +678,10 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
   /**
    * Reset the gyro.
    *
-   * <p>Resets the gyro accumulations to a heading of zero an sets a Rotation3d to offset readings. This can be used if there is significant
-   * drift in the gyro and it needs to be recalibrated after running.
-   * 
+   * <p>Resets the gyro accumulations to a heading of zero an sets a Rotation3d to offset readings.
+   * This can be used if there is significant drift in the gyro and it needs to be recalibrated
+   * after running.
+   *
    * @param offset The 3d angle to offset readings by
    */
   public void reset(Rotation3d offset) {
