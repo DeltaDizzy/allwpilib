@@ -108,9 +108,9 @@ uint16_t ADXRS450_Gyro::ReadRegister(int reg) {
 
 double ADXRS450_Gyro::GetAngle() const {
   if (m_simAngle) {
-    return m_simAngle.Get();
+    return m_simAngle.Get() + angleOffset.Degrees();
   }
-  return m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB;
+  return m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB + angleOffset.Degrees();
 }
 
 double ADXRS450_Gyro::GetRate() const {
@@ -126,6 +126,11 @@ void ADXRS450_Gyro::Reset() {
     m_simAngle.Reset();
   }
   m_spi.ResetAccumulator();
+}
+
+void ADXRS450_Gyro::Reset(Rotation2d offset) {
+  Reset();
+  angleOffset = offset;
 }
 
 void ADXRS450_Gyro::Calibrate() {
