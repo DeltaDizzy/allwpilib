@@ -685,8 +685,12 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    * @param offset The 3d angle to offset readings by
    */
   public void reset(Rotation3d offset) {
-    reset();
-    m_angleOffset = offset;
+    synchronized (this) {
+      m_integ_gyro_angle_x = 0.0;
+      m_integ_gyro_angle_y = 0.0;
+      m_integ_gyro_angle_z = 0.0;
+      m_angleOffset = offset;
+    }
   }
 
   /** Delete (free) the spi port used for the IMU. */

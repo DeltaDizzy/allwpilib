@@ -1035,8 +1035,12 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    * @param offset 3d angle to offset readings by
    */
   public void reset(Rotation3d offset) {
-    reset();
-    m_angleOffset = offset;
+    synchronized (this) {
+      m_integ_angle_x = 0.0;
+      m_integ_angle_y = 0.0;
+      m_integ_angle_z = 0.0;
+      m_angleOffset = offset;
+    }
   }
 
   /**
