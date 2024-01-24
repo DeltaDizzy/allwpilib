@@ -108,10 +108,10 @@ uint16_t ADXRS450_Gyro::ReadRegister(int reg) {
 
 double ADXRS450_Gyro::GetAngle() const {
   if (m_simAngle) {
-    return m_simAngle.Get() + angleOffset.Degrees();
+    return m_simAngle.Get() + angleOffset.Degrees().value();
   }
-  return m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB +
-         angleOffset.Degrees();
+  return (m_spi.GetAccumulatorIntegratedValue() * kDegreePerSecondPerLSB) +
+         angleOffset.Degrees().value();
 }
 
 double ADXRS450_Gyro::GetRate() const {

@@ -193,7 +193,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
   private volatile boolean m_thread_idle = false;
   private boolean m_auto_configured = false;
   private boolean m_start_up_mode = true;
-  private Rotation3d m_angleOffset;
+  private Rotation3d m_angleOffset = new Rotation3d();
 
   /* Resources */
   private SPI m_spi;

@@ -63,6 +63,7 @@ public class ADXRS450_Gyro implements Sendable, AutoCloseable {
   @SuppressWarnings("this-escape")
   public ADXRS450_Gyro(SPI.Port port) {
     m_spi = new SPI(port);
+    m_angleOffset = new Rotation2d();
 
     // simulation
     m_simDevice = SimDevice.create("Gyro:ADXRS450", port.value);

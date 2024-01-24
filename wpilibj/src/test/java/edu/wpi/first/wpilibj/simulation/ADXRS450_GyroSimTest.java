@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj.simulation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,11 @@ class ADXRS450_GyroSimTest {
       assertEquals(229.3504, gyro.getRate());
 
       gyro.reset();
+      sim.setRate(0);
       assertEquals(0, gyro.getAngle());
+
+      gyro.reset(Rotation2d.fromDegrees(100));
+      assertEquals(gyro.getAngle(), 100);
     }
   }
 }
