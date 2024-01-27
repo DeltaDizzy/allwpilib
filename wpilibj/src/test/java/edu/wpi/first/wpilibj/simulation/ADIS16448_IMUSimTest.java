@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 
 class ADIS16448_IMUSimTest {
+
     @Test
     void testCallbacks() {
         HAL.initialize(500, 0);
@@ -22,15 +24,32 @@ class ADIS16448_IMUSimTest {
             sim.setGyroAngleZ(123.456);
             sim.setGyroRateZ(229.3504);
 
-            assertEquals(123.456, gyro.getAngle());
+            assertEquals(123.456, gyro.getAngle(), 0.0001);
             assertEquals(229.3504, gyro.getRate());
+        }
+    }
+
+    @Test
+    void testOffset() {
+        try(ADIS16448_IMU gyro = new ADIS16448_IMU()) {
+            ADIS16448_IMUSim sim = new ADIS16448_IMUSim(gyro);
 
             gyro.reset();
             sim.setGyroRateZ(0);
             assertEquals(0, gyro.getAngle());
 
-            gyro.reset(new Rotation3d(0, 0, Math.PI));
-            assertEquals(gyro.getAngle(), 180);
+            gyro.reset(new Rotation3d(0, 0, Units.degreesToRadians(90)));
+            assertEquals(90, gyro.getAngle(), 0.0001);
+
+            sim.setGyroAngleZ(10);
+            assertEquals(100, gyro.getAngle(), 0.0001);
+
+            sim.setGyroAngleZ(90);
+            assertEquals(180, gyro.getAngle(), 0.0001);
+
+            gyro.reset(new Rotation3d(0, Units.degreesToRadians(90), Units.degreesToRadians(90)));
+            assertEquals(90, gyro.getGyroAngleY(), 0.0001);
+            assertEquals(90, gyro.getAngle(), 0.0001);
         }
     }
 }

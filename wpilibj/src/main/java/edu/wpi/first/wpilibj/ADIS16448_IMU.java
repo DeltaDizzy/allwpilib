@@ -19,6 +19,7 @@ import edu.wpi.first.hal.SimBoolean;
 import edu.wpi.first.hal.SimDevice;
 import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 
@@ -672,24 +673,45 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
       m_integ_gyro_angle_x = 0.0;
       m_integ_gyro_angle_y = 0.0;
       m_integ_gyro_angle_z = 0.0;
+      
+      if (m_simGyroAngleX != null) {
+        m_simGyroAngleX.set(0.0);
+      }
+      if (m_simGyroAngleY != null) {
+        m_simGyroAngleY.set(0.0);
+      }
+      if (m_simGyroAngleZ != null) {
+        m_simGyroAngleZ.set(0.0);
+      }
+      
+      m_angleOffset = getGyroOrientation();
     }
   }
 
   /**
    * Reset the gyro.
    *
-   * <p>Resets the gyro accumulations to a heading of zero an sets a Rotation3d to offset readings.
-   * This can be used if there is significant drift in the gyro and it needs to be recalibrated
-   * after running.
+   * <p>Resets the gyro angle to an orientation specified by the user. 
    *
-   * @param offset The 3d angle to offset readings by
+   * @param newAngle The 3d angle to reset the device to
    */
-  public void reset(Rotation3d offset) {
+  public void reset(Rotation3d newAngle) {
     synchronized (this) {
       m_integ_gyro_angle_x = 0.0;
       m_integ_gyro_angle_y = 0.0;
       m_integ_gyro_angle_z = 0.0;
-      m_angleOffset = offset;
+
+      if (m_simGyroAngleX != null) {
+        m_simGyroAngleX.set(0.0);
+      }
+      if (m_simGyroAngleY != null) {
+        m_simGyroAngleY.set(0.0);
+      }
+      if (m_simGyroAngleZ != null) {
+        m_simGyroAngleZ.set(0.0);
+      }
+
+      m_angleOffset = newAngle.unaryMinus();
     }
   }
 
@@ -1063,27 +1085,37 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
   }
 
   /**
+   * Returns the raw (un-offset) orientation of the device as a Rotation3d
+   * 
+   * @return Rotation3d representing the device orientation
+   */
+  private synchronized Rotation3d getGyroOrientation() {
+    Rotation3d m_orientation;
+    if (m_simGyroAngleX != null && m_simGyroAngleY != null && m_simGyroAngleZ != null) {
+      m_orientation = new Rotation3d(Units.degreesToRadians(m_simGyroAngleX.get()), Units.degreesToRadians(m_simGyroAngleY.get()), Units.degreesToRadians(m_simGyroAngleZ.get()));
+    } else {
+      m_orientation = new Rotation3d(Units.degreesToRadians(m_integ_gyro_angle_x), Units.degreesToRadians(m_integ_gyro_angle_y), Units.degreesToRadians(m_integ_gyro_angle_z));
+    }
+    return m_orientation;
+  }
+
+  /**
    * Returns the accumulated gyro angle in the X axis in degrees.
    *
    * @return The accumulated gyro angle in the X axis in degrees.
    */
   public synchronized double getGyroAngleX() {
-    if (m_simGyroAngleX != null) {
-      return m_simGyroAngleX.get() + m_angleOffset.getX();
-    }
-    return m_integ_gyro_angle_x + m_angleOffset.getX();
+    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getX());
   }
 
+  
   /**
    * Returns the accumulated gyro angle in the Y axis in degrees.
    *
    * @return The accumulated gyro angle in the Y axis in degrees.
    */
   public synchronized double getGyroAngleY() {
-    if (m_simGyroAngleY != null) {
-      return m_simGyroAngleY.get() + m_angleOffset.getY();
-    }
-    return m_integ_gyro_angle_y + m_angleOffset.getY();
+    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getY());
   }
 
   /**
@@ -1092,10 +1124,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    * @return The accumulated gyro angle in the Z axis in degrees.
    */
   public synchronized double getGyroAngleZ() {
-    if (m_simGyroAngleZ != null) {
-      return m_simGyroAngleZ.get() + m_angleOffset.getZ();
-    }
-    return m_integ_gyro_angle_z + m_angleOffset.getZ();
+    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getZ());
   }
 
   /**
