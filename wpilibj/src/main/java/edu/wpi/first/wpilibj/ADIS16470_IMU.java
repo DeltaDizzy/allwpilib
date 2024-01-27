@@ -1040,15 +1040,23 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
 
   /**
    * Returns the raw (un-offset) orientation of the device as a Rotation3d
-   * 
+   *
    * @return Rotation3d representing the device orientation
    */
   private synchronized Rotation3d getGyroOrientation() {
     Rotation3d m_orientation;
     if (m_simGyroAngleX != null && m_simGyroAngleY != null && m_simGyroAngleZ != null) {
-      m_orientation = new Rotation3d(Units.degreesToRadians(m_simGyroAngleX.get()), Units.degreesToRadians(m_simGyroAngleY.get()), Units.degreesToRadians(m_simGyroAngleZ.get()));
+      m_orientation =
+          new Rotation3d(
+              Units.degreesToRadians(m_simGyroAngleX.get()),
+              Units.degreesToRadians(m_simGyroAngleY.get()),
+              Units.degreesToRadians(m_simGyroAngleZ.get()));
     } else {
-      m_orientation = new Rotation3d(Units.degreesToRadians(m_integ_angle_x), Units.degreesToRadians(m_integ_angle_y), Units.degreesToRadians(m_integ_angle_z));
+      m_orientation =
+          new Rotation3d(
+              Units.degreesToRadians(m_integ_angle_x),
+              Units.degreesToRadians(m_integ_angle_y),
+              Units.degreesToRadians(m_integ_angle_z));
     }
     return m_orientation;
   }
@@ -1056,7 +1064,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
   /**
    * Reset the gyro.
    *
-   * <p>Resets the gyro angle to an orientation specified by the user. 
+   * <p>Resets the gyro angle to an orientation specified by the user.
    *
    * @param newAngle The 3d angle to reset the device to
    */

@@ -188,7 +188,7 @@ public class ADXRS450_Gyro implements Sendable, AutoCloseable {
   /**
    * Reset the gyro.
    *
-   * <p>Resets the gyro angle to one specified by the user. 
+   * <p>Resets the gyro angle to one specified by the user.
    *
    * @param offset Angle to set the reading to
    */

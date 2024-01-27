@@ -46,6 +46,5 @@ class ADXRS450_GyroSimTest {
       sim.setAngle(90);
       assertEquals(180, gyro.getAngle(), 0.0001);
     }
-    
   }
 }
