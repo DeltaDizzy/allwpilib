@@ -32,9 +32,20 @@ class ADXRS450_GyroSimTest {
       gyro.reset();
       sim.setRate(0);
       assertEquals(0, gyro.getAngle());
-
-      gyro.reset(Rotation2d.fromDegrees(100));
-      assertEquals(gyro.getAngle(), 100);
     }
+  }
+
+  @Test
+  void testOffset() {
+    try (ADXRS450_Gyro gyro = new ADXRS450_Gyro()) {
+      ADXRS450_GyroSim sim = new ADXRS450_GyroSim(gyro);
+
+      gyro.reset(Rotation2d.fromDegrees(90));
+      assertEquals(90, gyro.getAngle(), 0.0001);
+
+      sim.setAngle(90);
+      assertEquals(180, gyro.getAngle(), 0.0001);
+    }
+    
   }
 }

@@ -188,10 +188,9 @@ public class ADXRS450_Gyro implements Sendable, AutoCloseable {
   /**
    * Reset the gyro.
    *
-   * <p>Resets the gyro to a heading of zero and sets an angle offset. This can be used if there is
-   * significant drift in the gyro, and it needs to be recalibrated after it has been running.
+   * <p>Resets the gyro angle to one specified by the user. 
    *
-   * @param offset Angle to offset the reading by
+   * @param offset Angle to set the reading to
    */
   public void reset(Rotation2d offset) {
     reset();
