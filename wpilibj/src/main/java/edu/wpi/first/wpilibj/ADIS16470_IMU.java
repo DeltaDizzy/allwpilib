@@ -1034,7 +1034,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
         m_simGyroAngleZ.set(0.0);
       }
 
-      m_angleOffset = getGyroOrientation();
+      m_angleOffset = new Rotation3d();
     }
   }
 
@@ -1044,21 +1044,21 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    * @return Rotation3d representing the device orientation
    */
   private synchronized Rotation3d getGyroOrientation() {
-    Rotation3d m_orientation;
+    Rotation3d orientation;
     if (m_simGyroAngleX != null && m_simGyroAngleY != null && m_simGyroAngleZ != null) {
-      m_orientation =
+      orientation =
           new Rotation3d(
               Units.degreesToRadians(m_simGyroAngleX.get()),
               Units.degreesToRadians(m_simGyroAngleY.get()),
               Units.degreesToRadians(m_simGyroAngleZ.get()));
     } else {
-      m_orientation =
+      orientation =
           new Rotation3d(
               Units.degreesToRadians(m_integ_angle_x),
               Units.degreesToRadians(m_integ_angle_y),
               Units.degreesToRadians(m_integ_angle_z));
     }
-    return m_orientation;
+    return orientation;
   }
 
   /**
