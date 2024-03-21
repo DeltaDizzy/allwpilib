@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj2.command;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A command composition that runs a set of commands in parallel, ending when the last command ends.
@@ -47,10 +48,15 @@ public class ParallelCommandGroup extends Command {
 
     CommandScheduler.getInstance().registerComposedCommands(commands);
 
+    StringBuilder requirementConflictMessager;
     for (Command command : commands) {
+      Set<Subsystem> intersection = Set.copyOf(m_requirements);
+      intersection.retainAll(command.getRequirements());
       if (!Collections.disjoint(command.getRequirements(), m_requirements)) {
+        requirementConflictMessager = new StringBuilder();
+        intersection.forEach((subsystem) -> requirementConflictMessager.append(subsystem.getName()));
         throw new IllegalArgumentException(
-            "Multiple commands in a parallel composition cannot require the same subsystems");
+            String.format("Cannot add command %s to %s because the subsystems %s are already required by the composition. Multiple commands in a parallel composition cannot require the same subsystems.", command.getName(), getName(), requirementConflictMessager.toString()));
       }
       m_commands.put(command, false);
       m_requirements.addAll(command.getRequirements());
