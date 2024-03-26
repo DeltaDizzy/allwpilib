@@ -15,8 +15,8 @@ namespace frc::sim {
         ADIS16448_IMU gyro;
         ADIS16448_IMUSim sim{gyro};
 
-        EXPECT_EQ(0, gyro.GetAngle());
-        EXPECT_EQ(0, gyro.GetRate());
+        EXPECT_EQ(0, gyro.GetAngle().value());
+        EXPECT_EQ(0, gyro.GetRate().value());
 
         constexpr units::degree_t TEST_ANGLE{123.456};
         constexpr units::degrees_per_second_t TEST_RATE{229.3504};
