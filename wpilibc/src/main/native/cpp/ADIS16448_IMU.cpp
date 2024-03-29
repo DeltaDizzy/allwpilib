@@ -509,11 +509,25 @@ void ADIS16448_IMU::Reset() {
   m_integ_gyro_angle_x = 0.0;
   m_integ_gyro_angle_y = 0.0;
   m_integ_gyro_angle_z = 0.0;
+  angleOffset = frc::Rotation3d{};
 }
 
 void ADIS16448_IMU::Reset(Rotation3d angle) {
-  Reset();
-  angleOffset = angle;
+  std::scoped_lock sync(m_mutex);
+  m_integ_gyro_angle_x = 0.0;
+  m_integ_gyro_angle_y = 0.0;
+  m_integ_gyro_angle_z = 0.0;
+  angleOffset = -angle;
+
+  if (m_simGyroAngleX) {
+    m_simGyroAngleX.Set(0.0);
+  }
+  if (m_simGyroAngleY) {
+    m_simGyroAngleY.Set(0.0);
+  }
+  if (m_simGyroAngleZ) {
+    m_simGyroAngleZ.Set(0.0);
+  }
 }
 
 void ADIS16448_IMU::Close() {
