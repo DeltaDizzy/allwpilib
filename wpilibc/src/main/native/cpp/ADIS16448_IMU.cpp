@@ -23,6 +23,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <mutex>
 #include <numbers>
 
 #include <hal/HAL.h>
@@ -844,11 +845,11 @@ int ADIS16448_IMU::ConfigDecRate(uint16_t decimationRate) {
 units::degree_t ADIS16448_IMU::GetAngle() const {
   switch (m_yaw_axis) {
     case kX:
-      return GetGyroAngleX() + angleOffset.X();
+      return GetGyroAngleX();
     case kY:
-      return GetGyroAngleY() + angleOffset.Y();
+      return GetGyroAngleY();
     case kZ:
-      return GetGyroAngleZ() + angleOffset.Z();
+      return GetGyroAngleZ();
     default:
       return 0_deg;
   }
@@ -867,28 +868,33 @@ units::degrees_per_second_t ADIS16448_IMU::GetRate() const {
   }
 }
 
-units::degree_t ADIS16448_IMU::GetGyroAngleX() const {
-  if (m_simGyroAngleX) {
-    return units::degree_t{m_simGyroAngleX.Get()};
+frc::Rotation3d ADIS16448_IMU::GetGyroOrientation() const {
+    if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+      return frc::Rotation3d{
+          units::degree_t{m_simGyroAngleX.Get()},
+          units::degree_t{m_simGyroAngleY.Get()},
+          units::degree_t{m_simGyroAngleZ.Get()},
+      };
+    } else {
+      std::scoped_lock sync(m_mutex);
+      return frc::Rotation3d{
+          units::degree_t{m_integ_gyro_angle_x},
+          units::degree_t{m_integ_gyro_angle_y},
+          units::degree_t{m_integ_gyro_angle_z},
+      };
+    }
   }
-  std::scoped_lock sync(m_mutex);
-  return units::degree_t{m_integ_gyro_angle_x};
+
+units::degree_t ADIS16448_IMU::GetGyroAngleX() const {
+  return (GetGyroOrientation() - m_angleOffset).X();
 }
 
 units::degree_t ADIS16448_IMU::GetGyroAngleY() const {
-  if (m_simGyroAngleY) {
-    return units::degree_t{m_simGyroAngleY.Get()};
-  }
-  std::scoped_lock sync(m_mutex);
-  return units::degree_t{m_integ_gyro_angle_y};
+  return (GetGyroOrientation() - m_angleOffset).Y();
 }
 
 units::degree_t ADIS16448_IMU::GetGyroAngleZ() const {
-  if (m_simGyroAngleZ) {
-    return units::degree_t{m_simGyroAngleZ.Get()};
-  }
-  std::scoped_lock sync(m_mutex);
-  return units::degree_t{m_integ_gyro_angle_z};
+  return (GetGyroOrientation() - m_angleOffset).Z();
 }
 
 units::degrees_per_second_t ADIS16448_IMU::GetGyroRateX() const {
