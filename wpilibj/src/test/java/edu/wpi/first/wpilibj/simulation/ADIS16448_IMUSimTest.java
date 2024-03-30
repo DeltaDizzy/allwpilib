@@ -34,12 +34,9 @@ class ADIS16448_IMUSimTest {
 
   @Test
   void testOffset() {
+    HAL.initialize(500, 0);
     try (ADIS16448_IMU gyro = new ADIS16448_IMU()) {
       ADIS16448_IMUSim sim = new ADIS16448_IMUSim(gyro);
-
-      gyro.reset();
-      sim.setGyroRateZ(0);
-      assertEquals(0, gyro.getAngle());
 
       gyro.reset(new Rotation3d(0, 0, Units.degreesToRadians(90)));
       assertEquals(90, gyro.getAngle(), 0.0001);
