@@ -509,7 +509,7 @@ void ADIS16448_IMU::Reset() {
   m_integ_gyro_angle_x = 0.0;
   m_integ_gyro_angle_y = 0.0;
   m_integ_gyro_angle_z = 0.0;
-  angleOffset = frc::Rotation3d{};
+  m_angleOffset = frc::Rotation3d{};
 }
 
 void ADIS16448_IMU::Reset(Rotation3d angle) {
@@ -517,17 +517,7 @@ void ADIS16448_IMU::Reset(Rotation3d angle) {
   m_integ_gyro_angle_x = 0.0;
   m_integ_gyro_angle_y = 0.0;
   m_integ_gyro_angle_z = 0.0;
-  angleOffset = -angle;
-
-  if (m_simGyroAngleX) {
-    m_simGyroAngleX.Set(0.0);
-  }
-  if (m_simGyroAngleY) {
-    m_simGyroAngleY.Set(0.0);
-  }
-  if (m_simGyroAngleZ) {
-    m_simGyroAngleZ.Set(0.0);
-  }
+  m_angleOffset = angle;
 }
 
 void ADIS16448_IMU::Close() {
@@ -900,15 +890,15 @@ frc::Rotation3d ADIS16448_IMU::GetGyroOrientation() const {
   }
 
 units::degree_t ADIS16448_IMU::GetGyroAngleX() const {
-  return (GetGyroOrientation() - m_angleOffset).X();
+  return (GetGyroOrientation() + m_angleOffset).X();
 }
 
 units::degree_t ADIS16448_IMU::GetGyroAngleY() const {
-  return (GetGyroOrientation() - m_angleOffset).Y();
+  return (GetGyroOrientation() + m_angleOffset).Y();
 }
 
 units::degree_t ADIS16448_IMU::GetGyroAngleZ() const {
-  return (GetGyroOrientation() - m_angleOffset).Z();
+  return (GetGyroOrientation() + m_angleOffset).Z();
 }
 
 units::degrees_per_second_t ADIS16448_IMU::GetGyroRateX() const {

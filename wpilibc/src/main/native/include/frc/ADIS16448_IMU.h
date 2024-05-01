@@ -362,7 +362,6 @@ class ADIS16448_IMU : public wpi::Sendable,
   /** @brief Internal Resources **/
   DigitalInput* m_reset_in = nullptr;
   DigitalOutput* m_status_led = nullptr;
-  Rotation3d angleOffset = Rotation3d{0_deg, 0_deg, 0_deg};
 
   bool SwitchToStandardSPI();
 
