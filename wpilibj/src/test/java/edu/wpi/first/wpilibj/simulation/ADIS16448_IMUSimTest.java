@@ -46,7 +46,7 @@ class ADIS16448_IMUSimTest {
 
       sim.setGyroAngleZ(90);
       assertEquals(180, gyro.getAngle(), 0.0001);
-
+      
       gyro.reset(new Rotation3d(0, Units.degreesToRadians(90), Units.degreesToRadians(90)));
       assertEquals(90, gyro.getGyroAngleY(), 0.0001);
       assertEquals(90, gyro.getAngle(), 0.0001);

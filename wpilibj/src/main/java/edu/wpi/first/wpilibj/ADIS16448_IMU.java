@@ -711,7 +711,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
         m_simGyroAngleZ.set(0.0);
       }
 
-      m_angleOffset = newAngle.unaryMinus();
+      m_angleOffset = newAngle;
     }
   }
 
@@ -1113,7 +1113,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    * @return The accumulated gyro angle in the X axis in degrees.
    */
   public synchronized double getGyroAngleX() {
-    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getX());
+    return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getX());
   }
 
   /**
@@ -1122,7 +1122,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    * @return The accumulated gyro angle in the Y axis in degrees.
    */
   public synchronized double getGyroAngleY() {
-    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getY());
+    return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getY());
   }
 
   /**
@@ -1131,7 +1131,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    * @return The accumulated gyro angle in the Z axis in degrees.
    */
   public synchronized double getGyroAngleZ() {
-    return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getZ());
+    return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getZ());
   }
 
   /**
