@@ -1073,23 +1073,8 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    * @param newAngle The 3d angle to reset the device to
    */
   public void reset(Rotation3d newAngle) {
-    synchronized (this) {
-      m_integ_angle_x = 0.0;
-      m_integ_angle_y = 0.0;
-      m_integ_angle_z = 0.0;
-
-      if (m_simGyroAngleX != null) {
-        m_simGyroAngleX.set(0.0);
-      }
-      if (m_simGyroAngleY != null) {
-        m_simGyroAngleY.set(0.0);
-      }
-      if (m_simGyroAngleZ != null) {
-        m_simGyroAngleZ.set(0.0);
-      }
-
-      m_angleOffset = newAngle;
-    }
+    reset();
+    m_angleOffset = newAngle;
   }
 
   /**
@@ -1204,11 +1189,11 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
   public synchronized double getAngle() {
     switch (m_yaw_axis) {
       case kX:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getX());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getX());
       case kY:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getY());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getY());
       case kZ:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getZ());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getZ());
       default:
     }
     return 0.0;

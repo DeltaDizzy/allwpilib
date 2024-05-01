@@ -544,7 +544,7 @@ class ADIS16470_IMU : public wpi::Sendable,
   hal::SimDouble m_simAccelY;
   hal::SimDouble m_simAccelZ;
 
-  frc::Rotation3d m_angleOffset{};
+  frc::Rotation3d m_angleOffset;
   frc::Rotation3d GetGyroOrientation() const;
 
   struct NonMovableMutexWrapper {

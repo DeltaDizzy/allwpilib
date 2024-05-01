@@ -551,6 +551,13 @@ void ADIS16470_IMU::Reset() {
   m_integ_angle_x = 0.0;
   m_integ_angle_y = 0.0;
   m_integ_angle_z = 0.0;
+
+  if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+    m_simGyroAngleX.Set(0);
+    m_simGyroAngleY.Set(0);
+    m_simGyroAngleZ.Set(0);
+  }
+  
 }
 
 void ADIS16470_IMU::Reset(Rotation3d offset) {
