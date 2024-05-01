@@ -233,6 +233,13 @@ class ADIS16470_IMU : public wpi::Sendable,
   units::degree_t GetAngle(IMUAxis axis = IMUAxis::kYaw) const;
 
   /**
+   * Returns the orientation of the IMU as a Rotation3d. 
+   * 
+   * @return The Rotation3d representing the orientation of the IMU.
+   */
+  frc::Rotation3d GetRotation3d() const;
+
+  /**
    * Returns the axis angular rate (CCW positive).
    *
    * @param axis The IMUAxis whose rate to return. Defaults to user configured
@@ -536,6 +543,9 @@ class ADIS16470_IMU : public wpi::Sendable,
   hal::SimDouble m_simAccelX;
   hal::SimDouble m_simAccelY;
   hal::SimDouble m_simAccelZ;
+
+  frc::Rotation3d m_angleOffset{};
+  frc::Rotation3d GetGyroOrientation() const;
 
   struct NonMovableMutexWrapper {
     wpi::mutex mutex;

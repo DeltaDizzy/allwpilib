@@ -290,6 +290,8 @@ class ADIS16448_IMU : public wpi::Sendable,
 
   void InitSendable(wpi::SendableBuilder& builder) override;
 
+  frc::Rotation3d GetRotation3d() const;
+
  private:
   /** @brief ADIS16448 Register Map Declaration */
   static constexpr uint8_t FLASH_CNT = 0x00;  // Flash memory write count

@@ -9,20 +9,22 @@
 #include "frc/ADIS16448_IMU.h"
 #include "frc/geometry/Rotation3d.h"
 #include "frc/simulation/ADIS16448_IMUSim.h"
+#include "gtest/gtest.h"
 
 namespace frc::sim {
 TEST(ADIS16448_IMUSimTest, SetAttributes) {
   HAL_Initialize(500, 0);
 
-  ADIS16448_IMU gyro;
+  ADIS16448_IMU gyro{};
   ADIS16448_IMUSim sim{gyro};
 
-  EXPECT_EQ(0, gyro.GetAngle().value());
-  EXPECT_EQ(0, gyro.GetGyroAngleX().value());
-  EXPECT_EQ(0, gyro.GetGyroAngleY().value());
-  EXPECT_EQ(0, gyro.GetGyroAngleZ().value());
-  EXPECT_EQ(0, gyro.GetRate().value());
+  EXPECT_EQ(0_deg, gyro.GetAngle());
+  EXPECT_EQ(0_deg, gyro.GetGyroAngleX());
+  EXPECT_EQ(0_deg, gyro.GetGyroAngleY());
+  EXPECT_EQ(0_deg, gyro.GetGyroAngleZ());
+  EXPECT_EQ(units::degrees_per_second_t{0}, gyro.GetRate());
 
+  EXPECT_EQ(frc::Rotation3d{}, gyro.GetRotation3d());
   constexpr units::degree_t TEST_ANGLE{123.456};
   constexpr units::degrees_per_second_t TEST_RATE{229.3504};
   sim.SetGyroAngleZ(TEST_ANGLE);
@@ -37,12 +39,9 @@ TEST(ADIS16448_IMUSimTest, Offset) {
   ADIS16448_IMU gyro{};
   ADIS16448_IMUSim sim{gyro};
 
-  frc::Rotation3d OFFSET1{0_deg, 0_deg, 90_deg};
-  gyro.Reset(OFFSET1);
-  EXPECT_EQ(90_deg, gyro.GetAngle());
-  EXPECT_EQ(0_deg, gyro.GetGyroAngleX());
-  EXPECT_EQ(0_deg, gyro.GetGyroAngleY());
-  EXPECT_EQ(90_deg, gyro.GetGyroAngleZ());
+  frc::Rotation3d OFFSET{0_deg, 0_deg, 90_deg};
+  gyro.Reset(OFFSET);
+  EXPECT_EQ(OFFSET, gyro.GetRotation3d());
 
   sim.SetGyroAngleZ(10_deg);
   EXPECT_EQ(100_deg, gyro.GetAngle());
@@ -50,8 +49,9 @@ TEST(ADIS16448_IMUSimTest, Offset) {
   sim.SetGyroAngleZ(90_deg);
   EXPECT_EQ(180_deg, gyro.GetAngle());
 
-  gyro.Reset(frc::Rotation3d{0_deg, 90_deg, 90_deg});
+  frc::Rotation3d OFFSET_YZ{0_deg, 90_deg, 90_deg};
+  gyro.Reset(OFFSET_YZ);
+  EXPECT_EQ(OFFSET_YZ, gyro.GetRotation3d());
   EXPECT_EQ(90_deg, gyro.GetGyroAngleY());
-  EXPECT_EQ(90_deg, gyro.GetAngle());
 }
 }  // namespace frc::sim

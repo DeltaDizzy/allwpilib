@@ -1061,6 +1061,10 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
     return orientation;
   }
 
+  public Rotation3d getRotation3d() {
+    return getGyroOrientation().plus(m_angleOffset);
+  }
+
   /**
    * Reset the gyro.
    *
@@ -1084,7 +1088,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
         m_simGyroAngleZ.set(0.0);
       }
 
-      m_angleOffset = newAngle.unaryMinus();
+      m_angleOffset = newAngle;
     }
   }
 
@@ -1181,11 +1185,11 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
 
     switch (axis) {
       case kX:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getX());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getX());
       case kY:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getY());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getY());
       case kZ:
-        return Units.radiansToDegrees(getGyroOrientation().minus(m_angleOffset).getZ());
+        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getZ());
       default:
     }
 

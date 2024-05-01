@@ -873,21 +873,25 @@ units::degrees_per_second_t ADIS16448_IMU::GetRate() const {
 }
 
 frc::Rotation3d ADIS16448_IMU::GetGyroOrientation() const {
-    if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
-      return frc::Rotation3d{
-          units::degree_t{m_simGyroAngleX.Get()},
-          units::degree_t{m_simGyroAngleY.Get()},
-          units::degree_t{m_simGyroAngleZ.Get()},
-      };
-    } else {
-      std::scoped_lock sync(m_mutex);
-      return frc::Rotation3d{
-          units::degree_t{m_integ_gyro_angle_x},
-          units::degree_t{m_integ_gyro_angle_y},
-          units::degree_t{m_integ_gyro_angle_z},
-      };
-    }
+  if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+    return frc::Rotation3d{
+        units::degree_t{m_simGyroAngleX.Get()},
+        units::degree_t{m_simGyroAngleY.Get()},
+        units::degree_t{m_simGyroAngleZ.Get()},
+    };
+  } else {
+    std::scoped_lock sync(m_mutex);
+    return frc::Rotation3d{
+        units::degree_t{m_integ_gyro_angle_x},
+        units::degree_t{m_integ_gyro_angle_y},
+        units::degree_t{m_integ_gyro_angle_z},
+    };
   }
+}
+
+frc::Rotation3d ADIS16448_IMU::GetRotation3d() const {
+  return GetGyroOrientation() + m_angleOffset;
+}
 
 units::degree_t ADIS16448_IMU::GetGyroAngleX() const {
   return (GetGyroOrientation() + m_angleOffset).X();

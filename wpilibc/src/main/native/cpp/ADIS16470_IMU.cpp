@@ -28,6 +28,7 @@
 #include <wpi/sendable/SendableRegistry.h>
 
 #include "frc/Errors.h"
+#include "units/angle.h"
 
 /* Helpful conversion functions */
 static inline int32_t ToInt(const uint32_t* buf) {
@@ -866,6 +867,27 @@ void ADIS16470_IMU::SetGyroAngleZ(units::degree_t angle) {
   m_integ_angle_z = angle.value();
 }
 
+frc::Rotation3d ADIS16470_IMU::GetGyroOrientation() const {
+  if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+    return frc::Rotation3d{
+      units::degree_t{m_simGyroAngleX.Get()},
+      units::degree_t{m_simGyroAngleY.Get()},
+      units::degree_t{m_simGyroAngleZ.Get()},
+    };
+  } else {
+    std::scoped_lock sync(m_mutex);
+    return frc::Rotation3d{
+      units::degree_t{m_integ_angle_x},
+      units::degree_t{m_integ_angle_y},
+      units::degree_t{m_integ_angle_z},
+    };
+  }
+}
+
+frc::Rotation3d ADIS16470_IMU::GetRotation3d() const {
+  return GetGyroOrientation() + m_angleOffset;
+}
+
 units::degree_t ADIS16470_IMU::GetAngle(IMUAxis axis) const {
   switch (axis) {
     case kYaw:
@@ -883,33 +905,14 @@ units::degree_t ADIS16470_IMU::GetAngle(IMUAxis axis) const {
 
   switch (axis) {
     case kX:
-      if (m_simGyroAngleX) {
-        return units::degree_t{m_simGyroAngleX.Get()} + angleOffset.X();
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_x} + angleOffset.X();
-      }
+      return (GetGyroOrientation() + m_angleOffset).X();
     case kY:
-      if (m_simGyroAngleY) {
-        return units::degree_t{m_simGyroAngleY.Get()} + angleOffset.Y();
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_y} + angleOffset.Y();
-      }
+      return (GetGyroOrientation() + m_angleOffset).Y();
     case kZ:
-      if (m_simGyroAngleZ) {
-        return units::degree_t{m_simGyroAngleZ.Get()} + angleOffset.Z();
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_z} + angleOffset.Z();
-      }
+      return (GetGyroOrientation() + m_angleOffset).Z();
     default:
       break;
   }
-
   return units::degree_t{0.0};
 }
 
