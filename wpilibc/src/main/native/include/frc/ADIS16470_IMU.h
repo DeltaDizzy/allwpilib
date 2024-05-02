@@ -233,8 +233,8 @@ class ADIS16470_IMU : public wpi::Sendable,
   units::degree_t GetAngle(IMUAxis axis = IMUAxis::kYaw) const;
 
   /**
-   * Returns the orientation of the IMU as a Rotation3d. 
-   * 
+   * Returns the orientation of the IMU as a Rotation3d.
+   *
    * @return The Rotation3d representing the orientation of the IMU.
    */
   frc::Rotation3d GetRotation3d() const;
