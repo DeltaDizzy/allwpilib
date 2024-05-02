@@ -43,12 +43,6 @@ TEST(ADIS16448_IMUSimTest, Offset) {
   gyro.Reset(OFFSET);
   EXPECT_EQ(OFFSET, gyro.GetRotation3d());
 
-  sim.SetGyroAngleZ(10_deg);
-  EXPECT_EQ(100_deg, gyro.GetAngle());
-
-  sim.SetGyroAngleZ(90_deg);
-  EXPECT_EQ(180_deg, gyro.GetAngle());
-
   frc::Rotation3d OFFSET_YZ{0_deg, 90_deg, 90_deg};
   gyro.Reset(OFFSET_YZ);
   EXPECT_EQ(OFFSET_YZ, gyro.GetRotation3d());

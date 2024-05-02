@@ -217,7 +217,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
   private SimDouble m_simAccelX;
   private SimDouble m_simAccelY;
   private SimDouble m_simAccelZ;
-  
+
   /* Internal orientation offset*/
   private Rotation3d m_angleOffset = new Rotation3d();
 
@@ -1147,6 +1147,7 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
    */
   private synchronized Rotation3d getGyroOrientation() {
     Rotation3d orientation;
+    // TODO: sim angles should edit the offset, not the integrated angles
     if (m_simGyroAngleX != null && m_simGyroAngleY != null && m_simGyroAngleZ != null) {
       orientation =
           new Rotation3d(
@@ -1161,6 +1162,10 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
               Units.degreesToRadians(m_integ_gyro_angle_z));
     }
     return orientation;
+  }
+
+  public Rotation3d getRotation3d() {
+    return getGyroOrientation().plus(m_angleOffset);
   }
 
   /**

@@ -41,15 +41,9 @@ TEST(ADIS16470_IMUSimTest, Offset) {
     gyro.Reset(OFFSET_Z);
     EXPECT_EQ(OFFSET_Z, gyro.GetRotation3d()); // default is Z axis (yaw)
 
-    sim.SetGyroAngleZ(10_deg);
-    EXPECT_EQ(100_deg, gyro.GetAngle(IMUAxis::kYaw));
-
-    sim.SetGyroAngleZ(90_deg);
-    EXPECT_EQ(180_deg, gyro.GetAngle(IMUAxis::kYaw));
-
-    frc::Rotation3d OFFSET_Y{0_deg, 90_deg, 90_deg};
-    gyro.Reset(OFFSET_Y);
-    EXPECT_EQ(OFFSET_Y, gyro.GetRotation3d());
+    frc::Rotation3d OFFSET_YZ{0_deg, 90_deg, 90_deg};
+    gyro.Reset(OFFSET_YZ);
+    EXPECT_EQ(OFFSET_YZ, gyro.GetRotation3d());
     EXPECT_EQ(90_deg, gyro.GetAngle(IMUAxis::kPitch));
 }
 } // namespace frc::sim

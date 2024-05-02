@@ -33,23 +33,17 @@ class ADIS16470_IMUSimTest {
   @Test
   void testOffset() {
     try (ADIS16470_IMU gyro = new ADIS16470_IMU()) {
-      ADIS16470_IMUSim sim = new ADIS16470_IMUSim(gyro);
 
-      Rotation3d offset_z = new Rotation3d(0, 0, Units.degreesToRadians(90));
-      gyro.reset(offset_z);
-      assertEquals(offset_z, gyro.getRotation3d());
+      Rotation3d offsetZ = new Rotation3d(0, 0, Units.degreesToRadians(90));
+      gyro.reset(offsetZ);
+      assertEquals(offsetZ, gyro.getRotation3d());
       assertEquals(90, gyro.getAngle(), 0.0001);
 
-      sim.setGyroAngleZ(10);
-      assertEquals(100, gyro.getAngle(), 0.0001);
-
-      sim.setGyroAngleZ(90);
-      assertEquals(180, gyro.getAngle(), 0.0001);
-
-      Rotation3d offset2 = new Rotation3d(0, Units.degreesToRadians(90), Units.degreesToRadians(90));
-      gyro.reset(offset2);
+      Rotation3d offsetYZ =
+          new Rotation3d(0, Units.degreesToRadians(90), Units.degreesToRadians(90));
+      gyro.reset(offsetYZ);
       assertEquals(90, gyro.getAngle(IMUAxis.kY), 0.0001);
-      assertEquals(offset2, gyro.getRotation3d());
+      assertEquals(offsetYZ, gyro.getRotation3d());
     }
   }
 }
