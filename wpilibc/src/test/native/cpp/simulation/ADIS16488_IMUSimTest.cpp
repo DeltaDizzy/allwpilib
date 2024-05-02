@@ -9,7 +9,6 @@
 #include "frc/ADIS16448_IMU.h"
 #include "frc/geometry/Rotation3d.h"
 #include "frc/simulation/ADIS16448_IMUSim.h"
-#include "gtest/gtest.h"
 
 namespace frc::sim {
 TEST(ADIS16448_IMUSimTest, SetAttributes) {
