@@ -952,6 +952,11 @@ frc::Rotation3d ADIS16448_IMU::GetGyroOrientation() const {
   }
 }
 
+/**
+* Returns a Rotation3d representing the orientation of the gyro.
+* 
+* @return A Rotation3d representing the orientation of the gyro.
+*/
 frc::Rotation3d ADIS16448_IMU::GetRotation3d() const {
   return GetGyroOrientation() + m_angleOffset;
 }

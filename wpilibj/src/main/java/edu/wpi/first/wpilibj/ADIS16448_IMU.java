@@ -1164,6 +1164,11 @@ public class ADIS16448_IMU implements AutoCloseable, Sendable {
     return orientation;
   }
 
+  /**
+   * Returns a Rotation3d representing the orientation of the gyro.
+   * 
+   * @return A Rotation3d representing the orientation of the gyro.
+   */
   public Rotation3d getRotation3d() {
     return getGyroOrientation().plus(m_angleOffset);
   }

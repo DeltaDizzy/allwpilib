@@ -1075,7 +1075,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    *
    * @return Rotation3d representing the device orientation
    */
-  private synchronized Rotation3d getGyroOrientation() {
+  private synchronized Rotation3d getGyroTrueOrientation() {
     Rotation3d orientation;
     if (m_simGyroAngleX != null && m_simGyroAngleY != null && m_simGyroAngleZ != null) {
       orientation =
@@ -1093,8 +1093,13 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
     return orientation;
   }
 
+  /**
+   * Returns a Rotation3d representing the orientation of the gyro.
+   * 
+   * @return A Rotation3d representing the orientation of the gyro.
+   */
   public Rotation3d getRotation3d() {
-    return getGyroOrientation().plus(m_angleOffset);
+    return getGyroTrueOrientation().plus(m_angleOffset);
   }
 
   /**
@@ -1202,11 +1207,11 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
 
     switch (axis) {
       case kX:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getX());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getX());
       case kY:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getY());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getY());
       case kZ:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getZ());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getZ());
       default:
     }
 
@@ -1221,11 +1226,11 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
   public synchronized double getAngle() {
     switch (m_yaw_axis) {
       case kX:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getX());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getX());
       case kY:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getY());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getY());
       case kZ:
-        return Units.radiansToDegrees(getGyroOrientation().plus(m_angleOffset).getZ());
+        return Units.radiansToDegrees(getGyroTrueOrientation().plus(m_angleOffset).getZ());
       default:
     }
     return 0.0;
