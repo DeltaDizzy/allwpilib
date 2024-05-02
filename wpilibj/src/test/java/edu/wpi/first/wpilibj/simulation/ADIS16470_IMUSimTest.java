@@ -33,7 +33,6 @@ class ADIS16470_IMUSimTest {
   @Test
   void testOffset() {
     try (ADIS16470_IMU gyro = new ADIS16470_IMU()) {
-
       Rotation3d offsetZ = new Rotation3d(0, 0, Units.degreesToRadians(90));
       gyro.reset(offsetZ);
       assertEquals(offsetZ, gyro.getRotation3d());
