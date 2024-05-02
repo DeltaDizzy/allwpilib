@@ -1065,9 +1065,8 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
       if (m_simGyroAngleZ != null) {
         m_simGyroAngleZ.set(0.0);
       }
-
-      m_angleOffset = new Rotation3d();
     }
+    m_angleOffset = new Rotation3d();
   }
 
   /**
