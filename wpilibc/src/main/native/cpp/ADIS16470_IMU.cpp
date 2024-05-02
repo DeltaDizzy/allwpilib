@@ -17,6 +17,7 @@
 #include <frc/DigitalSource.h>
 #include <frc/DriverStation.h>
 #include <frc/Timer.h>
+#include <frc/geometry/Rotation3d.h>
 
 #include <cmath>
 #include <numbers>
@@ -27,6 +28,7 @@
 #include <wpi/sendable/SendableRegistry.h>
 
 #include "frc/Errors.h"
+#include "units/angle.h"
 
 /* Helpful conversion functions */
 static inline int32_t ToInt(const uint32_t* buf) {
@@ -589,6 +591,18 @@ void ADIS16470_IMU::Reset() {
   m_integ_angle_x = 0.0;
   m_integ_angle_y = 0.0;
   m_integ_angle_z = 0.0;
+
+  if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+    m_simGyroAngleX.Set(0);
+    m_simGyroAngleY.Set(0);
+    m_simGyroAngleZ.Set(0);
+  }
+  
+}
+
+void ADIS16470_IMU::Reset(Rotation3d offset) {
+  Reset();
+  angleOffset = offset;
 }
 
 void ADIS16470_IMU::Close() {
@@ -900,6 +914,27 @@ void ADIS16470_IMU::SetGyroAngleZ(units::degree_t angle) {
   m_integ_angle_z = angle.value();
 }
 
+frc::Rotation3d ADIS16470_IMU::GetGyroOrientation() const {
+  if (m_simGyroAngleX && m_simGyroAngleY && m_simGyroAngleZ) {
+    return frc::Rotation3d{
+      units::degree_t{m_simGyroAngleX.Get()},
+      units::degree_t{m_simGyroAngleY.Get()},
+      units::degree_t{m_simGyroAngleZ.Get()},
+    };
+  } else {
+    std::scoped_lock sync(m_mutex);
+    return frc::Rotation3d{
+      units::degree_t{m_integ_angle_x},
+      units::degree_t{m_integ_angle_y},
+      units::degree_t{m_integ_angle_z},
+    };
+  }
+}
+
+frc::Rotation3d ADIS16470_IMU::GetRotation3d() const {
+  return GetGyroOrientation() + m_angleOffset;
+}
+
 units::degree_t ADIS16470_IMU::GetAngle(IMUAxis axis) const {
   switch (axis) {
     case kYaw:
@@ -917,33 +952,14 @@ units::degree_t ADIS16470_IMU::GetAngle(IMUAxis axis) const {
 
   switch (axis) {
     case kX:
-      if (m_simGyroAngleX) {
-        return units::degree_t{m_simGyroAngleX.Get()};
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_x};
-      }
+      return (GetGyroOrientation() + m_angleOffset).X();
     case kY:
-      if (m_simGyroAngleY) {
-        return units::degree_t{m_simGyroAngleY.Get()};
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_y};
-      }
+      return (GetGyroOrientation() + m_angleOffset).Y();
     case kZ:
-      if (m_simGyroAngleZ) {
-        return units::degree_t{m_simGyroAngleZ.Get()};
-      }
-      {
-        std::scoped_lock sync(m_mutex);
-        return units::degree_t{m_integ_angle_z};
-      }
+      return (GetGyroOrientation() + m_angleOffset).Z();
     default:
       break;
   }
-
   return units::degree_t{0.0};
 }
 
