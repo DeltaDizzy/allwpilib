@@ -1067,7 +1067,6 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
       }
       m_angleOffset = new Rotation3d();
     }
-    
   }
 
   /**
@@ -1099,7 +1098,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    * @return A Rotation3d representing the orientation of the gyro.
    */
   public Rotation3d getRotation3d() {
-    synchronized(this) {
+    synchronized (this) {
       return getGyroTrueOrientation().plus(m_angleOffset);
     }
   }
@@ -1112,7 +1111,7 @@ public class ADIS16470_IMU implements AutoCloseable, Sendable {
    * @param newAngle The 3d angle to reset the device to
    */
   public void reset(Rotation3d newAngle) {
-    synchronized(this) {
+    synchronized (this) {
       reset();
       m_angleOffset = newAngle;
     }

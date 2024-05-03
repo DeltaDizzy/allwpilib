@@ -24,11 +24,15 @@ class ADIS16448_IMUSimTest {
       assertEquals(0, gyro.getAngle());
       assertEquals(0, gyro.getRate());
 
-      sim.setGyroAngleZ(123.456);
+      sim.setGyroOrientation(new Rotation3d(0, 0, Units.degreesToRadians(123.456)));
       sim.setGyroRateZ(229.3504);
 
       assertEquals(123.456, gyro.getAngle(), 0.0001);
       assertEquals(229.3504, gyro.getRate());
+
+      Rotation3d orientation = new Rotation3d(1, 2, 3);
+      sim.setGyroOrientation(orientation);
+      assertEquals(gyro.getRotation3d(), orientation);
     }
   }
 
