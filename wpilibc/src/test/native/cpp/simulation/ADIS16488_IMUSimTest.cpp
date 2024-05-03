@@ -38,9 +38,9 @@ TEST(ADIS16448_IMUSimTest, Offset) {
   ADIS16448_IMU gyro{};
   ADIS16448_IMUSim sim{gyro};
 
-  frc::Rotation3d OFFSET{0_deg, 0_deg, 90_deg};
-  gyro.Reset(OFFSET);
-  EXPECT_EQ(OFFSET, gyro.GetRotation3d());
+  frc::Rotation3d OFFSET_Z{0_deg, 0_deg, 90_deg};
+  gyro.Reset(OFFSET_Z);
+  EXPECT_EQ(OFFSET_Z, gyro.GetRotation3d());
 
   frc::Rotation3d OFFSET_YZ{0_deg, 90_deg, 90_deg};
   gyro.Reset(OFFSET_YZ);

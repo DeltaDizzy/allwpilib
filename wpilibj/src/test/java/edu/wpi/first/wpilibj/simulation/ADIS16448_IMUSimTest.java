@@ -36,16 +36,16 @@ class ADIS16448_IMUSimTest {
   void testOffset() {
     HAL.initialize(500, 0);
     try (ADIS16448_IMU gyro = new ADIS16448_IMU()) {
-      Rotation3d offset1 = new Rotation3d(0, 0, Units.degreesToRadians(90));
-      gyro.reset(offset1);
-      assertEquals(offset1, gyro.getRotation3d());
+      Rotation3d offsetZ = new Rotation3d(0, 0, Units.degreesToRadians(90));
+      gyro.reset(offsetZ);
+      assertEquals(offsetZ, gyro.getRotation3d());
       assertEquals(90, gyro.getAngle(), 0.0001);
 
-      Rotation3d offset2 =
+      Rotation3d offsetYZ =
           new Rotation3d(0, Units.degreesToRadians(90), Units.degreesToRadians(90));
-      gyro.reset(offset2);
+      gyro.reset(offsetYZ);
       assertEquals(90, gyro.getGyroAngleY(), 0.0001);
-      assertEquals(offset2, gyro.getRotation3d());
+      assertEquals(offsetYZ, gyro.getRotation3d());
     }
   }
 }
