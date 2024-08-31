@@ -5,14 +5,16 @@
 package edu.wpi.first.wpilibj.simulation;
 
 import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 
 /** Class to control a simulated ADIS16448 gyroscope. */
 @SuppressWarnings("TypeName")
 public class ADIS16448_IMUSim {
-  private final SimDouble m_simGyroAngleX;
-  private final SimDouble m_simGyroAngleY;
-  private final SimDouble m_simGyroAngleZ;
+  private final SimDouble m_simOrientationW;
+  private final SimDouble m_simOrientationX;
+  private final SimDouble m_simOrientationY;
+  private final SimDouble m_simOrientationZ;
   private final SimDouble m_simGyroRateX;
   private final SimDouble m_simGyroRateY;
   private final SimDouble m_simGyroRateZ;
@@ -27,9 +29,10 @@ public class ADIS16448_IMUSim {
    */
   public ADIS16448_IMUSim(ADIS16448_IMU gyro) {
     SimDeviceSim wrappedSimDevice = new SimDeviceSim("Gyro:ADIS16448" + "[" + gyro.getPort() + "]");
-    m_simGyroAngleX = wrappedSimDevice.getDouble("gyro_angle_x");
-    m_simGyroAngleY = wrappedSimDevice.getDouble("gyro_angle_y");
-    m_simGyroAngleZ = wrappedSimDevice.getDouble("gyro_angle_z");
+    m_simOrientationW = wrappedSimDevice.getDouble("gyro_quat_w");
+    m_simOrientationX = wrappedSimDevice.getDouble("gyro_quat_x");
+    m_simOrientationY = wrappedSimDevice.getDouble("gyro_quat_y");
+    m_simOrientationZ = wrappedSimDevice.getDouble("gyro_quat_z");
     m_simGyroRateX = wrappedSimDevice.getDouble("gyro_rate_x");
     m_simGyroRateY = wrappedSimDevice.getDouble("gyro_rate_y");
     m_simGyroRateZ = wrappedSimDevice.getDouble("gyro_rate_z");
@@ -44,7 +47,7 @@ public class ADIS16448_IMUSim {
    * @param angleDegrees The angle.
    */
   public void setGyroAngleX(double angleDegrees) {
-    m_simGyroAngleX.set(angleDegrees);
+    m_sim.set(angleDegrees);
   }
 
   /**
@@ -63,6 +66,10 @@ public class ADIS16448_IMUSim {
    */
   public void setGyroAngleZ(double angleDegrees) {
     m_simGyroAngleZ.set(angleDegrees);
+  }
+
+  public void setGyroOrientation(Rotation3d rotation) {
+    
   }
 
   /**

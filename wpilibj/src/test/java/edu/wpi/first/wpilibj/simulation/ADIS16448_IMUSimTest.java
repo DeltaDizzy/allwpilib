@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.wpilibj.SPI;
 import java.util.stream.Stream;
@@ -16,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class ADIS16448SimTest {
+class ADIS16448_IMUSimTest {
   @ParameterizedTest
   @MethodSource("provideEnumCombinations")
   void testYawAxis(ADIS16448_IMU.IMUAxis yawAxis, ADIS16448_IMU.CalibrationTime calibrationTime) {
@@ -119,6 +120,38 @@ class ADIS16448SimTest {
         case kZ -> assertEquals(imu.getRate(), imu.getGyroRateZ());
         default -> fail("invalid YawAxis!");
       }
+    }
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideEnumCombinations")
+  void testResetWithNoArgs(ADIS16448_IMU.IMUAxis yawAxis, ADIS16448_IMU.CalibrationTime calibrationTime) {
+    HAL.initialize(500, 0);
+
+    try (ADIS16448_IMU imu = new ADIS16448_IMU(yawAxis, SPI.Port.kMXP, calibrationTime)) {
+      ADIS16448_IMUSim sim = new ADIS16448_IMUSim(imu);
+
+      sim.setGyroAngleX(30);
+      sim.setGyroAngleZ(60);
+
+      assertEquals(30, imu.getGyroAngleX());
+      assertEquals(60, imu.getGyroAngleZ());
+
+      imu.reset();
+      assertEquals(0, imu.getGyroAngleX());
+      assertEquals(0, imu.getGyroAngleZ());
+    }
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideEnumCombinations")
+  void testResetWithRotation(ADIS16448_IMU.IMUAxis yawAxis, ADIS16448_IMU.CalibrationTime calibrationTime) {
+    HAL.initialize(500, 0);
+
+    try (ADIS16448_IMU imu = new ADIS16448_IMU(yawAxis, SPI.Port.kMXP, calibrationTime)) {
+      imu.reset(new Rotation3d(30, 0, 60));
+      assertEquals(30, imu.getGyroAngleX());
+      assertEquals(60, imu.getGyroAngleZ());
     }
   }
 
