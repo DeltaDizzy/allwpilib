@@ -66,9 +66,9 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 option(BUILD_SHARED_LIBS "Build with shared libs (needed for JNI)" ON)
 option(WITH_JAVA "Include Java and JNI in the build" OFF)
 option(WITH_JAVA_SOURCE "Build Java source jars" ${WITH_JAVA})
-option(WITH_CSCORE "Build cscore (needs OpenCV)" ON)
+option(WITH_CSCORE "Build cscore (needs OpenCV)" OFF)
 option(WITH_NTCORE "Build ntcore" ON)
-option(WITH_WPIMATH "Build wpimath" OFF)
+option(WITH_WPIMATH "Build wpimath" ON)
 cmake_dependent_option(
     WITH_WPIUNITS
     "Build wpiunits"
@@ -76,11 +76,11 @@ cmake_dependent_option(
     WITH_JAVA
     OFF
 )
-option(WITH_WPILIB "Build hal, wpilibc/j, and developerRobot (needs OpenCV)" ON)
+option(WITH_WPILIB "Build hal, wpilibc/j, and developerRobot (needs OpenCV)" OFF)
 option(WITH_EXAMPLES "Build examples" OFF)
-option(WITH_TESTS "Build unit tests (requires internet connection)" ON)
+option(WITH_TESTS "Build unit tests (requires internet connection)" OFF)
 option(WITH_GUI "Build GUI items" ON)
-option(WITH_SIMULATION_MODULES "Build simulation modules" ON)
+option(WITH_SIMULATION_MODULES "Build simulation modules" OFF)
 
 # Options for using a package manager (e.g., vcpkg) for certain dependencies.
 option(USE_SYSTEM_FMTLIB "Use system fmtlib" OFF)
