@@ -68,7 +68,7 @@ option(WITH_JAVA "Include Java and JNI in the build" OFF)
 option(WITH_JAVA_SOURCE "Build Java source jars" ${WITH_JAVA})
 option(WITH_CSCORE "Build cscore (needs OpenCV)" ON)
 option(WITH_NTCORE "Build ntcore" ON)
-option(WITH_WPIMATH "Build wpimath" ON)
+option(WITH_WPIMATH "Build wpimath" OFF)
 cmake_dependent_option(
     WITH_WPIUNITS
     "Build wpiunits"
@@ -275,6 +275,8 @@ if(WITH_NTCORE)
     add_subdirectory(wpinet)
     add_subdirectory(ntcore)
 endif()
+
+add_subdirectory(wpilogcli)
 
 add_subdirectory(protoplugin)
 
