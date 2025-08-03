@@ -4,6 +4,7 @@
 
 #include <wpi/datalog/DataLogEditor.h>
 #include <cstdint>
+#include <vector>
 #include "wpi/datalog/DataLogReader.h"
 
 using namespace wpi::log;
@@ -25,7 +26,7 @@ void DataLogEditor::RenameEntry(std::string_view currentName, std::string_view n
   rename = true;
 }
 
-void DataLogEditor::ApplyEdits() {
+std::vector<DataLogRecord> DataLogEditor::ApplyEdits() {
   for (const DataLogRecord& record : m_reader->GetReader()) {
     if (trim) {
       // we can't indiscriminately trim, as we have to retain start records for all entries that occur in the valid region (and any entires with no start record must have *all* records purged)
@@ -50,6 +51,6 @@ void DataLogEditor::ApplyEdits() {
         validRecords.push_back(DataLogRecord{record.GetEntry(), record.GetTimestamp(), StartRecordData{entry->entry, entry->name, entry->type, entry->metadata}});
       }
     }
-
   }
+  return validRecords;
 }
