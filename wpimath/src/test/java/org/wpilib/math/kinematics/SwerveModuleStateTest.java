@@ -16,7 +16,7 @@ class SwerveModuleStateTest {
   @Test
   void testOptimize() {
     var angleA = Rotation2d.fromDegrees(45);
-    var refA = new SwerveModuleVelocities(-2.0, Rotation2d.kPi);
+    var refA = new SwerveModuleVelocity(-2.0, Rotation2d.kPi);
     refA.optimize(angleA);
 
     assertAll(
@@ -24,7 +24,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(0.0, refA.angle.getDegrees(), kEpsilon));
 
     var angleB = Rotation2d.fromDegrees(-50);
-    var refB = new SwerveModuleVelocities(4.7, Rotation2d.fromDegrees(41));
+    var refB = new SwerveModuleVelocity(4.7, Rotation2d.fromDegrees(41));
     refB.optimize(angleB);
 
     assertAll(
@@ -35,7 +35,7 @@ class SwerveModuleStateTest {
   @Test
   void testNoOptimize() {
     var angleA = Rotation2d.kZero;
-    var refA = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(89));
+    var refA = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(89));
     refA.optimize(angleA);
 
     assertAll(
@@ -43,7 +43,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(89.0, refA.angle.getDegrees(), kEpsilon));
 
     var angleB = Rotation2d.kZero;
-    var refB = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(-2));
+    var refB = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(-2));
     refB.optimize(angleB);
 
     assertAll(
@@ -54,7 +54,7 @@ class SwerveModuleStateTest {
   @Test
   void testCosineScale() {
     var angleA = Rotation2d.fromDegrees(0.0);
-    var refA = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refA = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refA.cosineScale(angleA);
 
     assertAll(
@@ -62,7 +62,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refA.angle.getDegrees(), kEpsilon));
 
     var angleB = Rotation2d.fromDegrees(45.0);
-    var refB = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refB = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refB.cosineScale(angleB);
 
     assertAll(
@@ -70,7 +70,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refB.angle.getDegrees(), kEpsilon));
 
     var angleC = Rotation2d.fromDegrees(-45.0);
-    var refC = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refC = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refC.cosineScale(angleC);
 
     assertAll(
@@ -78,7 +78,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refC.angle.getDegrees(), kEpsilon));
 
     var angleD = Rotation2d.fromDegrees(135.0);
-    var refD = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refD = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refD.cosineScale(angleD);
 
     assertAll(
@@ -86,7 +86,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refD.angle.getDegrees(), kEpsilon));
 
     var angleE = Rotation2d.fromDegrees(-135.0);
-    var refE = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refE = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refE.cosineScale(angleE);
 
     assertAll(
@@ -94,7 +94,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refE.angle.getDegrees(), kEpsilon));
 
     var angleF = Rotation2d.fromDegrees(180.0);
-    var refF = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(45.0));
+    var refF = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(45.0));
     refF.cosineScale(angleF);
 
     assertAll(
@@ -102,7 +102,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refF.angle.getDegrees(), kEpsilon));
 
     var angleG = Rotation2d.fromDegrees(0.0);
-    var refG = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refG = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refG.cosineScale(angleG);
 
     assertAll(
@@ -110,7 +110,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refG.angle.getDegrees(), kEpsilon));
 
     var angleH = Rotation2d.fromDegrees(45.0);
-    var refH = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refH = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refH.cosineScale(angleH);
 
     assertAll(
@@ -118,7 +118,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refH.angle.getDegrees(), kEpsilon));
 
     var angleI = Rotation2d.fromDegrees(-45.0);
-    var refI = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refI = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refI.cosineScale(angleI);
 
     assertAll(
@@ -126,7 +126,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refI.angle.getDegrees(), kEpsilon));
 
     var angleJ = Rotation2d.fromDegrees(135.0);
-    var refJ = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refJ = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refJ.cosineScale(angleJ);
 
     assertAll(
@@ -134,7 +134,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refJ.angle.getDegrees(), kEpsilon));
 
     var angleK = Rotation2d.fromDegrees(-135.0);
-    var refK = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refK = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refK.cosineScale(angleK);
 
     assertAll(
@@ -142,7 +142,7 @@ class SwerveModuleStateTest {
         () -> assertEquals(45.0, refK.angle.getDegrees(), kEpsilon));
 
     var angleL = Rotation2d.fromDegrees(180.0);
-    var refL = new SwerveModuleVelocities(-2.0, Rotation2d.fromDegrees(45.0));
+    var refL = new SwerveModuleVelocity(-2.0, Rotation2d.fromDegrees(45.0));
     refL.cosineScale(angleL);
 
     assertAll(
@@ -153,8 +153,8 @@ class SwerveModuleStateTest {
   @Test
   void testInterpolate() {
     // Test basic interpolation with simple angles
-    final var start = new SwerveModuleVelocities(1.0, Rotation2d.fromDegrees(0.0));
-    final var end = new SwerveModuleVelocities(5.0, Rotation2d.fromDegrees(90.0));
+    final var start = new SwerveModuleVelocity(1.0, Rotation2d.fromDegrees(0.0));
+    final var end = new SwerveModuleVelocity(5.0, Rotation2d.fromDegrees(90.0));
 
     // Test interpolation at t=0 (should return start)
     final var atStart = start.interpolate(end, 0.0);
@@ -193,8 +193,8 @@ class SwerveModuleStateTest {
         () -> assertEquals(90.0, aboveRange.angle.getDegrees(), kEpsilon));
 
     // Test angle wrapping with crossing 180/-180 boundary
-    final var startWrap = new SwerveModuleVelocities(2.0, Rotation2d.fromDegrees(170.0));
-    final var endWrap = new SwerveModuleVelocities(4.0, Rotation2d.fromDegrees(-170.0));
+    final var startWrap = new SwerveModuleVelocity(2.0, Rotation2d.fromDegrees(170.0));
+    final var endWrap = new SwerveModuleVelocity(4.0, Rotation2d.fromDegrees(-170.0));
     final var midpointWrap = startWrap.interpolate(endWrap, 0.5);
     assertAll(
         () -> assertEquals(3.0, midpointWrap.speed, kEpsilon),

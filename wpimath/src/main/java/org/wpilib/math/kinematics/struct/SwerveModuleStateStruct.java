@@ -6,13 +6,13 @@ package org.wpilib.math.kinematics.struct;
 
 import java.nio.ByteBuffer;
 import org.wpilib.math.geometry.Rotation2d;
-import org.wpilib.math.kinematics.SwerveModuleVelocities;
+import org.wpilib.math.kinematics.SwerveModuleVelocity;
 import org.wpilib.util.struct.Struct;
 
-public class SwerveModuleStateStruct implements Struct<SwerveModuleVelocities> {
+public class SwerveModuleStateStruct implements Struct<SwerveModuleVelocity> {
   @Override
-  public Class<SwerveModuleVelocities> getTypeClass() {
-    return SwerveModuleVelocities.class;
+  public Class<SwerveModuleVelocity> getTypeClass() {
+    return SwerveModuleVelocity.class;
   }
 
   @Override
@@ -36,14 +36,14 @@ public class SwerveModuleStateStruct implements Struct<SwerveModuleVelocities> {
   }
 
   @Override
-  public SwerveModuleVelocities unpack(ByteBuffer bb) {
+  public SwerveModuleVelocity unpack(ByteBuffer bb) {
     double speed = bb.getDouble();
     Rotation2d angle = Rotation2d.struct.unpack(bb);
-    return new SwerveModuleVelocities(speed, angle);
+    return new SwerveModuleVelocity(speed, angle);
   }
 
   @Override
-  public void pack(ByteBuffer bb, SwerveModuleVelocities value) {
+  public void pack(ByteBuffer bb, SwerveModuleVelocity value) {
     bb.putDouble(value.speed);
     Rotation2d.struct.pack(bb, value.angle);
   }

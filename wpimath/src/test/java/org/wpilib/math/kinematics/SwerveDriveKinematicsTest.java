@@ -42,7 +42,7 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testStraightLineForwardKinematics() { // test forward kinematics going in a straight line
-    SwerveModuleVelocities state = new SwerveModuleVelocities(5.0, Rotation2d.kZero);
+    SwerveModuleVelocity state = new SwerveModuleVelocity(5.0, Rotation2d.kZero);
     var chassisSpeeds = m_kinematics.toChassisSpeeds(state, state, state, state);
 
     assertAll(
@@ -81,7 +81,7 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testStraightStrafeForwardKinematics() {
-    SwerveModuleVelocities state = new SwerveModuleVelocities(5.0, Rotation2d.kCCW_Pi_2);
+    SwerveModuleVelocity state = new SwerveModuleVelocity(5.0, Rotation2d.kCCW_Pi_2);
     var chassisSpeeds = m_kinematics.toChassisSpeeds(state, state, state, state);
 
     assertAll(
@@ -165,10 +165,10 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testTurnInPlaceForwardKinematics() {
-    SwerveModuleVelocities flState = new SwerveModuleVelocities(106.629, Rotation2d.fromDegrees(135));
-    SwerveModuleVelocities frState = new SwerveModuleVelocities(106.629, Rotation2d.fromDegrees(45));
-    SwerveModuleVelocities blState = new SwerveModuleVelocities(106.629, Rotation2d.fromDegrees(-135));
-    SwerveModuleVelocities brState = new SwerveModuleVelocities(106.629, Rotation2d.fromDegrees(-45));
+    SwerveModuleVelocity flState = new SwerveModuleVelocity(106.629, Rotation2d.fromDegrees(135));
+    SwerveModuleVelocity frState = new SwerveModuleVelocity(106.629, Rotation2d.fromDegrees(45));
+    SwerveModuleVelocity blState = new SwerveModuleVelocity(106.629, Rotation2d.fromDegrees(-135));
+    SwerveModuleVelocity brState = new SwerveModuleVelocity(106.629, Rotation2d.fromDegrees(-45));
 
     var chassisSpeeds = m_kinematics.toChassisSpeeds(flState, frState, blState, brState);
 
@@ -218,10 +218,10 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testOffCenterCORRotationForwardKinematics() {
-    SwerveModuleVelocities flState = new SwerveModuleVelocities(0.0, Rotation2d.kZero);
-    SwerveModuleVelocities frState = new SwerveModuleVelocities(150.796, Rotation2d.kZero);
-    SwerveModuleVelocities blState = new SwerveModuleVelocities(150.796, Rotation2d.kCW_Pi_2);
-    SwerveModuleVelocities brState = new SwerveModuleVelocities(213.258, Rotation2d.fromDegrees(-45));
+    SwerveModuleVelocity flState = new SwerveModuleVelocity(0.0, Rotation2d.kZero);
+    SwerveModuleVelocity frState = new SwerveModuleVelocity(150.796, Rotation2d.kZero);
+    SwerveModuleVelocity blState = new SwerveModuleVelocity(150.796, Rotation2d.kCW_Pi_2);
+    SwerveModuleVelocity brState = new SwerveModuleVelocity(213.258, Rotation2d.fromDegrees(-45));
 
     var chassisSpeeds = m_kinematics.toChassisSpeeds(flState, frState, blState, brState);
 
@@ -261,7 +261,7 @@ class SwerveDriveKinematicsTest {
   }
 
   private void assertModuleState(
-      SwerveModuleVelocities expected, SwerveModuleVelocities actual, SwerveModuleVelocities tolerance) {
+      SwerveModuleVelocity expected, SwerveModuleVelocity actual, SwerveModuleVelocity tolerance) {
     assertAll(
         () -> assertEquals(expected.speed, actual.speed, tolerance.speed),
         () ->
@@ -282,14 +282,14 @@ class SwerveDriveKinematicsTest {
 
     // By equation (13.14) from state-space guide, our wheels/angles will be as follows,
     // (+-1 degree or speed):
-    SwerveModuleVelocities[] expectedStates =
-        new SwerveModuleVelocities[] {
-          new SwerveModuleVelocities(23.43, Rotation2d.fromDegrees(-140.19)),
-          new SwerveModuleVelocities(23.43, Rotation2d.fromDegrees(-39.81)),
-          new SwerveModuleVelocities(54.08, Rotation2d.fromDegrees(-109.44)),
-          new SwerveModuleVelocities(54.08, Rotation2d.fromDegrees(-70.56))
+    SwerveModuleVelocity[] expectedStates =
+        new SwerveModuleVelocity[] {
+          new SwerveModuleVelocity(23.43, Rotation2d.fromDegrees(-140.19)),
+          new SwerveModuleVelocity(23.43, Rotation2d.fromDegrees(-39.81)),
+          new SwerveModuleVelocity(54.08, Rotation2d.fromDegrees(-109.44)),
+          new SwerveModuleVelocity(54.08, Rotation2d.fromDegrees(-70.56))
         };
-    var stateTolerance = new SwerveModuleVelocities(0.1, Rotation2d.fromDegrees(0.1));
+    var stateTolerance = new SwerveModuleVelocity(0.1, Rotation2d.fromDegrees(0.1));
 
     for (int i = 0; i < expectedStates.length; i++) {
       assertModuleState(expectedStates[i], moduleStates[i], stateTolerance);
@@ -298,10 +298,10 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testOffCenterCORRotationAndTranslationForwardKinematics() {
-    SwerveModuleVelocities flState = new SwerveModuleVelocities(23.43, Rotation2d.fromDegrees(-140.19));
-    SwerveModuleVelocities frState = new SwerveModuleVelocities(23.43, Rotation2d.fromDegrees(-39.81));
-    SwerveModuleVelocities blState = new SwerveModuleVelocities(54.08, Rotation2d.fromDegrees(-109.44));
-    SwerveModuleVelocities brState = new SwerveModuleVelocities(54.08, Rotation2d.fromDegrees(-70.56));
+    SwerveModuleVelocity flState = new SwerveModuleVelocity(23.43, Rotation2d.fromDegrees(-140.19));
+    SwerveModuleVelocity frState = new SwerveModuleVelocity(23.43, Rotation2d.fromDegrees(-39.81));
+    SwerveModuleVelocity blState = new SwerveModuleVelocity(54.08, Rotation2d.fromDegrees(-109.44));
+    SwerveModuleVelocity brState = new SwerveModuleVelocity(54.08, Rotation2d.fromDegrees(-70.56));
 
     var chassisSpeeds = m_kinematics.toChassisSpeeds(flState, frState, blState, brState);
 
@@ -342,12 +342,12 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testDesaturate() {
-    SwerveModuleVelocities fl = new SwerveModuleVelocities(5, Rotation2d.kZero);
-    SwerveModuleVelocities fr = new SwerveModuleVelocities(6, Rotation2d.kZero);
-    SwerveModuleVelocities bl = new SwerveModuleVelocities(4, Rotation2d.kZero);
-    SwerveModuleVelocities br = new SwerveModuleVelocities(7, Rotation2d.kZero);
+    SwerveModuleVelocity fl = new SwerveModuleVelocity(5, Rotation2d.kZero);
+    SwerveModuleVelocity fr = new SwerveModuleVelocity(6, Rotation2d.kZero);
+    SwerveModuleVelocity bl = new SwerveModuleVelocity(4, Rotation2d.kZero);
+    SwerveModuleVelocity br = new SwerveModuleVelocity(7, Rotation2d.kZero);
 
-    SwerveModuleVelocities[] arr = {fl, fr, bl, br};
+    SwerveModuleVelocity[] arr = {fl, fr, bl, br};
     SwerveDriveKinematics.desaturateWheelSpeeds(arr, 5.5);
 
     double factor = 5.5 / 7.0;
@@ -361,12 +361,12 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testDesaturateSmooth() {
-    SwerveModuleVelocities fl = new SwerveModuleVelocities(5, Rotation2d.kZero);
-    SwerveModuleVelocities fr = new SwerveModuleVelocities(6, Rotation2d.kZero);
-    SwerveModuleVelocities bl = new SwerveModuleVelocities(4, Rotation2d.kZero);
-    SwerveModuleVelocities br = new SwerveModuleVelocities(7, Rotation2d.kZero);
+    SwerveModuleVelocity fl = new SwerveModuleVelocity(5, Rotation2d.kZero);
+    SwerveModuleVelocity fr = new SwerveModuleVelocity(6, Rotation2d.kZero);
+    SwerveModuleVelocity bl = new SwerveModuleVelocity(4, Rotation2d.kZero);
+    SwerveModuleVelocity br = new SwerveModuleVelocity(7, Rotation2d.kZero);
 
-    SwerveModuleVelocities[] arr = {fl, fr, bl, br};
+    SwerveModuleVelocity[] arr = {fl, fr, bl, br};
     SwerveDriveKinematics.desaturateWheelSpeeds(
         arr, m_kinematics.toChassisSpeeds(arr), 5.5, 5.5, 3.5);
 
@@ -381,12 +381,12 @@ class SwerveDriveKinematicsTest {
 
   @Test
   void testDesaturateNegativeSpeed() {
-    SwerveModuleVelocities fl = new SwerveModuleVelocities(1, Rotation2d.kZero);
-    SwerveModuleVelocities fr = new SwerveModuleVelocities(1, Rotation2d.kZero);
-    SwerveModuleVelocities bl = new SwerveModuleVelocities(-2, Rotation2d.kZero);
-    SwerveModuleVelocities br = new SwerveModuleVelocities(-2, Rotation2d.kZero);
+    SwerveModuleVelocity fl = new SwerveModuleVelocity(1, Rotation2d.kZero);
+    SwerveModuleVelocity fr = new SwerveModuleVelocity(1, Rotation2d.kZero);
+    SwerveModuleVelocity bl = new SwerveModuleVelocity(-2, Rotation2d.kZero);
+    SwerveModuleVelocity br = new SwerveModuleVelocity(-2, Rotation2d.kZero);
 
-    SwerveModuleVelocities[] arr = {fl, fr, bl, br};
+    SwerveModuleVelocity[] arr = {fl, fr, bl, br};
     SwerveDriveKinematics.desaturateWheelSpeeds(arr, 1);
 
     assertAll(
