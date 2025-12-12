@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.kinematics.SwerveModuleVelocity;
-import org.wpilib.math.proto.Kinematics.ProtobufSwerveModuleState;
+import org.wpilib.math.proto.Kinematics.ProtobufSwerveModuleVelocity;;
 
 class SwerveModuleStateProtoTest {
   private static final SwerveModuleVelocity DATA = new SwerveModuleVelocity(22.9, new Rotation2d(3.3));
 
   @Test
   void testRoundtrip() {
-    ProtobufSwerveModuleState proto = SwerveModuleVelocity.proto.createMessage();
+    ProtobufSwerveModuleVelocity proto = SwerveModuleVelocity.proto.createMessage();
     SwerveModuleVelocity.proto.pack(proto, DATA);
 
     SwerveModuleVelocity data = SwerveModuleVelocity.proto.unpack(proto);

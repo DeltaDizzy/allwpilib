@@ -9,7 +9,7 @@ import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.kinematics.SwerveModuleVelocity;
 import org.wpilib.util.struct.Struct;
 
-public class SwerveModuleStateStruct implements Struct<SwerveModuleVelocity> {
+public class SwerveModuleVelocityStruct implements Struct<SwerveModuleVelocity> {
   @Override
   public Class<SwerveModuleVelocity> getTypeClass() {
     return SwerveModuleVelocity.class;
@@ -17,7 +17,7 @@ public class SwerveModuleStateStruct implements Struct<SwerveModuleVelocity> {
 
   @Override
   public String getTypeName() {
-    return "SwerveModuleState";
+    return "SwerveModuleVelocity";
   }
 
   @Override

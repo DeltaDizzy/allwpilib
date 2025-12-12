@@ -5,12 +5,12 @@
 package org.wpilib.math.kinematics.proto;
 
 import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
-import org.wpilib.math.proto.Kinematics.ProtobufDifferentialDriveWheelSpeeds;
+import org.wpilib.math.proto.Kinematics.ProtobufDifferentialDriveWheelVelocities;
 import org.wpilib.util.protobuf.Protobuf;
 import us.hebi.quickbuf.Descriptors.Descriptor;
 
-public class DifferentialDriveWheelSpeedsProto
-    implements Protobuf<DifferentialDriveWheelVelocities, ProtobufDifferentialDriveWheelSpeeds> {
+public class DifferentialDriveWheelVelocitiesProto
+    implements Protobuf<DifferentialDriveWheelVelocities, ProtobufDifferentialDriveWheelVelocities> {
   @Override
   public Class<DifferentialDriveWheelVelocities> getTypeClass() {
     return DifferentialDriveWheelVelocities.class;
@@ -18,21 +18,21 @@ public class DifferentialDriveWheelSpeedsProto
 
   @Override
   public Descriptor getDescriptor() {
-    return ProtobufDifferentialDriveWheelSpeeds.getDescriptor();
+    return ProtobufDifferentialDriveWheelVelocities.getDescriptor();
   }
 
   @Override
-  public ProtobufDifferentialDriveWheelSpeeds createMessage() {
-    return ProtobufDifferentialDriveWheelSpeeds.newInstance();
+  public ProtobufDifferentialDriveWheelVelocities createMessage() {
+    return ProtobufDifferentialDriveWheelVelocities.newInstance();
   }
 
   @Override
-  public DifferentialDriveWheelVelocities unpack(ProtobufDifferentialDriveWheelSpeeds msg) {
+  public DifferentialDriveWheelVelocities unpack(ProtobufDifferentialDriveWheelVelocities msg) {
     return new DifferentialDriveWheelVelocities(msg.getLeft(), msg.getRight());
   }
 
   @Override
-  public void pack(ProtobufDifferentialDriveWheelSpeeds msg, DifferentialDriveWheelVelocities value) {
+  public void pack(ProtobufDifferentialDriveWheelVelocities msg, DifferentialDriveWheelVelocities value) {
     msg.setLeft(value.left);
     msg.setRight(value.right);
   }

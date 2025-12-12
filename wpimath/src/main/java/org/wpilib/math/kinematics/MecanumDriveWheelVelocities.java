@@ -8,7 +8,7 @@ import static org.wpilib.units.Units.MetersPerSecond;
 
 import org.wpilib.math.interpolation.Interpolatable;
 import org.wpilib.math.kinematics.proto.MecanumDriveWheelSpeedsProto;
-import org.wpilib.math.kinematics.struct.MecanumDriveWheelSpeedsStruct;
+import org.wpilib.math.kinematics.struct.MecanumDriveWheelVelocitiesStruct;
 import org.wpilib.units.measure.LinearVelocity;
 import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
@@ -32,7 +32,7 @@ public class MecanumDriveWheelVelocities
   public static final MecanumDriveWheelSpeedsProto proto = new MecanumDriveWheelSpeedsProto();
 
   /** MecanumDriveWheelSpeeds struct for serialization. */
-  public static final MecanumDriveWheelSpeedsStruct struct = new MecanumDriveWheelSpeedsStruct();
+  public static final MecanumDriveWheelVelocitiesStruct struct = new MecanumDriveWheelVelocitiesStruct();
 
   /** Constructs a MecanumDriveWheelSpeeds with zeros for all member fields. */
   public MecanumDriveWheelVelocities() {}

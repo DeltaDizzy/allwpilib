@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
 import org.wpilib.util.struct.Struct;
 
-public class MecanumDriveWheelSpeedsStruct implements Struct<MecanumDriveWheelVelocities> {
+public class MecanumDriveWheelVelocitiesStruct implements Struct<MecanumDriveWheelVelocities> {
   @Override
   public Class<MecanumDriveWheelVelocities> getTypeClass() {
     return MecanumDriveWheelVelocities.class;
@@ -16,7 +16,7 @@ public class MecanumDriveWheelSpeedsStruct implements Struct<MecanumDriveWheelVe
 
   @Override
   public String getTypeName() {
-    return "MecanumDriveWheelSpeeds";
+    return "MecanumDriveWheelVelocities";
   }
 
   @Override

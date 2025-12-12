@@ -9,8 +9,8 @@ import static org.wpilib.units.Units.MetersPerSecond;
 import java.util.Objects;
 import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.interpolation.Interpolatable;
-import org.wpilib.math.kinematics.proto.SwerveModuleStateProto;
-import org.wpilib.math.kinematics.struct.SwerveModuleStateStruct;
+import org.wpilib.math.kinematics.proto.SwerveModuleVelocityProto;
+import org.wpilib.math.kinematics.struct.SwerveModuleVelocityStruct;
 import org.wpilib.units.measure.LinearVelocity;
 import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
@@ -28,10 +28,10 @@ public class SwerveModuleVelocity
   public Rotation2d angle = Rotation2d.kZero;
 
   /** SwerveModuleState protobuf for serialization. */
-  public static final SwerveModuleStateProto proto = new SwerveModuleStateProto();
+  public static final SwerveModuleVelocityProto proto = new SwerveModuleVelocityProto();
 
   /** SwerveModuleState struct for serialization. */
-  public static final SwerveModuleStateStruct struct = new SwerveModuleStateStruct();
+  public static final SwerveModuleVelocityStruct struct = new SwerveModuleVelocityStruct();
 
   /** Constructs a SwerveModuleState with zeros for speed and angle. */
   public SwerveModuleVelocity() {}

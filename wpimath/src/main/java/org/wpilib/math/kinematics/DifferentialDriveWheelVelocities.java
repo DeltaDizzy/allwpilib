@@ -8,7 +8,7 @@ import static org.wpilib.units.Units.MetersPerSecond;
 
 import org.wpilib.math.interpolation.Interpolatable;
 import org.wpilib.math.kinematics.proto.DifferentialDriveWheelSpeedsProto;
-import org.wpilib.math.kinematics.struct.DifferentialDriveWheelSpeedsStruct;
+import org.wpilib.math.kinematics.struct.DifferentialDriveWheelVelocitiesStruct;
 import org.wpilib.units.measure.LinearVelocity;
 import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
@@ -29,8 +29,8 @@ public class DifferentialDriveWheelVelocities
       new DifferentialDriveWheelSpeedsProto();
 
   /** DifferentialDriveWheelSpeeds struct for serialization. */
-  public static final DifferentialDriveWheelSpeedsStruct struct =
-      new DifferentialDriveWheelSpeedsStruct();
+  public static final DifferentialDriveWheelVelocitiesStruct struct =
+      new DifferentialDriveWheelVelocitiesStruct();
 
   /** Constructs a DifferentialDriveWheelSpeeds with zeros for left and right speeds. */
   public DifferentialDriveWheelVelocities() {}

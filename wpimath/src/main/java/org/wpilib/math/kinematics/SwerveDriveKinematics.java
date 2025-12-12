@@ -121,7 +121,7 @@ public class SwerveDriveKinematics
    *     attainable max velocity. Use the {@link #desaturateWheelSpeeds(SwerveModuleVelocity[], double)
    *     DesaturateWheelSpeeds} function to rectify this issue.
    */
-  public SwerveModuleVelocity[] toSwerveModuleStates(
+  public SwerveModuleVelocity[] toSwerveModuleVelocities(
       ChassisSpeeds chassisSpeeds, Translation2d centerOfRotation) {
     var moduleStates = new SwerveModuleVelocity[m_numModules];
 
@@ -157,19 +157,19 @@ public class SwerveDriveKinematics
   }
 
   /**
-   * Performs inverse kinematics. See {@link #toSwerveModuleStates(ChassisSpeeds, Translation2d)}
-   * toSwerveModuleStates for more information.
+   * Performs inverse kinematics. See {@link #toSwerveModuleVelocities(ChassisSpeeds, Translation2d)}
+   * toSwerveModuleVelocities for more information.
    *
    * @param chassisSpeeds The desired chassis speed.
    * @return An array containing the module states.
    */
-  public SwerveModuleVelocity[] toSwerveModuleStates(ChassisSpeeds chassisSpeeds) {
-    return toSwerveModuleStates(chassisSpeeds, Translation2d.kZero);
+  public SwerveModuleVelocity[] toSwerveModuleVelocities(ChassisSpeeds chassisSpeeds) {
+    return toSwerveModuleVelocities(chassisSpeeds, Translation2d.kZero);
   }
 
   @Override
   public SwerveModuleVelocity[] toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
-    return toSwerveModuleStates(chassisSpeeds);
+    return toSwerveModuleVelocities(chassisSpeeds);
   }
 
   /**
@@ -177,7 +177,7 @@ public class SwerveDriveKinematics
    * This method is often used for odometry -- determining the robot's position on the field using
    * data from the real-world speed and angle of each module on the robot.
    *
-   * @param moduleStates The state of the modules (as a SwerveModuleState type) as measured from
+   * @param moduleStates The state of the modules (as a SwerveModuleVelocity type) as measured from
    *     respective encoders and gyros. The order of the swerve module states should be same as
    *     passed into the constructor of this class.
    * @return The resulting chassis speed.

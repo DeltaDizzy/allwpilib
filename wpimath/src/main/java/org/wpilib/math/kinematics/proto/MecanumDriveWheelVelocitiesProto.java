@@ -5,12 +5,12 @@
 package org.wpilib.math.kinematics.proto;
 
 import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
-import org.wpilib.math.proto.Kinematics.ProtobufMecanumDriveWheelSpeeds;
+import org.wpilib.math.proto.Kinematics.ProtobufMecanumDriveWheelVelocities;
 import org.wpilib.util.protobuf.Protobuf;
 import us.hebi.quickbuf.Descriptors.Descriptor;
 
-public class MecanumDriveWheelSpeedsProto
-    implements Protobuf<MecanumDriveWheelVelocities, ProtobufMecanumDriveWheelSpeeds> {
+public class MecanumDriveWheelVelocitiesProto
+    implements Protobuf<MecanumDriveWheelVelocities, ProtobufMecanumDriveWheelVelocities> {
   @Override
   public Class<MecanumDriveWheelVelocities> getTypeClass() {
     return MecanumDriveWheelVelocities.class;
@@ -18,22 +18,22 @@ public class MecanumDriveWheelSpeedsProto
 
   @Override
   public Descriptor getDescriptor() {
-    return ProtobufMecanumDriveWheelSpeeds.getDescriptor();
+    return ProtobufMecanumDriveWheelVelocities.getDescriptor();
   }
 
   @Override
-  public ProtobufMecanumDriveWheelSpeeds createMessage() {
-    return ProtobufMecanumDriveWheelSpeeds.newInstance();
+  public ProtobufMecanumDriveWheelVelocities createMessage() {
+    return ProtobufMecanumDriveWheelVelocities.newInstance();
   }
 
   @Override
-  public MecanumDriveWheelVelocities unpack(ProtobufMecanumDriveWheelSpeeds msg) {
+  public MecanumDriveWheelVelocities unpack(ProtobufMecanumDriveWheelVelocities msg) {
     return new MecanumDriveWheelVelocities(
         msg.getFrontLeft(), msg.getFrontRight(), msg.getRearLeft(), msg.getRearRight());
   }
 
   @Override
-  public void pack(ProtobufMecanumDriveWheelSpeeds msg, MecanumDriveWheelVelocities value) {
+  public void pack(ProtobufMecanumDriveWheelVelocities msg, MecanumDriveWheelVelocities value) {
     msg.setFrontLeft(value.frontLeft);
     msg.setFrontRight(value.frontRight);
     msg.setRearLeft(value.rearLeft);

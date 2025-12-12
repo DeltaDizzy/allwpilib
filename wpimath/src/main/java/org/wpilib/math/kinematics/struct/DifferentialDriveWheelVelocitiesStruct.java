@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 import org.wpilib.util.struct.Struct;
 
-public class DifferentialDriveWheelSpeedsStruct implements Struct<DifferentialDriveWheelVelocities> {
+public class DifferentialDriveWheelVelocitiesStruct implements Struct<DifferentialDriveWheelVelocities> {
   @Override
   public Class<DifferentialDriveWheelVelocities> getTypeClass() {
     return DifferentialDriveWheelVelocities.class;
@@ -16,7 +16,7 @@ public class DifferentialDriveWheelSpeedsStruct implements Struct<DifferentialDr
 
   @Override
   public String getTypeName() {
-    return "DifferentialDriveWheelSpeeds";
+    return "DifferentialDriveWheelVelocities";
   }
 
   @Override
