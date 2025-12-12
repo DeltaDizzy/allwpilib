@@ -26,7 +26,7 @@ class DifferentialDriveKinematicsTest {
 
   @Test
   void testForwardKinematicsForZeros() {
-    var wheelSpeeds = new DifferentialDriveWheelSpeeds();
+    var wheelSpeeds = new DifferentialDriveWheelVelocities();
     var chassisSpeeds = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -47,7 +47,7 @@ class DifferentialDriveKinematicsTest {
 
   @Test
   void testForwardKinematicsForStraightLine() {
-    var wheelSpeeds = new DifferentialDriveWheelSpeeds(3, 3);
+    var wheelSpeeds = new DifferentialDriveWheelVelocities(3, 3);
     var chassisSpeeds = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -68,7 +68,7 @@ class DifferentialDriveKinematicsTest {
 
   @Test
   void testForwardKinematicsForRotateInPlace() {
-    var wheelSpeeds = new DifferentialDriveWheelSpeeds(+0.381 * Math.PI, -0.381 * Math.PI);
+    var wheelSpeeds = new DifferentialDriveWheelVelocities(+0.381 * Math.PI, -0.381 * Math.PI);
     var chassisSpeeds = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(

@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 class DifferentialDriveWheelSpeedsTest {
   @Test
   void testPlus() {
-    final var left = new DifferentialDriveWheelSpeeds(1.0, 0.5);
-    final var right = new DifferentialDriveWheelSpeeds(2.0, 1.5);
+    final var left = new DifferentialDriveWheelVelocities(1.0, 0.5);
+    final var right = new DifferentialDriveWheelVelocities(2.0, 1.5);
 
     final var wheelSpeeds = left.plus(right);
 
@@ -23,8 +23,8 @@ class DifferentialDriveWheelSpeedsTest {
 
   @Test
   void testMinus() {
-    final var left = new DifferentialDriveWheelSpeeds(1.0, 0.5);
-    final var right = new DifferentialDriveWheelSpeeds(2.0, 0.5);
+    final var left = new DifferentialDriveWheelVelocities(1.0, 0.5);
+    final var right = new DifferentialDriveWheelVelocities(2.0, 0.5);
 
     final var wheelSpeeds = left.minus(right);
 
@@ -34,7 +34,7 @@ class DifferentialDriveWheelSpeedsTest {
 
   @Test
   void testUnaryMinus() {
-    final var wheelSpeeds = new DifferentialDriveWheelSpeeds(1.0, 0.5).unaryMinus();
+    final var wheelSpeeds = new DifferentialDriveWheelVelocities(1.0, 0.5).unaryMinus();
 
     assertAll(
         () -> assertEquals(-1.0, wheelSpeeds.left), () -> assertEquals(-0.5, wheelSpeeds.right));
@@ -42,7 +42,7 @@ class DifferentialDriveWheelSpeedsTest {
 
   @Test
   void testMultiplication() {
-    final var wheelSpeeds = new DifferentialDriveWheelSpeeds(1.0, 0.5).times(2.0);
+    final var wheelSpeeds = new DifferentialDriveWheelVelocities(1.0, 0.5).times(2.0);
 
     assertAll(
         () -> assertEquals(2.0, wheelSpeeds.left), () -> assertEquals(1.0, wheelSpeeds.right));
@@ -50,7 +50,7 @@ class DifferentialDriveWheelSpeedsTest {
 
   @Test
   void testDivision() {
-    final var wheelSpeeds = new DifferentialDriveWheelSpeeds(1.0, 0.5).div(2.0);
+    final var wheelSpeeds = new DifferentialDriveWheelVelocities(1.0, 0.5).div(2.0);
 
     assertAll(
         () -> assertEquals(0.5, wheelSpeeds.left), () -> assertEquals(0.25, wheelSpeeds.right));
@@ -58,8 +58,8 @@ class DifferentialDriveWheelSpeedsTest {
 
   @Test
   void testInterpolate() {
-    final var start = new DifferentialDriveWheelSpeeds(1.0, 2.0);
-    final var end = new DifferentialDriveWheelSpeeds(5.0, 6.0);
+    final var start = new DifferentialDriveWheelVelocities(1.0, 2.0);
+    final var end = new DifferentialDriveWheelVelocities(5.0, 6.0);
 
     // Test interpolation at t=0 (should return start)
     final var atStart = start.interpolate(end, 0.0);

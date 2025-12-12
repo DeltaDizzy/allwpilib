@@ -18,7 +18,7 @@ import org.wpilib.math.geometry.Transform3d;
 import org.wpilib.math.geometry.Translation3d;
 import org.wpilib.math.kinematics.ChassisSpeeds;
 import org.wpilib.math.kinematics.DifferentialDriveKinematics;
-import org.wpilib.math.kinematics.DifferentialDriveWheelSpeeds;
+import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 import org.wpilib.math.linalg.VecBuilder;
 import org.wpilib.math.numbers.N2;
 import org.wpilib.math.system.LinearSystem;
@@ -136,7 +136,7 @@ public class Drivetrain {
    *
    * @param speeds The desired wheel speeds.
    */
-  public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
+  public void setSpeeds(DifferentialDriveWheelVelocities speeds) {
     final double leftFeedforward = m_feedforward.calculate(speeds.left);
     final double rightFeedforward = m_feedforward.calculate(speeds.right);
 

@@ -11,7 +11,7 @@ import org.wpilib.math.controller.ProfiledPIDController;
 import org.wpilib.math.controller.SimpleMotorFeedforward;
 import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.kinematics.SwerveModulePosition;
-import org.wpilib.math.kinematics.SwerveModuleState;
+import org.wpilib.math.kinematics.SwerveModuleVelocities;
 import org.wpilib.math.trajectory.TrapezoidProfile;
 
 public class SwerveModule {
@@ -87,8 +87,8 @@ public class SwerveModule {
    *
    * @return The current state of the module.
    */
-  public SwerveModuleState getState() {
-    return new SwerveModuleState(
+  public SwerveModuleVelocities getState() {
+    return new SwerveModuleVelocities(
         m_driveEncoder.getRate(), new Rotation2d(m_turningEncoder.getDistance()));
   }
 
@@ -107,7 +107,7 @@ public class SwerveModule {
    *
    * @param desiredState Desired state with speed and angle.
    */
-  public void setDesiredState(SwerveModuleState desiredState) {
+  public void setDesiredState(SwerveModuleVelocities desiredState) {
     var encoderRotation = new Rotation2d(m_turningEncoder.getDistance());
 
     // Optimize the reference state to avoid spinning further than 90 degrees

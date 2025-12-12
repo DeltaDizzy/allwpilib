@@ -10,19 +10,19 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.geometry.Rotation2d;
-import org.wpilib.math.kinematics.SwerveModuleState;
+import org.wpilib.math.kinematics.SwerveModuleVelocities;
 
 class SwerveModuleStateStructTest {
-  private static final SwerveModuleState DATA = new SwerveModuleState(22.9, new Rotation2d(3.3));
+  private static final SwerveModuleVelocities DATA = new SwerveModuleVelocities(22.9, new Rotation2d(3.3));
 
   @Test
   void testRoundtrip() {
-    ByteBuffer buffer = ByteBuffer.allocate(SwerveModuleState.struct.getSize());
+    ByteBuffer buffer = ByteBuffer.allocate(SwerveModuleVelocities.struct.getSize());
     buffer.order(ByteOrder.LITTLE_ENDIAN);
-    SwerveModuleState.struct.pack(buffer, DATA);
+    SwerveModuleVelocities.struct.pack(buffer, DATA);
     buffer.rewind();
 
-    SwerveModuleState data = SwerveModuleState.struct.unpack(buffer);
+    SwerveModuleVelocities data = SwerveModuleVelocities.struct.unpack(buffer);
     assertEquals(DATA.speed, data.speed);
     assertEquals(DATA.angle, data.angle);
   }

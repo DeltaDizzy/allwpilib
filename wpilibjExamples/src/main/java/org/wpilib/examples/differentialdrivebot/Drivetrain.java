@@ -12,7 +12,7 @@ import org.wpilib.math.controller.SimpleMotorFeedforward;
 import org.wpilib.math.kinematics.ChassisSpeeds;
 import org.wpilib.math.kinematics.DifferentialDriveKinematics;
 import org.wpilib.math.kinematics.DifferentialDriveOdometry;
-import org.wpilib.math.kinematics.DifferentialDriveWheelSpeeds;
+import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 
 /** Represents a differential drive style drivetrain. */
 public class Drivetrain {
@@ -78,7 +78,7 @@ public class Drivetrain {
    *
    * @param speeds The desired wheel speeds.
    */
-  public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
+  public void setSpeeds(DifferentialDriveWheelVelocities speeds) {
     final double leftFeedforward = m_feedforward.calculate(speeds.left);
     final double rightFeedforward = m_feedforward.calculate(speeds.right);
 

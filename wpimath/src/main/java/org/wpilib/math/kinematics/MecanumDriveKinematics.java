@@ -35,7 +35,7 @@ import org.wpilib.util.struct.StructSerializable;
  */
 public class MecanumDriveKinematics
     implements Kinematics<
-            MecanumDriveWheelPositions, MecanumDriveWheelSpeeds, MecanumDriveWheelAccelerations>,
+            MecanumDriveWheelPositions, MecanumDriveWheelVelocities, MecanumDriveWheelAccelerations>,
         ProtobufSerializable,
         StructSerializable {
   private final SimpleMatrix m_inverseKinematics;
@@ -99,9 +99,9 @@ public class MecanumDriveKinematics
    *     the robot will rotate around that corner.
    * @return The wheel speeds. Use caution because they are not normalized. Sometimes, a user input
    *     may cause one of the wheel speeds to go above the attainable max velocity. Use the {@link
-   *     MecanumDriveWheelSpeeds#desaturate(double)} function to rectify this issue.
+   *     MecanumDriveWheelVelocities#desaturate(double)} function to rectify this issue.
    */
-  public MecanumDriveWheelSpeeds toWheelSpeeds(
+  public MecanumDriveWheelVelocities toWheelSpeeds(
       ChassisSpeeds chassisSpeeds, Translation2d centerOfRotation) {
     // We have a new center of rotation. We need to compute the matrix again.
     if (!centerOfRotation.equals(m_prevCoR)) {
@@ -118,7 +118,7 @@ public class MecanumDriveKinematics
     chassisSpeedsVector.setColumn(0, 0, chassisSpeeds.vx, chassisSpeeds.vy, chassisSpeeds.omega);
 
     var wheelsVector = m_inverseKinematics.mult(chassisSpeedsVector);
-    return new MecanumDriveWheelSpeeds(
+    return new MecanumDriveWheelVelocities(
         wheelsVector.get(0, 0),
         wheelsVector.get(1, 0),
         wheelsVector.get(2, 0),
@@ -133,7 +133,7 @@ public class MecanumDriveKinematics
    * @return The wheel speeds.
    */
   @Override
-  public MecanumDriveWheelSpeeds toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
+  public MecanumDriveWheelVelocities toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
     return toWheelSpeeds(chassisSpeeds, Translation2d.kZero);
   }
 
@@ -146,7 +146,7 @@ public class MecanumDriveKinematics
    * @return The resulting chassis speed.
    */
   @Override
-  public ChassisSpeeds toChassisSpeeds(MecanumDriveWheelSpeeds wheelSpeeds) {
+  public ChassisSpeeds toChassisSpeeds(MecanumDriveWheelVelocities wheelSpeeds) {
     var wheelSpeedsVector = new SimpleMatrix(4, 1);
     wheelSpeedsVector.setColumn(
         0,

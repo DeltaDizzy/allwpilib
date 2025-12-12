@@ -15,7 +15,7 @@ import org.wpilib.math.geometry.Translation2d;
 import org.wpilib.math.kinematics.ChassisSpeeds;
 import org.wpilib.math.kinematics.MecanumDriveKinematics;
 import org.wpilib.math.kinematics.MecanumDriveWheelPositions;
-import org.wpilib.math.kinematics.MecanumDriveWheelSpeeds;
+import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
 import org.wpilib.math.linalg.VecBuilder;
 import org.wpilib.math.util.Units;
 import org.wpilib.system.Timer;
@@ -80,8 +80,8 @@ public class Drivetrain {
    *
    * @return The current state of the drivetrain.
    */
-  public MecanumDriveWheelSpeeds getCurrentState() {
-    return new MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities getCurrentState() {
+    return new MecanumDriveWheelVelocities(
         m_frontLeftEncoder.getRate(),
         m_frontRightEncoder.getRate(),
         m_backLeftEncoder.getRate(),
@@ -106,7 +106,7 @@ public class Drivetrain {
    *
    * @param speeds The desired wheel speeds.
    */
-  public void setSpeeds(MecanumDriveWheelSpeeds speeds) {
+  public void setSpeeds(MecanumDriveWheelVelocities speeds) {
     final double frontLeftFeedforward = m_feedforward.calculate(speeds.frontLeft);
     final double frontRightFeedforward = m_feedforward.calculate(speeds.frontRight);
     final double backLeftFeedforward = m_feedforward.calculate(speeds.rearLeft);

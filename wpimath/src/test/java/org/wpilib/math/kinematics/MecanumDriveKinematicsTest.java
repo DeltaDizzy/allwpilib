@@ -35,7 +35,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testStraightLineForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(3.536, 3.536, 3.536, 3.536);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(3.536, 3.536, 3.536, 3.536);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -69,7 +69,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testStrafeForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(-2.828427, 2.828427, 2.828427, -2.828427);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(-2.828427, 2.828427, 2.828427, -2.828427);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -103,7 +103,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testRotationForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(-150.79645, 150.79645, -150.79645, 150.79645);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(-150.79645, 150.79645, -150.79645, 150.79645);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -137,7 +137,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testMixedTranslationRotationForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(-17.677670, 20.51, -13.44, 16.26);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(-17.677670, 20.51, -13.44, 16.26);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -277,7 +277,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testOffCenterRotationForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(0, 16.971, -16.971, 33.941);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(0, 16.971, -16.971, 33.941);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -311,7 +311,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testOffCenterRotationTranslationForwardKinematicsKinematics() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(2.12, 21.92, -12.02, 36.06);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(2.12, 21.92, -12.02, 36.06);
     var moduleStates = m_kinematics.toChassisSpeeds(wheelSpeeds);
 
     assertAll(
@@ -333,7 +333,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testDesaturate() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(5, 6, 4, 7).desaturate(5.5);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(5, 6, 4, 7).desaturate(5.5);
 
     double factor = 5.5 / 7.0;
 
@@ -346,7 +346,7 @@ class MecanumDriveKinematicsTest {
 
   @Test
   void testDesaturateNegativeSpeeds() {
-    var wheelSpeeds = new MecanumDriveWheelSpeeds(-5, 6, 4, -7).desaturate(5.5);
+    var wheelSpeeds = new MecanumDriveWheelVelocities(-5, 6, 4, -7).desaturate(5.5);
 
     final double kFactor = 5.5 / 7.0;
 

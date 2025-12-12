@@ -14,8 +14,8 @@ import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
 
 /** Represents the wheel speeds for a differential drive drivetrain. */
-public class DifferentialDriveWheelSpeeds
-    implements Interpolatable<DifferentialDriveWheelSpeeds>,
+public class DifferentialDriveWheelVelocities
+    implements Interpolatable<DifferentialDriveWheelVelocities>,
         ProtobufSerializable,
         StructSerializable {
   /** Speed of the left side of the robot in meters per second. */
@@ -33,7 +33,7 @@ public class DifferentialDriveWheelSpeeds
       new DifferentialDriveWheelSpeedsStruct();
 
   /** Constructs a DifferentialDriveWheelSpeeds with zeros for left and right speeds. */
-  public DifferentialDriveWheelSpeeds() {}
+  public DifferentialDriveWheelVelocities() {}
 
   /**
    * Constructs a DifferentialDriveWheelSpeeds.
@@ -41,7 +41,7 @@ public class DifferentialDriveWheelSpeeds
    * @param left The left speed in meters per second.
    * @param right The right speed in meters per second.
    */
-  public DifferentialDriveWheelSpeeds(double left, double right) {
+  public DifferentialDriveWheelVelocities(double left, double right) {
     this.left = left;
     this.right = right;
   }
@@ -52,7 +52,7 @@ public class DifferentialDriveWheelSpeeds
    * @param left The left speed in meters per second.
    * @param right The right speed in meters per second.
    */
-  public DifferentialDriveWheelSpeeds(LinearVelocity left, LinearVelocity right) {
+  public DifferentialDriveWheelVelocities(LinearVelocity left, LinearVelocity right) {
     this(left.in(MetersPerSecond), right.in(MetersPerSecond));
   }
 
@@ -98,8 +98,8 @@ public class DifferentialDriveWheelSpeeds
    * @param other The DifferentialDriveWheelSpeeds to add.
    * @return The sum of the DifferentialDriveWheelSpeeds.
    */
-  public DifferentialDriveWheelSpeeds plus(DifferentialDriveWheelSpeeds other) {
-    return new DifferentialDriveWheelSpeeds(left + other.left, right + other.right);
+  public DifferentialDriveWheelVelocities plus(DifferentialDriveWheelVelocities other) {
+    return new DifferentialDriveWheelVelocities(left + other.left, right + other.right);
   }
 
   /**
@@ -112,8 +112,8 @@ public class DifferentialDriveWheelSpeeds
    * @param other The DifferentialDriveWheelSpeeds to subtract.
    * @return The difference between the two DifferentialDriveWheelSpeeds.
    */
-  public DifferentialDriveWheelSpeeds minus(DifferentialDriveWheelSpeeds other) {
-    return new DifferentialDriveWheelSpeeds(left - other.left, right - other.right);
+  public DifferentialDriveWheelVelocities minus(DifferentialDriveWheelVelocities other) {
+    return new DifferentialDriveWheelVelocities(left - other.left, right - other.right);
   }
 
   /**
@@ -122,8 +122,8 @@ public class DifferentialDriveWheelSpeeds
    *
    * @return The inverse of the current DifferentialDriveWheelSpeeds.
    */
-  public DifferentialDriveWheelSpeeds unaryMinus() {
-    return new DifferentialDriveWheelSpeeds(-left, -right);
+  public DifferentialDriveWheelVelocities unaryMinus() {
+    return new DifferentialDriveWheelVelocities(-left, -right);
   }
 
   /**
@@ -136,8 +136,8 @@ public class DifferentialDriveWheelSpeeds
    * @param scalar The scalar to multiply by.
    * @return The scaled DifferentialDriveWheelSpeeds.
    */
-  public DifferentialDriveWheelSpeeds times(double scalar) {
-    return new DifferentialDriveWheelSpeeds(left * scalar, right * scalar);
+  public DifferentialDriveWheelVelocities times(double scalar) {
+    return new DifferentialDriveWheelVelocities(left * scalar, right * scalar);
   }
 
   /**
@@ -150,8 +150,8 @@ public class DifferentialDriveWheelSpeeds
    * @param scalar The scalar to divide by.
    * @return The scaled DifferentialDriveWheelSpeeds.
    */
-  public DifferentialDriveWheelSpeeds div(double scalar) {
-    return new DifferentialDriveWheelSpeeds(left / scalar, right / scalar);
+  public DifferentialDriveWheelVelocities div(double scalar) {
+    return new DifferentialDriveWheelVelocities(left / scalar, right / scalar);
   }
 
   /**
@@ -162,11 +162,11 @@ public class DifferentialDriveWheelSpeeds
    * @return The interpolated value.
    */
   @Override
-  public DifferentialDriveWheelSpeeds interpolate(DifferentialDriveWheelSpeeds endValue, double t) {
+  public DifferentialDriveWheelVelocities interpolate(DifferentialDriveWheelVelocities endValue, double t) {
     // Clamp t to [0, 1]
     t = Math.max(0.0, Math.min(1.0, t));
 
-    return new DifferentialDriveWheelSpeeds(
+    return new DifferentialDriveWheelVelocities(
         left + t * (endValue.left - left), right + t * (endValue.right - right));
   }
 

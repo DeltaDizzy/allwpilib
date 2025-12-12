@@ -16,9 +16,9 @@ import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
 
 /** Represents the state of one swerve module. */
-public class SwerveModuleState
-    implements Interpolatable<SwerveModuleState>,
-        Comparable<SwerveModuleState>,
+public class SwerveModuleVelocities
+    implements Interpolatable<SwerveModuleVelocities>,
+        Comparable<SwerveModuleVelocities>,
         ProtobufSerializable,
         StructSerializable {
   /** Speed of the wheel of the module in meters per second. */
@@ -34,7 +34,7 @@ public class SwerveModuleState
   public static final SwerveModuleStateStruct struct = new SwerveModuleStateStruct();
 
   /** Constructs a SwerveModuleState with zeros for speed and angle. */
-  public SwerveModuleState() {}
+  public SwerveModuleVelocities() {}
 
   /**
    * Constructs a SwerveModuleState.
@@ -42,7 +42,7 @@ public class SwerveModuleState
    * @param speed The speed of the wheel of the module in meters per second.
    * @param angle The angle of the module.
    */
-  public SwerveModuleState(double speed, Rotation2d angle) {
+  public SwerveModuleVelocities(double speed, Rotation2d angle) {
     this.speed = speed;
     this.angle = angle;
   }
@@ -53,13 +53,13 @@ public class SwerveModuleState
    * @param speed The speed of the wheel of the module.
    * @param angle The angle of the module.
    */
-  public SwerveModuleState(LinearVelocity speed, Rotation2d angle) {
+  public SwerveModuleVelocities(LinearVelocity speed, Rotation2d angle) {
     this(speed.in(MetersPerSecond), angle);
   }
 
   @Override
   public boolean equals(Object obj) {
-    return obj instanceof SwerveModuleState other
+    return obj instanceof SwerveModuleVelocities other
         && Math.abs(other.speed - speed) < 1E-9
         && angle.equals(other.angle);
   }
@@ -77,7 +77,7 @@ public class SwerveModuleState
    * @return 1 if this is greater, 0 if both are equal, -1 if other is greater.
    */
   @Override
-  public int compareTo(SwerveModuleState other) {
+  public int compareTo(SwerveModuleVelocities other) {
     return Double.compare(this.speed, other.speed);
   }
 
@@ -112,14 +112,14 @@ public class SwerveModuleState
    * @deprecated Use the instance method instead.
    */
   @Deprecated
-  public static SwerveModuleState optimize(
-      SwerveModuleState desiredState, Rotation2d currentAngle) {
+  public static SwerveModuleVelocities optimize(
+      SwerveModuleVelocities desiredState, Rotation2d currentAngle) {
     var delta = desiredState.angle.minus(currentAngle);
     if (Math.abs(delta.getDegrees()) > 90.0) {
-      return new SwerveModuleState(
+      return new SwerveModuleVelocities(
           -desiredState.speed, desiredState.angle.rotateBy(Rotation2d.kPi));
     } else {
-      return new SwerveModuleState(desiredState.speed, desiredState.angle);
+      return new SwerveModuleVelocities(desiredState.speed, desiredState.angle);
     }
   }
 
@@ -132,7 +132,7 @@ public class SwerveModuleState
    * @return The interpolated value.
    */
   @Override
-  public SwerveModuleState interpolate(SwerveModuleState endValue, double t) {
+  public SwerveModuleVelocities interpolate(SwerveModuleVelocities endValue, double t) {
     // Clamp t to [0, 1]
     t = Math.max(0.0, Math.min(1.0, t));
 
@@ -142,7 +142,7 @@ public class SwerveModuleState
     // Interpolate angle using the shortest path
     Rotation2d interpolatedAngle = angle.interpolate(endValue.angle, t);
 
-    return new SwerveModuleState(interpolatedSpeed, interpolatedAngle);
+    return new SwerveModuleVelocities(interpolatedSpeed, interpolatedAngle);
   }
 
   /**

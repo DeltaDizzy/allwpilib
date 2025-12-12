@@ -14,8 +14,8 @@ import org.wpilib.util.protobuf.ProtobufSerializable;
 import org.wpilib.util.struct.StructSerializable;
 
 /** Represents the wheel speeds for a mecanum drive drivetrain. */
-public class MecanumDriveWheelSpeeds
-    implements Interpolatable<MecanumDriveWheelSpeeds>, ProtobufSerializable, StructSerializable {
+public class MecanumDriveWheelVelocities
+    implements Interpolatable<MecanumDriveWheelVelocities>, ProtobufSerializable, StructSerializable {
   /** Speed of the front left wheel in meters per second. */
   public double frontLeft;
 
@@ -35,7 +35,7 @@ public class MecanumDriveWheelSpeeds
   public static final MecanumDriveWheelSpeedsStruct struct = new MecanumDriveWheelSpeedsStruct();
 
   /** Constructs a MecanumDriveWheelSpeeds with zeros for all member fields. */
-  public MecanumDriveWheelSpeeds() {}
+  public MecanumDriveWheelVelocities() {}
 
   /**
    * Constructs a MecanumDriveWheelSpeeds.
@@ -45,7 +45,7 @@ public class MecanumDriveWheelSpeeds
    * @param rearLeft Speed of the rear left wheel in meters per second.
    * @param rearRight Speed of the rear right wheel in meters per second.
    */
-  public MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities(
       double frontLeft, double frontRight, double rearLeft, double rearRight) {
     this.frontLeft = frontLeft;
     this.frontRight = frontRight;
@@ -61,7 +61,7 @@ public class MecanumDriveWheelSpeeds
    * @param rearLeft Speed of the rear left wheel in meters per second.
    * @param rearRight Speed of the rear right wheel in meters per second.
    */
-  public MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities(
       LinearVelocity frontLeft,
       LinearVelocity frontRight,
       LinearVelocity rearLeft,
@@ -84,20 +84,20 @@ public class MecanumDriveWheelSpeeds
    * @param attainableMaxSpeed The absolute max speed in meters per second that a wheel can reach.
    * @return Desaturated MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds desaturate(double attainableMaxSpeed) {
+  public MecanumDriveWheelVelocities desaturate(double attainableMaxSpeed) {
     double realMaxSpeed = Math.max(Math.abs(frontLeft), Math.abs(frontRight));
     realMaxSpeed = Math.max(realMaxSpeed, Math.abs(rearLeft));
     realMaxSpeed = Math.max(realMaxSpeed, Math.abs(rearRight));
 
     if (realMaxSpeed > attainableMaxSpeed) {
-      return new MecanumDriveWheelSpeeds(
+      return new MecanumDriveWheelVelocities(
           frontLeft / realMaxSpeed * attainableMaxSpeed,
           frontRight / realMaxSpeed * attainableMaxSpeed,
           rearLeft / realMaxSpeed * attainableMaxSpeed,
           rearRight / realMaxSpeed * attainableMaxSpeed);
     }
 
-    return new MecanumDriveWheelSpeeds(frontLeft, frontRight, rearLeft, rearRight);
+    return new MecanumDriveWheelVelocities(frontLeft, frontRight, rearLeft, rearRight);
   }
 
   /**
@@ -111,7 +111,7 @@ public class MecanumDriveWheelSpeeds
    * @param attainableMaxSpeed The absolute max speed that a wheel can reach.
    * @return Desaturated MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds desaturate(LinearVelocity attainableMaxSpeed) {
+  public MecanumDriveWheelVelocities desaturate(LinearVelocity attainableMaxSpeed) {
     return desaturate(attainableMaxSpeed.in(MetersPerSecond));
   }
 
@@ -124,8 +124,8 @@ public class MecanumDriveWheelSpeeds
    * @param other The MecanumDriveWheelSpeeds to add.
    * @return The sum of the MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds plus(MecanumDriveWheelSpeeds other) {
-    return new MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities plus(MecanumDriveWheelVelocities other) {
+    return new MecanumDriveWheelVelocities(
         frontLeft + other.frontLeft,
         frontRight + other.frontRight,
         rearLeft + other.rearLeft,
@@ -142,8 +142,8 @@ public class MecanumDriveWheelSpeeds
    * @param other The MecanumDriveWheelSpeeds to subtract.
    * @return The difference between the two MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds minus(MecanumDriveWheelSpeeds other) {
-    return new MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities minus(MecanumDriveWheelVelocities other) {
+    return new MecanumDriveWheelVelocities(
         frontLeft - other.frontLeft,
         frontRight - other.frontRight,
         rearLeft - other.rearLeft,
@@ -156,8 +156,8 @@ public class MecanumDriveWheelSpeeds
    *
    * @return The inverse of the current MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds unaryMinus() {
-    return new MecanumDriveWheelSpeeds(-frontLeft, -frontRight, -rearLeft, -rearRight);
+  public MecanumDriveWheelVelocities unaryMinus() {
+    return new MecanumDriveWheelVelocities(-frontLeft, -frontRight, -rearLeft, -rearRight);
   }
 
   /**
@@ -169,8 +169,8 @@ public class MecanumDriveWheelSpeeds
    * @param scalar The scalar to multiply by.
    * @return The scaled MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds times(double scalar) {
-    return new MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities times(double scalar) {
+    return new MecanumDriveWheelVelocities(
         frontLeft * scalar, frontRight * scalar, rearLeft * scalar, rearRight * scalar);
   }
 
@@ -183,8 +183,8 @@ public class MecanumDriveWheelSpeeds
    * @param scalar The scalar to divide by.
    * @return The scaled MecanumDriveWheelSpeeds.
    */
-  public MecanumDriveWheelSpeeds div(double scalar) {
-    return new MecanumDriveWheelSpeeds(
+  public MecanumDriveWheelVelocities div(double scalar) {
+    return new MecanumDriveWheelVelocities(
         frontLeft / scalar, frontRight / scalar, rearLeft / scalar, rearRight / scalar);
   }
 
@@ -196,11 +196,11 @@ public class MecanumDriveWheelSpeeds
    * @return The interpolated value.
    */
   @Override
-  public MecanumDriveWheelSpeeds interpolate(MecanumDriveWheelSpeeds endValue, double t) {
+  public MecanumDriveWheelVelocities interpolate(MecanumDriveWheelVelocities endValue, double t) {
     // Clamp t to [0, 1]
     t = Math.max(0.0, Math.min(1.0, t));
 
-    return new MecanumDriveWheelSpeeds(
+    return new MecanumDriveWheelVelocities(
         frontLeft + t * (endValue.frontLeft - frontLeft),
         frontRight + t * (endValue.frontRight - frontRight),
         rearLeft + t * (endValue.rearLeft - rearLeft),

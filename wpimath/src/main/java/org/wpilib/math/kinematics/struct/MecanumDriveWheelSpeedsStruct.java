@@ -5,13 +5,13 @@
 package org.wpilib.math.kinematics.struct;
 
 import java.nio.ByteBuffer;
-import org.wpilib.math.kinematics.MecanumDriveWheelSpeeds;
+import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
 import org.wpilib.util.struct.Struct;
 
-public class MecanumDriveWheelSpeedsStruct implements Struct<MecanumDriveWheelSpeeds> {
+public class MecanumDriveWheelSpeedsStruct implements Struct<MecanumDriveWheelVelocities> {
   @Override
-  public Class<MecanumDriveWheelSpeeds> getTypeClass() {
-    return MecanumDriveWheelSpeeds.class;
+  public Class<MecanumDriveWheelVelocities> getTypeClass() {
+    return MecanumDriveWheelVelocities.class;
   }
 
   @Override
@@ -30,16 +30,16 @@ public class MecanumDriveWheelSpeedsStruct implements Struct<MecanumDriveWheelSp
   }
 
   @Override
-  public MecanumDriveWheelSpeeds unpack(ByteBuffer bb) {
+  public MecanumDriveWheelVelocities unpack(ByteBuffer bb) {
     double frontLeft = bb.getDouble();
     double frontRight = bb.getDouble();
     double rearLeft = bb.getDouble();
     double rearRight = bb.getDouble();
-    return new MecanumDriveWheelSpeeds(frontLeft, frontRight, rearLeft, rearRight);
+    return new MecanumDriveWheelVelocities(frontLeft, frontRight, rearLeft, rearRight);
   }
 
   @Override
-  public void pack(ByteBuffer bb, MecanumDriveWheelSpeeds value) {
+  public void pack(ByteBuffer bb, MecanumDriveWheelVelocities value) {
     bb.putDouble(value.frontLeft);
     bb.putDouble(value.frontRight);
     bb.putDouble(value.rearLeft);

@@ -5,13 +5,13 @@
 package org.wpilib.math.kinematics.struct;
 
 import java.nio.ByteBuffer;
-import org.wpilib.math.kinematics.DifferentialDriveWheelSpeeds;
+import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 import org.wpilib.util.struct.Struct;
 
-public class DifferentialDriveWheelSpeedsStruct implements Struct<DifferentialDriveWheelSpeeds> {
+public class DifferentialDriveWheelSpeedsStruct implements Struct<DifferentialDriveWheelVelocities> {
   @Override
-  public Class<DifferentialDriveWheelSpeeds> getTypeClass() {
-    return DifferentialDriveWheelSpeeds.class;
+  public Class<DifferentialDriveWheelVelocities> getTypeClass() {
+    return DifferentialDriveWheelVelocities.class;
   }
 
   @Override
@@ -30,14 +30,14 @@ public class DifferentialDriveWheelSpeedsStruct implements Struct<DifferentialDr
   }
 
   @Override
-  public DifferentialDriveWheelSpeeds unpack(ByteBuffer bb) {
+  public DifferentialDriveWheelVelocities unpack(ByteBuffer bb) {
     double left = bb.getDouble();
     double right = bb.getDouble();
-    return new DifferentialDriveWheelSpeeds(left, right);
+    return new DifferentialDriveWheelVelocities(left, right);
   }
 
   @Override
-  public void pack(ByteBuffer bb, DifferentialDriveWheelSpeeds value) {
+  public void pack(ByteBuffer bb, DifferentialDriveWheelVelocities value) {
     bb.putDouble(value.left);
     bb.putDouble(value.right);
   }

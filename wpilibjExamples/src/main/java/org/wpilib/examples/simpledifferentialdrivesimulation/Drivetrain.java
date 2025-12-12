@@ -13,7 +13,7 @@ import org.wpilib.math.geometry.Pose2d;
 import org.wpilib.math.kinematics.ChassisSpeeds;
 import org.wpilib.math.kinematics.DifferentialDriveKinematics;
 import org.wpilib.math.kinematics.DifferentialDriveOdometry;
-import org.wpilib.math.kinematics.DifferentialDriveWheelSpeeds;
+import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 import org.wpilib.math.numbers.N2;
 import org.wpilib.math.system.LinearSystem;
 import org.wpilib.math.system.plant.DCMotor;
@@ -91,7 +91,7 @@ public class Drivetrain {
   }
 
   /** Sets speeds to the drivetrain motors. */
-  public void setSpeeds(DifferentialDriveWheelSpeeds speeds) {
+  public void setSpeeds(DifferentialDriveWheelVelocities speeds) {
     final double leftFeedforward = m_feedforward.calculate(speeds.left);
     final double rightFeedforward = m_feedforward.calculate(speeds.right);
     double leftOutput = m_leftPIDController.calculate(m_leftEncoder.getRate(), speeds.left);

@@ -9,20 +9,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import org.junit.jupiter.api.Test;
-import org.wpilib.math.kinematics.MecanumDriveWheelSpeeds;
+import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
 
 class MecanumDriveWheelSpeedsStructTest {
-  private static final MecanumDriveWheelSpeeds DATA =
-      new MecanumDriveWheelSpeeds(2.29, 17.4, 4.4, 0.229);
+  private static final MecanumDriveWheelVelocities DATA =
+      new MecanumDriveWheelVelocities(2.29, 17.4, 4.4, 0.229);
 
   @Test
   void testRoundtrip() {
-    ByteBuffer buffer = ByteBuffer.allocate(MecanumDriveWheelSpeeds.struct.getSize());
+    ByteBuffer buffer = ByteBuffer.allocate(MecanumDriveWheelVelocities.struct.getSize());
     buffer.order(ByteOrder.LITTLE_ENDIAN);
-    MecanumDriveWheelSpeeds.struct.pack(buffer, DATA);
+    MecanumDriveWheelVelocities.struct.pack(buffer, DATA);
     buffer.rewind();
 
-    MecanumDriveWheelSpeeds data = MecanumDriveWheelSpeeds.struct.unpack(buffer);
+    MecanumDriveWheelVelocities data = MecanumDriveWheelVelocities.struct.unpack(buffer);
     assertEquals(DATA.frontLeft, data.frontLeft);
     assertEquals(DATA.frontRight, data.frontRight);
     assertEquals(DATA.rearLeft, data.rearLeft);

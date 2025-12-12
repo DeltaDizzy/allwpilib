@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 class MecanumDriveWheelSpeedsTest {
   @Test
   void testPlus() {
-    final var left = new MecanumDriveWheelSpeeds(1.0, 0.5, 2.0, 1.5);
-    final var right = new MecanumDriveWheelSpeeds(2.0, 1.5, 0.5, 1.0);
+    final var left = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5);
+    final var right = new MecanumDriveWheelVelocities(2.0, 1.5, 0.5, 1.0);
 
     final var wheelSpeeds = left.plus(right);
 
@@ -26,8 +26,8 @@ class MecanumDriveWheelSpeedsTest {
 
   @Test
   void testMinus() {
-    final var left = new MecanumDriveWheelSpeeds(1.0, 0.5, 2.0, 1.5);
-    final var right = new MecanumDriveWheelSpeeds(2.0, 0.5, 0.5, 1.0);
+    final var left = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5);
+    final var right = new MecanumDriveWheelVelocities(2.0, 0.5, 0.5, 1.0);
 
     final var wheelSpeeds = left.minus(right);
 
@@ -40,7 +40,7 @@ class MecanumDriveWheelSpeedsTest {
 
   @Test
   void testUnaryMinus() {
-    final var wheelSpeeds = new MecanumDriveWheelSpeeds(1.0, 0.5, 2.0, 1.5).unaryMinus();
+    final var wheelSpeeds = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5).unaryMinus();
 
     assertAll(
         () -> assertEquals(-1.0, wheelSpeeds.frontLeft),
@@ -51,7 +51,7 @@ class MecanumDriveWheelSpeedsTest {
 
   @Test
   void testMultiplication() {
-    final var wheelSpeeds = new MecanumDriveWheelSpeeds(1.0, 0.5, 2.0, 1.5).times(2.0);
+    final var wheelSpeeds = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5).times(2.0);
 
     assertAll(
         () -> assertEquals(2.0, wheelSpeeds.frontLeft),
@@ -62,7 +62,7 @@ class MecanumDriveWheelSpeedsTest {
 
   @Test
   void testDivision() {
-    final var wheelSpeeds = new MecanumDriveWheelSpeeds(1.0, 0.5, 2.0, 1.5).div(2.0);
+    final var wheelSpeeds = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5).div(2.0);
 
     assertAll(
         () -> assertEquals(0.5, wheelSpeeds.frontLeft),
@@ -73,8 +73,8 @@ class MecanumDriveWheelSpeedsTest {
 
   @Test
   void testInterpolate() {
-    final var start = new MecanumDriveWheelSpeeds(1.0, 2.0, 3.0, 4.0);
-    final var end = new MecanumDriveWheelSpeeds(5.0, 6.0, 7.0, 8.0);
+    final var start = new MecanumDriveWheelVelocities(1.0, 2.0, 3.0, 4.0);
+    final var end = new MecanumDriveWheelVelocities(5.0, 6.0, 7.0, 8.0);
 
     // Test interpolation at t=0 (should return start)
     final var atStart = start.interpolate(end, 0.0);
