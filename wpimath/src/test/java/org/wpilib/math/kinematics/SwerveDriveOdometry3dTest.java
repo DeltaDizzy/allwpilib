@@ -162,7 +162,7 @@ class SwerveDriveOdometry3dTest {
       var groundTruthState = trajectory.sample(t);
 
       var moduleStates =
-          kinematics.toSwerveModuleStates(
+          kinematics.toSwerveModuleVelocities(
               new ChassisSpeeds(
                   groundTruthState.velocity,
                   0.0,

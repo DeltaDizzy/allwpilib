@@ -195,7 +195,7 @@ class SwerveDrivePoseEstimator3dTest {
 
       var chassisSpeeds = chassisSpeedsGenerator.apply(groundTruthState);
 
-      var moduleStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+      var moduleStates = kinematics.toSwerveModuleVelocities(chassisSpeeds);
 
       for (int i = 0; i < moduleStates.length; i++) {
         positions[i].distance += moduleStates[i].speed * (1 - rand.nextGaussian() * 0.05) * dt;

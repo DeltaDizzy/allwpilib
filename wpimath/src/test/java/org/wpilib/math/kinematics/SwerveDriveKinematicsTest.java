@@ -27,7 +27,7 @@ class SwerveDriveKinematicsTest {
   void testStraightLineInverseKinematics() { // test inverse kinematics going in a straight line
 
     ChassisSpeeds speeds = new ChassisSpeeds(5, 0, 0);
-    var moduleStates = m_kinematics.toSwerveModuleStates(speeds);
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(speeds);
 
     assertAll(
         () -> assertEquals(5.0, moduleStates[0].speed, kEpsilon),
@@ -66,7 +66,7 @@ class SwerveDriveKinematicsTest {
   @Test
   void testStraightStrafeInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 5, 0);
-    var moduleStates = m_kinematics.toSwerveModuleStates(speeds);
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(speeds);
 
     assertAll(
         () -> assertEquals(5.0, moduleStates[0].speed, kEpsilon),
@@ -104,8 +104,8 @@ class SwerveDriveKinematicsTest {
   @Test
   void testConserveWheelAngle() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, 2 * Math.PI);
-    m_kinematics.toSwerveModuleStates(speeds);
-    var moduleStates = m_kinematics.toSwerveModuleStates(new ChassisSpeeds());
+    m_kinematics.toSwerveModuleVelocities(speeds);
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(new ChassisSpeeds());
 
     // Robot is stationary, but module angles are preserved.
 
@@ -127,7 +127,7 @@ class SwerveDriveKinematicsTest {
     Rotation2d bl = Rotation2d.kPi;
     Rotation2d br = new Rotation2d(3 * Math.PI / 2);
     m_kinematics.resetHeadings(fl, fr, bl, br);
-    var moduleStates = m_kinematics.toSwerveModuleStates(new ChassisSpeeds());
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(new ChassisSpeeds());
 
     // Robot is stationary, but module angles are preserved.
 
@@ -145,7 +145,7 @@ class SwerveDriveKinematicsTest {
   @Test
   void testTurnInPlaceInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, 2 * Math.PI);
-    var moduleStates = m_kinematics.toSwerveModuleStates(speeds);
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(speeds);
 
     // The circumference of the wheels about the COR is π * diameter, or 2π * radius. The radius
     // is the √(12²in + 12²in), or 16.9706in, so the circumference the wheels trace out is
@@ -196,7 +196,7 @@ class SwerveDriveKinematicsTest {
   @Test
   void testOffCenterCORRotationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, 2 * Math.PI);
-    var moduleStates = m_kinematics.toSwerveModuleStates(speeds, m_fl);
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(speeds, m_fl);
 
     // This one is a bit trickier. Because we are rotating about the front-left wheel, it should
     // be parked at 0 degrees and 0 speed. The front-right and back-left wheels both travel an arc
@@ -278,7 +278,7 @@ class SwerveDriveKinematicsTest {
   @Test
   void testOffCenterCORRotationAndTranslationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0.0, 3.0, 1.5);
-    var moduleStates = m_kinematics.toSwerveModuleStates(speeds, new Translation2d(24, 0));
+    var moduleStates = m_kinematics.toSwerveModuleVelocities(speeds, new Translation2d(24, 0));
 
     // By equation (13.14) from state-space guide, our wheels/angles will be as follows,
     // (+-1 degree or speed):
