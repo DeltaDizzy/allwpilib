@@ -7,7 +7,7 @@ package org.wpilib.math.kinematics;
 import static org.wpilib.units.Units.MetersPerSecond;
 
 import org.wpilib.math.interpolation.Interpolatable;
-import org.wpilib.math.kinematics.proto.MecanumDriveWheelSpeedsProto;
+import org.wpilib.math.kinematics.proto.MecanumDriveWheelVelocitiesProto;
 import org.wpilib.math.kinematics.struct.MecanumDriveWheelVelocitiesStruct;
 import org.wpilib.units.measure.LinearVelocity;
 import org.wpilib.util.protobuf.ProtobufSerializable;
@@ -28,17 +28,17 @@ public class MecanumDriveWheelVelocities
   /** Speed of the rear right wheel in meters per second. */
   public double rearRight;
 
-  /** MecanumDriveWheelSpeeds protobuf for serialization. */
-  public static final MecanumDriveWheelSpeedsProto proto = new MecanumDriveWheelSpeedsProto();
+  /** MecanumDriveWheelVelocities protobuf for serialization. */
+  public static final MecanumDriveWheelVelocitiesProto proto = new MecanumDriveWheelVelocitiesProto();
 
-  /** MecanumDriveWheelSpeeds struct for serialization. */
+  /** MecanumDriveWheelVelocities struct for serialization. */
   public static final MecanumDriveWheelVelocitiesStruct struct = new MecanumDriveWheelVelocitiesStruct();
 
-  /** Constructs a MecanumDriveWheelSpeeds with zeros for all member fields. */
+  /** Constructs a MecanumDriveWheelVelocities with zeros for all member fields. */
   public MecanumDriveWheelVelocities() {}
 
   /**
-   * Constructs a MecanumDriveWheelSpeeds.
+   * Constructs a MecanumDriveWheelVelocities.
    *
    * @param frontLeft Speed of the front left wheel in meters per second.
    * @param frontRight Speed of the front right wheel in meters per second.
@@ -54,7 +54,7 @@ public class MecanumDriveWheelVelocities
   }
 
   /**
-   * Constructs a MecanumDriveWheelSpeeds.
+   * Constructs a MecanumDriveWheelVelocities.
    *
    * @param frontLeft Speed of the front left wheel in meters per second.
    * @param frontRight Speed of the front right wheel in meters per second.
@@ -82,7 +82,7 @@ public class MecanumDriveWheelVelocities
    * absolute threshold, while maintaining the ratio of speeds between wheels.
    *
    * @param attainableMaxSpeed The absolute max speed in meters per second that a wheel can reach.
-   * @return Desaturated MecanumDriveWheelSpeeds.
+   * @return Desaturated MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities desaturate(double attainableMaxSpeed) {
     double realMaxSpeed = Math.max(Math.abs(frontLeft), Math.abs(frontRight));
@@ -109,20 +109,20 @@ public class MecanumDriveWheelVelocities
    * absolute threshold, while maintaining the ratio of speeds between wheels.
    *
    * @param attainableMaxSpeed The absolute max speed that a wheel can reach.
-   * @return Desaturated MecanumDriveWheelSpeeds.
+   * @return Desaturated MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities desaturate(LinearVelocity attainableMaxSpeed) {
     return desaturate(attainableMaxSpeed.in(MetersPerSecond));
   }
 
   /**
-   * Adds two MecanumDriveWheelSpeeds and returns the sum.
+   * Adds two MecanumDriveWheelVelocities and returns the sum.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{1.0, 0.5, 2.0, 1.5} + MecanumDriveWheelSpeeds{2.0, 1.5,
-   * 0.5, 1.0} = MecanumDriveWheelSpeeds{3.0, 2.0, 2.5, 2.5}
+   * <p>For example, MecanumDriveWheelVelocities{1.0, 0.5, 2.0, 1.5} + MecanumDriveWheelVelocities{2.0, 1.5,
+   * 0.5, 1.0} = MecanumDriveWheelVelocities{3.0, 2.0, 2.5, 2.5}
    *
-   * @param other The MecanumDriveWheelSpeeds to add.
-   * @return The sum of the MecanumDriveWheelSpeeds.
+   * @param other The MecanumDriveWheelVelocities to add.
+   * @return The sum of the MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities plus(MecanumDriveWheelVelocities other) {
     return new MecanumDriveWheelVelocities(
@@ -133,14 +133,14 @@ public class MecanumDriveWheelVelocities
   }
 
   /**
-   * Subtracts the other MecanumDriveWheelSpeeds from the current MecanumDriveWheelSpeeds and
+   * Subtracts the other MecanumDriveWheelVelocities from the current MecanumDriveWheelVelocities and
    * returns the difference.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{5.0, 4.0, 6.0, 2.5} - MecanumDriveWheelSpeeds{1.0, 2.0,
-   * 3.0, 0.5} = MecanumDriveWheelSpeeds{4.0, 2.0, 3.0, 2.0}
+   * <p>For example, MecanumDriveWheelVelocities{5.0, 4.0, 6.0, 2.5} - MecanumDriveWheelVelocities{1.0, 2.0,
+   * 3.0, 0.5} = MecanumDriveWheelVelocities{4.0, 2.0, 3.0, 2.0}
    *
-   * @param other The MecanumDriveWheelSpeeds to subtract.
-   * @return The difference between the two MecanumDriveWheelSpeeds.
+   * @param other The MecanumDriveWheelVelocities to subtract.
+   * @return The difference between the two MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities minus(MecanumDriveWheelVelocities other) {
     return new MecanumDriveWheelVelocities(
@@ -151,23 +151,23 @@ public class MecanumDriveWheelVelocities
   }
 
   /**
-   * Returns the inverse of the current MecanumDriveWheelSpeeds. This is equivalent to negating all
-   * components of the MecanumDriveWheelSpeeds.
+   * Returns the inverse of the current MecanumDriveWheelVelocities. This is equivalent to negating all
+   * components of the MecanumDriveWheelVelocities.
    *
-   * @return The inverse of the current MecanumDriveWheelSpeeds.
+   * @return The inverse of the current MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities unaryMinus() {
     return new MecanumDriveWheelVelocities(-frontLeft, -frontRight, -rearLeft, -rearRight);
   }
 
   /**
-   * Multiplies the MecanumDriveWheelSpeeds by a scalar and returns the new MecanumDriveWheelSpeeds.
+   * Multiplies the MecanumDriveWheelVelocities by a scalar and returns the new MecanumDriveWheelVelocities.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{2.0, 2.5, 3.0, 3.5} * 2 = MecanumDriveWheelSpeeds{4.0,
+   * <p>For example, MecanumDriveWheelVelocities{2.0, 2.5, 3.0, 3.5} * 2 = MecanumDriveWheelVelocities{4.0,
    * 5.0, 6.0, 7.0}
    *
    * @param scalar The scalar to multiply by.
-   * @return The scaled MecanumDriveWheelSpeeds.
+   * @return The scaled MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities times(double scalar) {
     return new MecanumDriveWheelVelocities(
@@ -175,13 +175,13 @@ public class MecanumDriveWheelVelocities
   }
 
   /**
-   * Divides the MecanumDriveWheelSpeeds by a scalar and returns the new MecanumDriveWheelSpeeds.
+   * Divides the MecanumDriveWheelVelocities by a scalar and returns the new MecanumDriveWheelVelocities.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{2.0, 2.5, 1.5, 1.0} / 2 = MecanumDriveWheelSpeeds{1.0,
+   * <p>For example, MecanumDriveWheelVelocities{2.0, 2.5, 1.5, 1.0} / 2 = MecanumDriveWheelVelocities{1.0,
    * 1.25, 0.75, 0.5}
    *
    * @param scalar The scalar to divide by.
-   * @return The scaled MecanumDriveWheelSpeeds.
+   * @return The scaled MecanumDriveWheelVelocities.
    */
   public MecanumDriveWheelVelocities div(double scalar) {
     return new MecanumDriveWheelVelocities(
@@ -189,7 +189,7 @@ public class MecanumDriveWheelVelocities
   }
 
   /**
-   * Returns the linear interpolation of this MecanumDriveWheelSpeeds and another.
+   * Returns the linear interpolation of this MecanumDriveWheelVelocities and another.
    *
    * @param endValue The end value for the interpolation.
    * @param t How far between the two values to interpolate. This is clamped to [0, 1].
@@ -210,7 +210,7 @@ public class MecanumDriveWheelVelocities
   @Override
   public String toString() {
     return String.format(
-        "MecanumDriveWheelSpeeds(Front Left: %.2f m/s, Front Right: %.2f m/s, "
+        "MecanumDriveWheelVelocities(Front Left: %.2f m/s, Front Right: %.2f m/s, "
             + "Rear Left: %.2f m/s, Rear Right: %.2f m/s)",
         frontLeft, frontRight, rearLeft, rearRight);
   }
