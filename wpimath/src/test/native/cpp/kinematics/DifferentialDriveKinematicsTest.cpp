@@ -29,7 +29,7 @@ TEST(DifferentialDriveKinematicsTest, InverseKinematicsFromZero) {
 
 TEST(DifferentialDriveKinematicsTest, ForwardKinematicsFromZero) {
   const DifferentialDriveKinematics kinematics{0.381_m * 2};
-  const DifferentialDriveWheelSpeeds wheelSpeeds;
+  const DifferentialDriveWheelVelocities wheelSpeeds;
   const auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
   EXPECT_NEAR(chassisSpeeds.vx.value(), 0, kEpsilon);
@@ -48,7 +48,7 @@ TEST(DifferentialDriveKinematicsTest, InverseKinematicsForStraightLine) {
 
 TEST(DifferentialDriveKinematicsTest, ForwardKinematicsForStraightLine) {
   const DifferentialDriveKinematics kinematics{0.381_m * 2};
-  const DifferentialDriveWheelSpeeds wheelSpeeds{3.0_mps, 3.0_mps};
+  const DifferentialDriveWheelVelocities wheelSpeeds{3.0_mps, 3.0_mps};
   const auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
   EXPECT_NEAR(chassisSpeeds.vx.value(), 3, kEpsilon);
@@ -68,7 +68,7 @@ TEST(DifferentialDriveKinematicsTest, InverseKinematicsForRotateInPlace) {
 
 TEST(DifferentialDriveKinematicsTest, ForwardKinematicsForRotateInPlace) {
   const DifferentialDriveKinematics kinematics{0.381_m * 2};
-  const DifferentialDriveWheelSpeeds wheelSpeeds{
+  const DifferentialDriveWheelVelocities wheelSpeeds{
       wpi::units::meters_per_second_t{+0.381 * std::numbers::pi},
       wpi::units::meters_per_second_t{-0.381 * std::numbers::pi}};
   const auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);

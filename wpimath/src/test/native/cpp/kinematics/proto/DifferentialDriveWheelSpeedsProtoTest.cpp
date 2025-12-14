@@ -4,18 +4,18 @@
 
 #include <gtest/gtest.h>
 
-#include "wpi/math/kinematics/DifferentialDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/DifferentialDriveWheelVelocities.hpp"
 #include "wpi/util/SmallVector.hpp"
 
 using namespace wpi::math;
 
 namespace {
 
-const DifferentialDriveWheelSpeeds kExpectedData =
-    DifferentialDriveWheelSpeeds{1.74_mps, 35.04_mps};
+const DifferentialDriveWheelVelocities kExpectedData =
+    DifferentialDriveWheelVelocities{1.74_mps, 35.04_mps};
 }  // namespace
 
-TEST(DifferentialDriveWheelSpeedsProtoTest, Roundtrip) {
+TEST(DifferentialDriveWheelVelocitiesProtoTest, Roundtrip) {
   wpi::util::ProtobufMessage<decltype(kExpectedData)> message;
   wpi::util::SmallVector<uint8_t, 64> buf;
 

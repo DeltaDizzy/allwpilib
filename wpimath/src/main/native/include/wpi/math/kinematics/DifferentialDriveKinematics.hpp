@@ -11,7 +11,7 @@
 #include "wpi/math/kinematics/ChassisSpeeds.hpp"
 #include "wpi/math/kinematics/DifferentialDriveWheelAccelerations.hpp"
 #include "wpi/math/kinematics/DifferentialDriveWheelPositions.hpp"
-#include "wpi/math/kinematics/DifferentialDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/DifferentialDriveWheelVelocities.hpp"
 #include "wpi/math/kinematics/Kinematics.hpp"
 #include "wpi/math/util/MathShared.hpp"
 #include "wpi/units/angle.hpp"
@@ -29,7 +29,7 @@ namespace wpi::math {
  */
 class WPILIB_DLLEXPORT DifferentialDriveKinematics
     : public Kinematics<DifferentialDriveWheelPositions,
-                        DifferentialDriveWheelSpeeds,
+                        DifferentialDriveWheelVelocities,
                         DifferentialDriveWheelAccelerations> {
  public:
   /**
@@ -56,7 +56,7 @@ class WPILIB_DLLEXPORT DifferentialDriveKinematics
    * @return The chassis speed.
    */
   constexpr ChassisSpeeds ToChassisSpeeds(
-      const DifferentialDriveWheelSpeeds& wheelSpeeds) const override {
+      const DifferentialDriveWheelVelocities& wheelSpeeds) const override {
     return {(wheelSpeeds.left + wheelSpeeds.right) / 2.0, 0_mps,
             (wheelSpeeds.right - wheelSpeeds.left) / trackwidth * 1_rad};
   }
@@ -69,7 +69,7 @@ class WPILIB_DLLEXPORT DifferentialDriveKinematics
    * represent the chassis' speed.
    * @return The left and right velocities.
    */
-  constexpr DifferentialDriveWheelSpeeds ToWheelSpeeds(
+  constexpr DifferentialDriveWheelVelocities ToWheelSpeeds(
       const ChassisSpeeds& chassisSpeeds) const override {
     return {chassisSpeeds.vx - trackwidth / 2 * chassisSpeeds.omega / 1_rad,
             chassisSpeeds.vx + trackwidth / 2 * chassisSpeeds.omega / 1_rad};
