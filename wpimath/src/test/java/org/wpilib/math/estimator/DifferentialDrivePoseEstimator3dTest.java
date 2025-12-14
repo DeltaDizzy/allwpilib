@@ -173,7 +173,7 @@ class DifferentialDrivePoseEstimator3dTest {
 
       var chassisSpeeds = chassisSpeedsGenerator.apply(groundTruthState);
 
-      var wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
+      var wheelSpeeds = kinematics.toWheelVelocities(chassisSpeeds);
 
       leftDistance += wheelSpeeds.left * dt;
       rightDistance += wheelSpeeds.right * dt;

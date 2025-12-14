@@ -50,7 +50,7 @@ public class SwerveDriveKinematicsConstraint implements TrajectoryConstraint {
 
     // Get the wheel speeds and normalize them to within the max velocity.
     var wheelSpeeds = m_kinematics.toSwerveModuleVelocities(chassisSpeeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(wheelSpeeds, m_maxSpeed);
+    SwerveDriveKinematics.desaturateWheelVelocities(wheelSpeeds, m_maxSpeed);
 
     // Convert normalized wheel speeds back to chassis speeds
     var normSpeeds = m_kinematics.toChassisSpeeds(wheelSpeeds);

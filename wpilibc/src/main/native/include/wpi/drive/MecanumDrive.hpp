@@ -60,7 +60,7 @@ class MecanumDrive : public RobotDriveBase,
    *
    * Uses normalized voltage [-1.0..1.0].
    */
-  struct WheelSpeeds {
+  struct WheelVelocities {
     /// Front-left wheel speed.
     double frontLeft = 0.0;
     /// Front-right wheel speed.
@@ -158,7 +158,7 @@ class MecanumDrive : public RobotDriveBase,
    *                  field-oriented controls.
    * @return Wheel speeds [-1.0..1.0].
    */
-  static WheelSpeeds DriveCartesianIK(double xSpeed, double ySpeed,
+  static WheelVelocities DriveCartesianIK(double xSpeed, double ySpeed,
                                       double zRotation,
                                       wpi::math::Rotation2d gyroAngle = 0_rad);
 

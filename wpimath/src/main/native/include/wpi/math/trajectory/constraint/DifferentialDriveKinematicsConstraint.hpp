@@ -30,7 +30,7 @@ class WPILIB_DLLEXPORT DifferentialDriveKinematicsConstraint
       const Pose2d& pose, wpi::units::curvature_t curvature,
       wpi::units::meters_per_second_t velocity) const override {
     auto wheelSpeeds =
-        m_kinematics.ToWheelSpeeds({velocity, 0_mps, velocity * curvature});
+        m_kinematics.ToWheelVelocities({velocity, 0_mps, velocity * curvature});
     wheelSpeeds.Desaturate(m_maxSpeed);
 
     return m_kinematics.ToChassisSpeeds(wheelSpeeds).vx;

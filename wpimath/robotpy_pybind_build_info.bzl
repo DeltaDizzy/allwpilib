@@ -627,13 +627,13 @@ def wpimath_kinematics_extension(srcs = [], header_to_dat_deps = [], extra_hdrs 
             ],
         ),
         struct(
-            class_name = "DifferentialDriveWheelSpeeds",
-            yml_file = "semiwrap/kinematics/DifferentialDriveWheelSpeeds.yml",
+            class_name = "DifferentialDriveWheelVelocities",
+            yml_file = "semiwrap/kinematics/DifferentialDriveWheelVelocities.yml",
             header_root = "$(execpath :robotpy-native-wpimath.copy_headers)",
-            header_file = "$(execpath :robotpy-native-wpimath.copy_headers)/wpi/math/kinematics/DifferentialDriveWheelSpeeds.hpp",
+            header_file = "$(execpath :robotpy-native-wpimath.copy_headers)/wpi/math/kinematics/DifferentialDriveWheelVelocities.hpp",
             tmpl_class_names = [],
             trampolines = [
-                ("wpi::math::DifferentialDriveWheelSpeeds", "wpi__math__DifferentialDriveWheelSpeeds.hpp"),
+                ("wpi::math::DifferentialDriveWheelVelocities", "wpi__math__DifferentialDriveWheelVelocities.hpp"),
             ],
         ),
         struct(
@@ -704,13 +704,13 @@ def wpimath_kinematics_extension(srcs = [], header_to_dat_deps = [], extra_hdrs 
             ],
         ),
         struct(
-            class_name = "MecanumDriveWheelSpeeds",
-            yml_file = "semiwrap/kinematics/MecanumDriveWheelSpeeds.yml",
+            class_name = "MecanumDriveWheelVelocities",
+            yml_file = "semiwrap/kinematics/MecanumDriveWheelVelocities.yml",
             header_root = "$(execpath :robotpy-native-wpimath.copy_headers)",
-            header_file = "$(execpath :robotpy-native-wpimath.copy_headers)/wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp",
+            header_file = "$(execpath :robotpy-native-wpimath.copy_headers)/wpi/math/kinematics/MecanumDriveWheelVelocities.hpp",
             tmpl_class_names = [],
             trampolines = [
-                ("wpi::math::MecanumDriveWheelSpeeds", "wpi__math__MecanumDriveWheelSpeeds.hpp"),
+                ("wpi::math::MecanumDriveWheelVelocities", "wpi__math__MecanumDriveWheelVelocities.hpp"),
             ],
         ),
         struct(

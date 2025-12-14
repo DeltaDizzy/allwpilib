@@ -118,8 +118,8 @@ public class SwerveDriveKinematics
    *     the robot will rotate around that corner.
    * @return An array containing the module states. Use caution because these module states are not
    *     normalized. Sometimes, a user input may cause one of the module speeds to go above the
-   *     attainable max velocity. Use the {@link #desaturateWheelSpeeds(SwerveModuleVelocity[], double)
-   *     DesaturateWheelSpeeds} function to rectify this issue.
+   *     attainable max velocity. Use the {@link #desaturateWheelVelocities(SwerveModuleVelocity[], double)
+   *     DesaturateWheelVelocities} function to rectify this issue.
    */
   public SwerveModuleVelocity[] toSwerveModuleVelocities(
       ChassisSpeeds chassisSpeeds, Translation2d centerOfRotation) {
@@ -168,7 +168,7 @@ public class SwerveDriveKinematics
   }
 
   @Override
-  public SwerveModuleVelocity[] toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
+  public SwerveModuleVelocity[] toWheelVelocities(ChassisSpeeds chassisSpeeds) {
     return toSwerveModuleVelocities(chassisSpeeds);
   }
 
@@ -261,7 +261,7 @@ public class SwerveDriveKinematics
    *     normalized speeds!
    * @param attainableMaxSpeed The absolute max speed in meters per second that a module can reach.
    */
-  public static void desaturateWheelSpeeds(
+  public static void desaturateWheelVelocities(
       SwerveModuleVelocity[] moduleStates, double attainableMaxSpeed) {
     double realMaxSpeed = 0;
     for (SwerveModuleVelocity moduleState : moduleStates) {
@@ -290,9 +290,9 @@ public class SwerveDriveKinematics
    *     normalized speeds!
    * @param attainableMaxSpeed The absolute max speed in meters per second that a module can reach.
    */
-  public static void desaturateWheelSpeeds(
+  public static void desaturateWheelVelocities(
       SwerveModuleVelocity[] moduleStates, LinearVelocity attainableMaxSpeed) {
-    desaturateWheelSpeeds(moduleStates, attainableMaxSpeed.in(MetersPerSecond));
+    desaturateWheelVelocities(moduleStates, attainableMaxSpeed.in(MetersPerSecond));
   }
 
   /**
@@ -318,7 +318,7 @@ public class SwerveDriveKinematics
    * @param attainableMaxRotationalVelocity The absolute max speed in radians per second the robot
    *     can reach while rotating
    */
-  public static void desaturateWheelSpeeds(
+  public static void desaturateWheelVelocities(
       SwerveModuleVelocity[] moduleStates,
       ChassisSpeeds desiredChassisSpeed,
       double attainableMaxModuleSpeed,
@@ -367,13 +367,13 @@ public class SwerveDriveKinematics
    * @param attainableMaxRotationalVelocity The absolute max speed the robot can reach while
    *     rotating
    */
-  public static void desaturateWheelSpeeds(
+  public static void desaturateWheelVelocities(
       SwerveModuleVelocity[] moduleStates,
       ChassisSpeeds desiredChassisSpeed,
       LinearVelocity attainableMaxModuleSpeed,
       LinearVelocity attainableMaxTranslationalSpeed,
       AngularVelocity attainableMaxRotationalVelocity) {
-    desaturateWheelSpeeds(
+    desaturateWheelVelocities(
         moduleStates,
         desiredChassisSpeed,
         attainableMaxModuleSpeed.in(MetersPerSecond),

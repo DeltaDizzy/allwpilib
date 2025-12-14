@@ -163,7 +163,7 @@ class SwerveDriveKinematics
    * @return An array containing the module states. Use caution because these
    * module states are not normalized. Sometimes, a user input may cause one of
    * the module speeds to go above the attainable max velocity. Use the
-   * DesaturateWheelSpeeds(wpi::util::array<SwerveModuleVelocity, NumModules>*,
+   * DesaturateWheelVelocities(wpi::util::array<SwerveModuleVelocity, NumModules>*,
    * wpi::units::meters_per_second_t) function to rectify this issue. In
    * addition, you can leverage the power of C++17 to directly assign the module
    * states to variables:
@@ -214,7 +214,7 @@ class SwerveDriveKinematics
     return moduleStates;
   }
 
-  wpi::util::array<SwerveModuleVelocity, NumModules> ToWheelSpeeds(
+  wpi::util::array<SwerveModuleVelocity, NumModules> ToWheelVelocities(
       const ChassisSpeeds& chassisSpeeds) const override {
     return ToSwerveModuleVelocitys(chassisSpeeds);
   }
@@ -356,7 +356,7 @@ class SwerveDriveKinematics
    * mutated with the normalized speeds!
    * @param attainableMaxSpeed The absolute max speed that a module can reach.
    */
-  static void DesaturateWheelSpeeds(
+  static void DesaturateWheelVelocities(
       wpi::util::array<SwerveModuleVelocity, NumModules>* moduleStates,
       wpi::units::meters_per_second_t attainableMaxSpeed) {
     auto& states = *moduleStates;
@@ -401,7 +401,7 @@ class SwerveDriveKinematics
    * @param attainableMaxRobotRotationSpeed The absolute max speed the robot can
    * reach while rotating
    */
-  static void DesaturateWheelSpeeds(
+  static void DesaturateWheelVelocities(
       wpi::util::array<SwerveModuleVelocity, NumModules>* moduleStates,
       ChassisSpeeds desiredChassisSpeed,
       wpi::units::meters_per_second_t attainableMaxModuleSpeed,

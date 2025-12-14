@@ -51,7 +51,7 @@ class Drivetrain {
    *
    * @param speeds The desired wheel speeds.
    */
-  void SetSpeeds(const wpi::math::DifferentialDriveWheelSpeeds& speeds);
+  void SetSpeeds(const wpi::math::DifferentialDriveWheelVelocities& speeds);
 
   /** Drives the robot with the given linear velocity and angular velocity.
    *

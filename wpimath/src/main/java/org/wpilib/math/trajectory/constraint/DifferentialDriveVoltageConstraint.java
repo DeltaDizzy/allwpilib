@@ -50,7 +50,7 @@ public class DifferentialDriveVoltageConstraint implements TrajectoryConstraint 
   @Override
   public MinMax getMinMaxAcceleration(Pose2d pose, double curvature, double velocity) {
     var wheelSpeeds =
-        m_kinematics.toWheelSpeeds(new ChassisSpeeds(velocity, 0, velocity * curvature));
+        m_kinematics.toWheelVelocities(new ChassisSpeeds(velocity, 0, velocity * curvature));
 
     double maxWheelSpeed = Math.max(wheelSpeeds.left, wheelSpeeds.right);
     double minWheelSpeed = Math.min(wheelSpeeds.left, wheelSpeeds.right);

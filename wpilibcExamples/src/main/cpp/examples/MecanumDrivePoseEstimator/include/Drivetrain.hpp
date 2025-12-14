@@ -15,7 +15,7 @@
 #include "wpi/math/geometry/Translation2d.hpp"
 #include "wpi/math/kinematics/MecanumDriveKinematics.hpp"
 #include "wpi/math/kinematics/MecanumDriveOdometry.hpp"
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 
 /**
  * Represents a mecanum drive style drivetrain.
@@ -31,9 +31,9 @@ class Drivetrain {
     m_backRightMotor.SetInverted(true);
   }
 
-  wpi::math::MecanumDriveWheelSpeeds GetCurrentState() const;
+  wpi::math::MecanumDriveWheelVelocities GetCurrentState() const;
   wpi::math::MecanumDriveWheelPositions GetCurrentDistances() const;
-  void SetSpeeds(const wpi::math::MecanumDriveWheelSpeeds& wheelSpeeds);
+  void SetSpeeds(const wpi::math::MecanumDriveWheelVelocities& wheelSpeeds);
   void Drive(wpi::units::meters_per_second_t xSpeed,
              wpi::units::meters_per_second_t ySpeed,
              wpi::units::radians_per_second_t rot, bool fieldRelative,

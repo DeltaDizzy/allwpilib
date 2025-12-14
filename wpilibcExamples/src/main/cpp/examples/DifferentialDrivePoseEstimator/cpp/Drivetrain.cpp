@@ -33,7 +33,7 @@ Drivetrain::Drivetrain() {
 }
 
 void Drivetrain::SetSpeeds(
-    const wpi::math::DifferentialDriveWheelSpeeds& speeds) {
+    const wpi::math::DifferentialDriveWheelVelocities& speeds) {
   const auto leftFeedforward = m_feedforward.Calculate(speeds.left);
   const auto rightFeedforward = m_feedforward.Calculate(speeds.right);
   const double leftOutput = m_leftPIDController.Calculate(
@@ -47,7 +47,7 @@ void Drivetrain::SetSpeeds(
 
 void Drivetrain::Drive(wpi::units::meters_per_second_t xSpeed,
                        wpi::units::radians_per_second_t rot) {
-  SetSpeeds(m_kinematics.ToWheelSpeeds({xSpeed, 0_mps, rot}));
+  SetSpeeds(m_kinematics.ToWheelVelocities({xSpeed, 0_mps, rot}));
 }
 
 void Drivetrain::PublishCameraToObject(

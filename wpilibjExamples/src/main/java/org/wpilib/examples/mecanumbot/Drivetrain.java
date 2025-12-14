@@ -129,7 +129,7 @@ public class Drivetrain {
     if (fieldRelative) {
       chassisSpeeds = chassisSpeeds.toRobotRelative(m_imu.getRotation2d());
     }
-    setSpeeds(m_kinematics.toWheelSpeeds(chassisSpeeds.discretize(period)).desaturate(kMaxSpeed));
+    setSpeeds(m_kinematics.toWheelVelocities(chassisSpeeds.discretize(period)).desaturate(kMaxSpeed));
   }
 
   /** Updates the field relative position of the robot. */

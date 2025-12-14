@@ -63,7 +63,7 @@ class DifferentialDrive : public RobotDriveBase,
    *
    * Uses normalized voltage [-1.0..1.0].
    */
-  struct WheelSpeeds {
+  struct WheelVelocities {
     /// Left wheel speed.
     double left = 0.0;
     /// Right wheel speed.
@@ -159,7 +159,7 @@ class DifferentialDrive : public RobotDriveBase,
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    * @return Wheel speeds [-1.0..1.0].
    */
-  static WheelSpeeds ArcadeDriveIK(double xSpeed, double zRotation,
+  static WheelVelocities ArcadeDriveIK(double xSpeed, double zRotation,
                                    bool squareInputs = true);
 
   /**
@@ -178,7 +178,7 @@ class DifferentialDrive : public RobotDriveBase,
    *                         turning rate instead of curvature.
    * @return Wheel speeds [-1.0..1.0].
    */
-  static WheelSpeeds CurvatureDriveIK(double xSpeed, double zRotation,
+  static WheelVelocities CurvatureDriveIK(double xSpeed, double zRotation,
                                       bool allowTurnInPlace);
 
   /**
@@ -191,7 +191,7 @@ class DifferentialDrive : public RobotDriveBase,
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    * @return Wheel speeds [-1.0..1.0].
    */
-  static WheelSpeeds TankDriveIK(double leftSpeed, double rightSpeed,
+  static WheelVelocities TankDriveIK(double leftSpeed, double rightSpeed,
                                  bool squareInputs = true);
 
   void StopMotor() override;

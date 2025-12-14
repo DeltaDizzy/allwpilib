@@ -103,7 +103,7 @@ void DifferentialDrive::TankDrive(double leftSpeed, double rightSpeed,
   Feed();
 }
 
-DifferentialDrive::WheelSpeeds DifferentialDrive::ArcadeDriveIK(
+DifferentialDrive::WheelVelocities DifferentialDrive::ArcadeDriveIK(
     double xSpeed, double zRotation, bool squareInputs) {
   xSpeed = std::clamp(xSpeed, -1.0, 1.0);
   zRotation = std::clamp(zRotation, -1.0, 1.0);
@@ -132,7 +132,7 @@ DifferentialDrive::WheelSpeeds DifferentialDrive::ArcadeDriveIK(
   return {leftSpeed, rightSpeed};
 }
 
-DifferentialDrive::WheelSpeeds DifferentialDrive::CurvatureDriveIK(
+DifferentialDrive::WheelVelocities DifferentialDrive::CurvatureDriveIK(
     double xSpeed, double zRotation, bool allowTurnInPlace) {
   xSpeed = std::clamp(xSpeed, -1.0, 1.0);
   zRotation = std::clamp(zRotation, -1.0, 1.0);
@@ -158,7 +158,7 @@ DifferentialDrive::WheelSpeeds DifferentialDrive::CurvatureDriveIK(
   return {leftSpeed, rightSpeed};
 }
 
-DifferentialDrive::WheelSpeeds DifferentialDrive::TankDriveIK(
+DifferentialDrive::WheelVelocities DifferentialDrive::TankDriveIK(
     double leftSpeed, double rightSpeed, bool squareInputs) {
   leftSpeed = std::clamp(leftSpeed, -1.0, 1.0);
   rightSpeed = std::clamp(rightSpeed, -1.0, 1.0);

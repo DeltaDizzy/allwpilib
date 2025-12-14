@@ -100,7 +100,7 @@ void MecanumDrive::StopMotor() {
   Feed();
 }
 
-MecanumDrive::WheelSpeeds MecanumDrive::DriveCartesianIK(
+MecanumDrive::WheelVelocities MecanumDrive::DriveCartesianIK(
     double xSpeed, double ySpeed, double zRotation,
     wpi::math::Rotation2d gyroAngle) {
   xSpeed = std::clamp(xSpeed, -1.0, 1.0);

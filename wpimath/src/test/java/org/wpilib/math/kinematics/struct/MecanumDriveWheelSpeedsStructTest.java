@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
 
-class MecanumDriveWheelSpeedsStructTest {
+class MecanumDriveWheelVelocitiesStructTest {
   private static final MecanumDriveWheelVelocities DATA =
       new MecanumDriveWheelVelocities(2.29, 17.4, 4.4, 0.229);
 

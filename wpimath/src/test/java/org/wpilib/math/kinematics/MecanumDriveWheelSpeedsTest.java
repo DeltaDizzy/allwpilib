@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-class MecanumDriveWheelSpeedsTest {
+class MecanumDriveWheelVelocitiesTest {
   @Test
   void testPlus() {
     final var left = new MecanumDriveWheelVelocities(1.0, 0.5, 2.0, 1.5);

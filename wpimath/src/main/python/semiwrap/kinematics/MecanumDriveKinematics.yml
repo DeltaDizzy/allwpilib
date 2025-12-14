@@ -5,7 +5,7 @@ classes:
   wpi::math::MecanumDriveKinematics:
     methods:
       MecanumDriveKinematics:
-      ToWheelSpeeds:
+      ToWheelVelocities:
         doc: |
           Performs inverse kinematics to return the wheel speeds from a desired
           chassis velocity. This method is often used to convert joystick values into
@@ -27,11 +27,11 @@ classes:
           :returns: The wheel speeds. Use caution because they are not normalized.
                     Sometimes, a user input may cause one of the wheel speeds to go
                     above the attainable max velocity. Use the
-                    :meth:`MecanumDriveWheelSpeeds.normalize` method to rectify
+                    :meth:`MecanumDriveWheelVelocities.normalize` method to rectify
                     this issue. In addition, you can use Python unpacking syntax
                     to directly assign the wheel speeds to variables::
 
-                      fl, fr, bl, br = kinematics.toWheelSpeeds(chassisSpeeds)
+                      fl, fr, bl, br = kinematics.toWheelVelocities(chassisSpeeds)
         overloads:
           const ChassisSpeeds&, const Translation2d& [const]:
           const ChassisSpeeds& [const]:

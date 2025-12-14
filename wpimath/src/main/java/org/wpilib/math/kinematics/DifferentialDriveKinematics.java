@@ -85,7 +85,7 @@ public class DifferentialDriveKinematics
    * @return The left and right velocities.
    */
   @Override
-  public DifferentialDriveWheelVelocities toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
+  public DifferentialDriveWheelVelocities toWheelVelocities(ChassisSpeeds chassisSpeeds) {
     return new DifferentialDriveWheelVelocities(
         chassisSpeeds.vx - trackwidth / 2 * chassisSpeeds.omega,
         chassisSpeeds.vx + trackwidth / 2 * chassisSpeeds.omega);

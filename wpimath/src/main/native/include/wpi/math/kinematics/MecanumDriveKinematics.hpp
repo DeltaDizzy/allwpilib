@@ -100,16 +100,16 @@ class WPILIB_DLLEXPORT MecanumDriveKinematics
    *         assign the wheel speeds to variables:
    *
    * @code{.cpp}
-   * auto [fl, fr, bl, br] = kinematics.ToWheelSpeeds(chassisSpeeds);
+   * auto [fl, fr, bl, br] = kinematics.ToWheelVelocities(chassisSpeeds);
    * @endcode
    */
-  MecanumDriveWheelVelocities ToWheelSpeeds(
+  MecanumDriveWheelVelocities ToWheelVelocities(
       const ChassisSpeeds& chassisSpeeds,
       const Translation2d& centerOfRotation) const;
 
-  MecanumDriveWheelVelocities ToWheelSpeeds(
+  MecanumDriveWheelVelocities ToWheelVelocities(
       const ChassisSpeeds& chassisSpeeds) const override {
-    return ToWheelSpeeds(chassisSpeeds, {});
+    return ToWheelVelocities(chassisSpeeds, {});
   }
 
   /**

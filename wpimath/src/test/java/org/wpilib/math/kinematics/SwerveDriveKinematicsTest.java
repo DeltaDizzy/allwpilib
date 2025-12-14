@@ -348,7 +348,7 @@ class SwerveDriveKinematicsTest {
     SwerveModuleVelocity br = new SwerveModuleVelocity(7, Rotation2d.kZero);
 
     SwerveModuleVelocity[] arr = {fl, fr, bl, br};
-    SwerveDriveKinematics.desaturateWheelSpeeds(arr, 5.5);
+    SwerveDriveKinematics.desaturateWheelVelocities(arr, 5.5);
 
     double factor = 5.5 / 7.0;
 
@@ -367,7 +367,7 @@ class SwerveDriveKinematicsTest {
     SwerveModuleVelocity br = new SwerveModuleVelocity(7, Rotation2d.kZero);
 
     SwerveModuleVelocity[] arr = {fl, fr, bl, br};
-    SwerveDriveKinematics.desaturateWheelSpeeds(
+    SwerveDriveKinematics.desaturateWheelVelocities(
         arr, m_kinematics.toChassisSpeeds(arr), 5.5, 5.5, 3.5);
 
     double factor = 5.5 / 7.0;
@@ -387,7 +387,7 @@ class SwerveDriveKinematicsTest {
     SwerveModuleVelocity br = new SwerveModuleVelocity(-2, Rotation2d.kZero);
 
     SwerveModuleVelocity[] arr = {fl, fr, bl, br};
-    SwerveDriveKinematics.desaturateWheelSpeeds(arr, 1);
+    SwerveDriveKinematics.desaturateWheelVelocities(arr, 1);
 
     assertAll(
         () -> assertEquals(0.5, arr[0].speed, kEpsilon),

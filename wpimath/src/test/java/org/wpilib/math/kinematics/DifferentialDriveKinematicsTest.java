@@ -17,7 +17,7 @@ class DifferentialDriveKinematicsTest {
   @Test
   void testInverseKinematicsForZeros() {
     var chassisSpeeds = new ChassisSpeeds();
-    var wheelSpeeds = m_kinematics.toWheelSpeeds(chassisSpeeds);
+    var wheelSpeeds = m_kinematics.toWheelVelocities(chassisSpeeds);
 
     assertAll(
         () -> assertEquals(0.0, wheelSpeeds.left, kEpsilon),
@@ -38,7 +38,7 @@ class DifferentialDriveKinematicsTest {
   @Test
   void testInverseKinematicsForStraightLine() {
     var chassisSpeeds = new ChassisSpeeds(3, 0, 0);
-    var wheelSpeeds = m_kinematics.toWheelSpeeds(chassisSpeeds);
+    var wheelSpeeds = m_kinematics.toWheelVelocities(chassisSpeeds);
 
     assertAll(
         () -> assertEquals(3.0, wheelSpeeds.left, kEpsilon),
@@ -59,7 +59,7 @@ class DifferentialDriveKinematicsTest {
   @Test
   void testInverseKinematicsForRotateInPlace() {
     var chassisSpeeds = new ChassisSpeeds(0, 0, Math.PI);
-    var wheelSpeeds = m_kinematics.toWheelSpeeds(chassisSpeeds);
+    var wheelSpeeds = m_kinematics.toWheelVelocities(chassisSpeeds);
 
     assertAll(
         () -> assertEquals(-0.381 * Math.PI, wheelSpeeds.left, kEpsilon),

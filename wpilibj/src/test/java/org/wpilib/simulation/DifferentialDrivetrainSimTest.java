@@ -65,7 +65,7 @@ class DifferentialDrivetrainSimTest {
       var state = traj.sample(t);
       var feedbackOut = feedback.calculate(sim.getPose(), state);
 
-      var wheelSpeeds = kinematics.toWheelSpeeds(feedbackOut);
+      var wheelSpeeds = kinematics.toWheelVelocities(feedbackOut);
 
       var voltages = feedforward.calculate(VecBuilder.fill(wheelSpeeds.left, wheelSpeeds.right));
 

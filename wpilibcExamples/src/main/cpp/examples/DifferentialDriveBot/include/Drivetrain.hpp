@@ -50,7 +50,7 @@ class Drivetrain {
   static constexpr wpi::units::radians_per_second_t kMaxAngularSpeed{
       std::numbers::pi};  // 1/2 rotation per second
 
-  void SetSpeeds(const wpi::math::DifferentialDriveWheelSpeeds& speeds);
+  void SetSpeeds(const wpi::math::DifferentialDriveWheelVelocities& speeds);
   void Drive(wpi::units::meters_per_second_t xSpeed,
              wpi::units::radians_per_second_t rot);
   void UpdateOdometry();

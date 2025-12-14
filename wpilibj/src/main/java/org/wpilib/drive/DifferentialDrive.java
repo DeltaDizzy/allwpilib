@@ -69,23 +69,23 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
    * <p>Uses normalized voltage [-1.0..1.0].
    */
   @SuppressWarnings("MemberName")
-  public static class WheelSpeeds {
+  public static class WheelVelocities {
     /** Left wheel speed. */
     public double left;
 
     /** Right wheel speed. */
     public double right;
 
-    /** Constructs a WheelSpeeds with zeroes for left and right speeds. */
-    public WheelSpeeds() {}
+    /** Constructs a WheelVelocities with zeroes for left and right speeds. */
+    public WheelVelocities() {}
 
     /**
-     * Constructs a WheelSpeeds.
+     * Constructs a WheelVelocities.
      *
      * @param left The left speed [-1.0..1.0].
      * @param right The right speed [-1.0..1.0].
      */
-    public WheelSpeeds(double left, double right) {
+    public WheelVelocities(double left, double right) {
       this.left = left;
       this.right = right;
     }
@@ -254,7 +254,7 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    * @return Wheel speeds [-1.0..1.0].
    */
-  public static WheelSpeeds arcadeDriveIK(double xSpeed, double zRotation, boolean squareInputs) {
+  public static WheelVelocities arcadeDriveIK(double xSpeed, double zRotation, boolean squareInputs) {
     xSpeed = Math.clamp(xSpeed, -1.0, 1.0);
     zRotation = Math.clamp(zRotation, -1.0, 1.0);
 
@@ -273,13 +273,13 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
     double greaterInput = Math.max(Math.abs(xSpeed), Math.abs(zRotation));
     double lesserInput = Math.min(Math.abs(xSpeed), Math.abs(zRotation));
     if (greaterInput == 0.0) {
-      return new WheelSpeeds(0.0, 0.0);
+      return new WheelVelocities(0.0, 0.0);
     }
     double saturatedInput = (greaterInput + lesserInput) / greaterInput;
     leftSpeed /= saturatedInput;
     rightSpeed /= saturatedInput;
 
-    return new WheelSpeeds(leftSpeed, rightSpeed);
+    return new WheelVelocities(leftSpeed, rightSpeed);
   }
 
   /**
@@ -294,7 +294,7 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
    *     maneuvers. zRotation will control rotation rate around the Z axis instead of curvature.
    * @return Wheel speeds [-1.0..1.0].
    */
-  public static WheelSpeeds curvatureDriveIK(
+  public static WheelVelocities curvatureDriveIK(
       double xSpeed, double zRotation, boolean allowTurnInPlace) {
     xSpeed = Math.clamp(xSpeed, -1.0, 1.0);
     zRotation = Math.clamp(zRotation, -1.0, 1.0);
@@ -317,7 +317,7 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
       rightSpeed /= maxMagnitude;
     }
 
-    return new WheelSpeeds(leftSpeed, rightSpeed);
+    return new WheelVelocities(leftSpeed, rightSpeed);
   }
 
   /**
@@ -329,7 +329,7 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
    * @param squareInputs If set, decreases the input sensitivity at low speeds.
    * @return Wheel speeds [-1.0..1.0].
    */
-  public static WheelSpeeds tankDriveIK(double leftSpeed, double rightSpeed, boolean squareInputs) {
+  public static WheelVelocities tankDriveIK(double leftSpeed, double rightSpeed, boolean squareInputs) {
     leftSpeed = Math.clamp(leftSpeed, -1.0, 1.0);
     rightSpeed = Math.clamp(rightSpeed, -1.0, 1.0);
 
@@ -340,7 +340,7 @@ public class DifferentialDrive extends RobotDriveBase implements Sendable, AutoC
       rightSpeed = MathUtil.copyDirectionPow(rightSpeed, 2);
     }
 
-    return new WheelSpeeds(leftSpeed, rightSpeed);
+    return new WheelVelocities(leftSpeed, rightSpeed);
   }
 
   @Override

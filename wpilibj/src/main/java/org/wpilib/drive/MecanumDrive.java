@@ -71,7 +71,7 @@ public class MecanumDrive extends RobotDriveBase implements Sendable, AutoClosea
    * <p>Uses normalized voltage [-1.0..1.0].
    */
   @SuppressWarnings("MemberName")
-  public static class WheelSpeeds {
+  public static class WheelVelocities {
     /** Front-left wheel speed. */
     public double frontLeft;
 
@@ -84,18 +84,18 @@ public class MecanumDrive extends RobotDriveBase implements Sendable, AutoClosea
     /** Rear-right wheel speed. */
     public double rearRight;
 
-    /** Constructs a WheelSpeeds with zeroes for all four speeds. */
-    public WheelSpeeds() {}
+    /** Constructs a WheelVelocities with zeroes for all four speeds. */
+    public WheelVelocities() {}
 
     /**
-     * Constructs a WheelSpeeds.
+     * Constructs a WheelVelocities.
      *
      * @param frontLeft The front left speed [-1.0..1.0].
      * @param frontRight The front right speed [-1.0..1.0].
      * @param rearLeft The rear left speed [-1.0..1.0].
      * @param rearRight The rear right speed [-1.0..1.0].
      */
-    public WheelSpeeds(double frontLeft, double frontRight, double rearLeft, double rearRight) {
+    public WheelVelocities(double frontLeft, double frontRight, double rearLeft, double rearRight) {
       this.frontLeft = frontLeft;
       this.frontRight = frontRight;
       this.rearLeft = rearLeft;
@@ -249,7 +249,7 @@ public class MecanumDrive extends RobotDriveBase implements Sendable, AutoClosea
    *     positive.
    * @return Wheel speeds [-1.0..1.0].
    */
-  public static WheelSpeeds driveCartesianIK(double xSpeed, double ySpeed, double zRotation) {
+  public static WheelVelocities driveCartesianIK(double xSpeed, double ySpeed, double zRotation) {
     return driveCartesianIK(xSpeed, ySpeed, zRotation, Rotation2d.kZero);
   }
 
@@ -267,7 +267,7 @@ public class MecanumDrive extends RobotDriveBase implements Sendable, AutoClosea
    *     controls.
    * @return Wheel speeds [-1.0..1.0].
    */
-  public static WheelSpeeds driveCartesianIK(
+  public static WheelVelocities driveCartesianIK(
       double xSpeed, double ySpeed, double zRotation, Rotation2d gyroAngle) {
     xSpeed = Math.clamp(xSpeed, -1.0, 1.0);
     ySpeed = Math.clamp(ySpeed, -1.0, 1.0);
@@ -283,7 +283,7 @@ public class MecanumDrive extends RobotDriveBase implements Sendable, AutoClosea
 
     normalize(wheelSpeeds);
 
-    return new WheelSpeeds(
+    return new WheelVelocities(
         wheelSpeeds[MotorType.kFrontLeft.value],
         wheelSpeeds[MotorType.kFrontRight.value],
         wheelSpeeds[MotorType.kRearLeft.value],

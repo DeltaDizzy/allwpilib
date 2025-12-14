@@ -108,7 +108,7 @@ public class Drivetrain {
    * @param rot the rotation
    */
   public void drive(double xSpeed, double rot) {
-    setSpeeds(m_kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0, rot)));
+    setSpeeds(m_kinematics.toWheelVelocities(new ChassisSpeeds(xSpeed, 0, rot)));
   }
 
   /** Update robot odometry. */

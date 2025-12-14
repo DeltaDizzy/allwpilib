@@ -32,7 +32,7 @@ class WPILIB_DLLEXPORT MecanumDriveKinematicsConstraint
     auto xVelocity = velocity * pose.Rotation().Cos();
     auto yVelocity = velocity * pose.Rotation().Sin();
     auto wheelSpeeds =
-        m_kinematics.ToWheelSpeeds({xVelocity, yVelocity, velocity * curvature})
+        m_kinematics.ToWheelVelocities({xVelocity, yVelocity, velocity * curvature})
             .Desaturate(m_maxSpeed);
 
     auto normSpeeds = m_kinematics.ToChassisSpeeds(wheelSpeeds);

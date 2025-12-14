@@ -7,7 +7,7 @@
 #include "ExampleGlobalMeasurementSensor.hpp"
 #include "wpi/system/Timer.hpp"
 
-wpi::math::MecanumDriveWheelSpeeds Drivetrain::GetCurrentState() const {
+wpi::math::MecanumDriveWheelVelocities Drivetrain::GetCurrentState() const {
   return {wpi::units::meters_per_second_t{m_frontLeftEncoder.GetRate()},
           wpi::units::meters_per_second_t{m_frontRightEncoder.GetRate()},
           wpi::units::meters_per_second_t{m_backLeftEncoder.GetRate()},
@@ -22,7 +22,7 @@ wpi::math::MecanumDriveWheelPositions Drivetrain::GetCurrentDistances() const {
 }
 
 void Drivetrain::SetSpeeds(
-    const wpi::math::MecanumDriveWheelSpeeds& wheelSpeeds) {
+    const wpi::math::MecanumDriveWheelVelocities& wheelSpeeds) {
   std::function<void(wpi::units::meters_per_second_t, const wpi::Encoder&,
                      wpi::math::PIDController&, wpi::PWMSparkMax&)>
       calcAndSetSpeeds = [&m_feedforward = m_feedforward](
@@ -53,7 +53,7 @@ void Drivetrain::Drive(wpi::units::meters_per_second_t xSpeed,
     chassisSpeeds = chassisSpeeds.ToRobotRelative(
         m_poseEstimator.GetEstimatedPosition().Rotation());
   }
-  SetSpeeds(m_kinematics.ToWheelSpeeds(chassisSpeeds.Discretize(period))
+  SetSpeeds(m_kinematics.ToWheelVelocities(chassisSpeeds.Discretize(period))
                 .Desaturate(kMaxSpeed));
 }
 

@@ -69,7 +69,7 @@ class WPILIB_DLLEXPORT DifferentialDriveKinematics
    * represent the chassis' speed.
    * @return The left and right velocities.
    */
-  constexpr DifferentialDriveWheelVelocities ToWheelSpeeds(
+  constexpr DifferentialDriveWheelVelocities ToWheelVelocities(
       const ChassisSpeeds& chassisSpeeds) const override {
     return {chassisSpeeds.vx - trackwidth / 2 * chassisSpeeds.omega / 1_rad,
             chassisSpeeds.vx + trackwidth / 2 * chassisSpeeds.omega / 1_rad};

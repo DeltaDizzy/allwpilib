@@ -6,7 +6,7 @@
 
 #include "wpi/math/kinematics/ChassisSpeeds.hpp"
 
-wpi::math::MecanumDriveWheelSpeeds Drivetrain::GetCurrentState() const {
+wpi::math::MecanumDriveWheelVelocities Drivetrain::GetCurrentState() const {
   return {wpi::units::meters_per_second_t{m_frontLeftEncoder.GetRate()},
           wpi::units::meters_per_second_t{m_frontRightEncoder.GetRate()},
           wpi::units::meters_per_second_t{m_backLeftEncoder.GetRate()},
@@ -22,7 +22,7 @@ wpi::math::MecanumDriveWheelPositions Drivetrain::GetCurrentWheelDistances()
 }
 
 void Drivetrain::SetSpeeds(
-    const wpi::math::MecanumDriveWheelSpeeds& wheelSpeeds) {
+    const wpi::math::MecanumDriveWheelVelocities& wheelSpeeds) {
   const auto frontLeftFeedforward =
       m_feedforward.Calculate(wheelSpeeds.frontLeft);
   const auto frontRightFeedforward =
@@ -59,7 +59,7 @@ void Drivetrain::Drive(wpi::units::meters_per_second_t xSpeed,
   if (fieldRelative) {
     chassisSpeeds = chassisSpeeds.ToRobotRelative(m_imu.GetRotation2d());
   }
-  SetSpeeds(m_kinematics.ToWheelSpeeds(chassisSpeeds.Discretize(period))
+  SetSpeeds(m_kinematics.ToWheelVelocities(chassisSpeeds.Discretize(period))
                 .Desaturate(kMaxSpeed));
 }
 

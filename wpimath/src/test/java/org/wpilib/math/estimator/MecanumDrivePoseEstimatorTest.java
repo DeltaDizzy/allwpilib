@@ -178,7 +178,7 @@ class MecanumDrivePoseEstimatorTest {
 
       var chassisSpeeds = chassisSpeedsGenerator.apply(groundTruthState);
 
-      var wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
+      var wheelSpeeds = kinematics.toWheelVelocities(chassisSpeeds);
 
       wheelPositions.frontLeft += wheelSpeeds.frontLeft * dt;
       wheelPositions.frontRight += wheelSpeeds.frontRight * dt;

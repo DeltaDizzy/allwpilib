@@ -54,7 +54,7 @@ class WPILIB_DLLEXPORT DifferentialDriveVoltageConstraint
       const Pose2d& pose, wpi::units::curvature_t curvature,
       wpi::units::meters_per_second_t speed) const override {
     auto wheelSpeeds =
-        m_kinematics.ToWheelSpeeds({speed, 0_mps, speed * curvature});
+        m_kinematics.ToWheelVelocities({speed, 0_mps, speed * curvature});
 
     auto maxWheelSpeed = (std::max)(wheelSpeeds.left, wheelSpeeds.right);
     auto minWheelSpeed = (std::min)(wheelSpeeds.left, wheelSpeeds.right);

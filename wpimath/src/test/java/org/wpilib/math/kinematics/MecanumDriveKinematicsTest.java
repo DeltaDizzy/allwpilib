@@ -24,7 +24,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testStraightLineInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(5, 0, 0);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds);
 
     assertAll(
         () -> assertEquals(5.0, moduleStates.frontLeft, 0.1),
@@ -58,7 +58,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testStrafeInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 4, 0);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds);
 
     assertAll(
         () -> assertEquals(-4.0, moduleStates.frontLeft, 0.1),
@@ -92,7 +92,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testRotationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, 2 * Math.PI);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds);
 
     assertAll(
         () -> assertEquals(-150.79645, moduleStates.frontLeft, 0.1),
@@ -126,7 +126,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testMixedTranslationRotationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(2, 3, 1);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds);
 
     assertAll(
         () -> assertEquals(-25.0, moduleStates.frontLeft, 0.1),
@@ -160,7 +160,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testOffCenterRotationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(0, 0, 1);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds, m_fl);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds, m_fl);
 
     assertAll(
         () -> assertEquals(0, moduleStates.frontLeft, 0.1),
@@ -300,7 +300,7 @@ class MecanumDriveKinematicsTest {
   @Test
   void testOffCenterTranslationRotationInverseKinematics() {
     ChassisSpeeds speeds = new ChassisSpeeds(5, 2, 1);
-    var moduleStates = m_kinematics.toWheelSpeeds(speeds, m_fl);
+    var moduleStates = m_kinematics.toWheelVelocities(speeds, m_fl);
 
     assertAll(
         () -> assertEquals(3.0, moduleStates.frontLeft, 0.1),

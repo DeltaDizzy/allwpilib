@@ -34,7 +34,7 @@ public interface Kinematics<P, S, A> extends Interpolator<P> {
    * @param chassisSpeeds The desired chassis speed.
    * @return The wheel speeds.
    */
-  S toWheelSpeeds(ChassisSpeeds chassisSpeeds);
+  S toWheelVelocities(ChassisSpeeds chassisSpeeds);
 
   /**
    * Performs forward kinematics to return the resulting chassis accelerations from the wheel

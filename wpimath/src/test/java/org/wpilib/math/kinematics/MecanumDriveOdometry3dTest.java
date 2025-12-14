@@ -155,7 +155,7 @@ class MecanumDriveOdometry3dTest {
           groundTruthState.velocity * dt + 0.5 * groundTruthState.acceleration * dt * dt;
 
       var wheelSpeeds =
-          kinematics.toWheelSpeeds(
+          kinematics.toWheelVelocities(
               new ChassisSpeeds(
                   groundTruthState.velocity,
                   0,
@@ -245,7 +245,7 @@ class MecanumDriveOdometry3dTest {
           groundTruthState.velocity * dt + 0.5 * groundTruthState.acceleration * dt * dt;
 
       var wheelSpeeds =
-          kinematics.toWheelSpeeds(
+          kinematics.toWheelVelocities(
               new ChassisSpeeds(
                   groundTruthState.velocity * groundTruthState.pose.getRotation().getCos(),
                   groundTruthState.velocity * groundTruthState.pose.getRotation().getSin(),

@@ -47,7 +47,7 @@ class WPILIB_DLLEXPORT Kinematics {
    * @param chassisSpeeds The desired chassis speed.
    * @return The wheel speeds.
    */
-  virtual WheelVelocities ToWheelSpeeds(
+  virtual WheelVelocities ToWheelVelocities(
       const ChassisSpeeds& chassisSpeeds) const = 0;
 
   /**

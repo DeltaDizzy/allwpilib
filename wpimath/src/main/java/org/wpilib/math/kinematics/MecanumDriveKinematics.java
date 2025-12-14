@@ -101,7 +101,7 @@ public class MecanumDriveKinematics
    *     may cause one of the wheel speeds to go above the attainable max velocity. Use the {@link
    *     MecanumDriveWheelVelocities#desaturate(double)} function to rectify this issue.
    */
-  public MecanumDriveWheelVelocities toWheelSpeeds(
+  public MecanumDriveWheelVelocities toWheelVelocities(
       ChassisSpeeds chassisSpeeds, Translation2d centerOfRotation) {
     // We have a new center of rotation. We need to compute the matrix again.
     if (!centerOfRotation.equals(m_prevCoR)) {
@@ -126,15 +126,15 @@ public class MecanumDriveKinematics
   }
 
   /**
-   * Performs inverse kinematics. See {@link #toWheelSpeeds(ChassisSpeeds, Translation2d)} for more
+   * Performs inverse kinematics. See {@link #toWheelVelocities(ChassisSpeeds, Translation2d)} for more
    * information.
    *
    * @param chassisSpeeds The desired chassis speed.
    * @return The wheel speeds.
    */
   @Override
-  public MecanumDriveWheelVelocities toWheelSpeeds(ChassisSpeeds chassisSpeeds) {
-    return toWheelSpeeds(chassisSpeeds, Translation2d.kZero);
+  public MecanumDriveWheelVelocities toWheelVelocities(ChassisSpeeds chassisSpeeds) {
+    return toWheelVelocities(chassisSpeeds, Translation2d.kZero);
   }
 
   /**

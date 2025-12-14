@@ -38,12 +38,12 @@ classes:
           :returns: An array containing the module states. Use caution because these
                     module states are not normalized. Sometimes, a user input may cause one of
                     the module speeds to go above the attainable max velocity. Use the
-                    :meth:`desaturateWheelSpeeds` function to rectify this issue.
+                    :meth:`desaturateWheelVelocities` function to rectify this issue.
                     In addition, you can use Python unpacking syntax
                     to directly assign the module states to variables::
 
                       fl, fr, bl, br = kinematics.toSwerveModuleStates(chassisSpeeds)
-      ToWheelSpeeds:
+      ToWheelVelocities:
       ToChassisSpeeds:
         overloads:
           ModuleStates&&... [const]:
@@ -56,12 +56,12 @@ classes:
           wpi::util::array<SwerveModulePosition, NumModules> [const]:
           ? const wpi::util::array<SwerveModulePosition, NumModules>&, const wpi::util::array<SwerveModulePosition, NumModules>& [const]
           :
-      DesaturateWheelSpeeds:
+      DesaturateWheelVelocities:
         overloads:
           wpi::util::array<SwerveModuleState, NumModules>*, wpi::units::meters_per_second_t:
             cpp_code: |
               [](wpi::util::array<SwerveModuleState, NumModules> moduleStates, wpi::units::meters_per_second_t attainableMaxSpeed) {
-                wpi::math::SwerveDriveKinematics<NumModules>::DesaturateWheelSpeeds(&moduleStates, attainableMaxSpeed);
+                wpi::math::SwerveDriveKinematics<NumModules>::DesaturateWheelVelocities(&moduleStates, attainableMaxSpeed);
                 return moduleStates;
               }
           ? wpi::util::array<SwerveModuleState, NumModules>*, ChassisSpeeds, wpi::units::meters_per_second_t, wpi::units::meters_per_second_t, wpi::units::radians_per_second_t
@@ -71,7 +71,7 @@ classes:
                   wpi::units::meters_per_second_t attainableMaxModuleSpeed,
                   wpi::units::meters_per_second_t attainableMaxRobotTranslationSpeed,
                   wpi::units::radians_per_second_t attainableMaxRobotRotationSpeed) {
-                wpi::math::SwerveDriveKinematics<NumModules>::DesaturateWheelSpeeds(&moduleStates, currentChassisSpeed, attainableMaxModuleSpeed, attainableMaxRobotTranslationSpeed, attainableMaxRobotRotationSpeed);
+                wpi::math::SwerveDriveKinematics<NumModules>::DesaturateWheelVelocities(&moduleStates, currentChassisSpeed, attainableMaxModuleSpeed, attainableMaxRobotTranslationSpeed, attainableMaxRobotRotationSpeed);
                 return moduleStates;
               }
 

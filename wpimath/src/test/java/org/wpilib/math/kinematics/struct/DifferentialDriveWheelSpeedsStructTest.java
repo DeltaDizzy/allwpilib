@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
 
-class DifferentialDriveWheelSpeedsStructTest {
+class DifferentialDriveWheelVelocitiesStructTest {
   private static final DifferentialDriveWheelVelocities DATA =
       new DifferentialDriveWheelVelocities(1.74, 35.04);
 

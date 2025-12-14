@@ -33,7 +33,7 @@ class SwerveDriveKinematicsConstraint : public TrajectoryConstraint {
     auto yVelocity = velocity * pose.Rotation().Sin();
     auto wheelSpeeds = m_kinematics.ToSwerveModuleVelocitys(
         {xVelocity, yVelocity, velocity * curvature});
-    m_kinematics.DesaturateWheelSpeeds(&wheelSpeeds, m_maxSpeed);
+    m_kinematics.DesaturateWheelVelocities(&wheelSpeeds, m_maxSpeed);
 
     auto normSpeeds = m_kinematics.ToChassisSpeeds(wheelSpeeds);
 
