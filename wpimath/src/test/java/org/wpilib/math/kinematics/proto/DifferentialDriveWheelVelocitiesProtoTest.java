@@ -8,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.kinematics.DifferentialDriveWheelVelocities;
-import org.wpilib.math.proto.Kinematics.ProtobufDifferentialDriveWheelSpeeds;
+import org.wpilib.math.proto.Kinematics.ProtobufDifferentialDriveWheelVelocities;
 
-class DifferentialDriveWheelSpeedsProtoTest {
+class DifferentialDriveWheelVelocitiesProtoTest {
   private static final DifferentialDriveWheelVelocities DATA =
       new DifferentialDriveWheelVelocities(1.74, 35.04);
 
   @Test
   void testRoundtrip() {
-    ProtobufDifferentialDriveWheelSpeeds proto = DifferentialDriveWheelVelocities.proto.createMessage();
+    ProtobufDifferentialDriveWheelVelocities proto = DifferentialDriveWheelVelocities.proto.createMessage();
     DifferentialDriveWheelVelocities.proto.pack(proto, DATA);
 
     DifferentialDriveWheelVelocities data = DifferentialDriveWheelVelocities.proto.unpack(proto);

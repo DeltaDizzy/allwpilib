@@ -8,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.wpilib.math.kinematics.MecanumDriveWheelVelocities;
-import org.wpilib.math.proto.Kinematics.ProtobufMecanumDriveWheelSpeeds;
+import org.wpilib.math.proto.Kinematics.ProtobufMecanumDriveWheelVelocities;;
 
-class MecanumDriveWheelSpeedsProtoTest {
+class MecanumDriveWheelVelocitiesProtoTest {
   private static final MecanumDriveWheelVelocities DATA =
       new MecanumDriveWheelVelocities(2.29, 17.4, 4.4, 0.229);
 
   @Test
   void testRoundtrip() {
-    ProtobufMecanumDriveWheelSpeeds proto = MecanumDriveWheelVelocities.proto.createMessage();
+    ProtobufMecanumDriveWheelVelocities proto = MecanumDriveWheelVelocities.proto.createMessage();
     MecanumDriveWheelVelocities.proto.pack(proto, DATA);
 
     MecanumDriveWheelVelocities data = MecanumDriveWheelVelocities.proto.unpack(proto);

@@ -11,7 +11,7 @@ import org.wpilib.math.geometry.Rotation2d;
 import org.wpilib.math.kinematics.SwerveModuleVelocity;
 import org.wpilib.math.proto.Kinematics.ProtobufSwerveModuleVelocity;;
 
-class SwerveModuleStateProtoTest {
+class SwerveModuleVelocityProtoTest {
   private static final SwerveModuleVelocity DATA = new SwerveModuleVelocity(22.9, new Rotation2d(3.3));
 
   @Test
