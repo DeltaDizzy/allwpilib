@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 #include "wpi/util/SmallVector.hpp"
 
 using namespace wpi::math;
@@ -15,7 +15,7 @@ const MecanumDriveWheelVelocities kExpectedData =
     MecanumDriveWheelVelocities{2.29_mps, 17.4_mps, 4.4_mps, 0.229_mps};
 }  // namespace
 
-TEST(MecanumDriveWheelSpeedsProtoTest, Roundtrip) {
+TEST(MecanumDriveWheelVelocitiesProtoTest, Roundtrip) {
   wpi::util::ProtobufMessage<decltype(kExpectedData)> message;
   wpi::util::SmallVector<uint8_t, 64> buf;
 

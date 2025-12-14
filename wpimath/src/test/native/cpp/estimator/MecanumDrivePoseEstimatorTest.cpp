@@ -80,7 +80,7 @@ void testFollowTrajectory(
 
     auto chassisSpeeds = chassisSpeedsGenerator(groundTruthState);
 
-    auto wheelSpeeds = kinematics.ToWheelSpeeds(chassisSpeeds);
+    auto wheelSpeeds = kinematics.ToWheelVelocities(chassisSpeeds);
 
     wheelPositions.frontLeft += wheelSpeeds.frontLeft * dt;
     wheelPositions.frontRight += wheelSpeeds.frontRight * dt;

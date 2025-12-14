@@ -25,7 +25,7 @@ class MecanumDriveKinematicsTest : public ::testing::Test {
 
 TEST_F(MecanumDriveKinematicsTest, StraightLineInverseKinematics) {
   ChassisSpeeds speeds{5_mps, 0_mps, 0_rad_per_s};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds);
 
   EXPECT_NEAR(5.0, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(5.0, moduleStates.frontRight.value(), 0.1);
@@ -53,7 +53,7 @@ TEST_F(MecanumDriveKinematicsTest, StraightLineForwardKinematicsWithDeltas) {
 
 TEST_F(MecanumDriveKinematicsTest, StrafeInverseKinematics) {
   ChassisSpeeds speeds{0_mps, 4_mps, 0_rad_per_s};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds);
 
   EXPECT_NEAR(-4.0, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(4.0, moduleStates.frontRight.value(), 0.1);
@@ -82,7 +82,7 @@ TEST_F(MecanumDriveKinematicsTest, StrafeForwardKinematicsWithDeltas) {
 TEST_F(MecanumDriveKinematicsTest, RotationInverseKinematics) {
   ChassisSpeeds speeds{0_mps, 0_mps,
                        wpi::units::radians_per_second_t{2 * std::numbers::pi}};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds);
 
   EXPECT_NEAR(-150.79644737, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(150.79644737, moduleStates.frontRight.value(), 0.1);
@@ -112,7 +112,7 @@ TEST_F(MecanumDriveKinematicsTest, RotationForwardKinematicsWithDeltas) {
 
 TEST_F(MecanumDriveKinematicsTest, MixedRotationTranslationInverseKinematics) {
   ChassisSpeeds speeds{2_mps, 3_mps, 1_rad_per_s};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds);
 
   EXPECT_NEAR(-25.0, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(29.0, moduleStates.frontRight.value(), 0.1);
@@ -145,7 +145,7 @@ TEST_F(MecanumDriveKinematicsTest,
 
 TEST_F(MecanumDriveKinematicsTest, OffCenterRotationInverseKinematics) {
   ChassisSpeeds speeds{0_mps, 0_mps, 1_rad_per_s};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds, m_fl);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds, m_fl);
 
   EXPECT_NEAR(0, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(24.0, moduleStates.frontRight.value(), 0.1);
@@ -176,7 +176,7 @@ TEST_F(MecanumDriveKinematicsTest,
 TEST_F(MecanumDriveKinematicsTest,
        OffCenterTranslationRotationInverseKinematics) {
   ChassisSpeeds speeds{5_mps, 2_mps, 1_rad_per_s};
-  auto moduleStates = kinematics.ToWheelSpeeds(speeds, m_fl);
+  auto moduleStates = kinematics.ToWheelVelocities(speeds, m_fl);
 
   EXPECT_NEAR(3.0, moduleStates.frontLeft.value(), 0.1);
   EXPECT_NEAR(31.0, moduleStates.frontRight.value(), 0.1);

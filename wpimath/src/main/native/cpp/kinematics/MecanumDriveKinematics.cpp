@@ -6,7 +6,7 @@
 
 using namespace wpi::math;
 
-MecanumDriveWheelVelocities MecanumDriveKinematics::ToWheelSpeeds(
+MecanumDriveWheelVelocities MecanumDriveKinematics::ToWheelVelocities(
     const ChassisSpeeds& chassisSpeeds,
     const Translation2d& centerOfRotation) const {
   // We have a new center of rotation. We need to compute the matrix again.

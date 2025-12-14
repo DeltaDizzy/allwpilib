@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 
 using namespace wpi::math;
 
@@ -15,7 +15,7 @@ const MecanumDriveWheelVelocities kExpectedData{
     MecanumDriveWheelVelocities{2.29_mps, 17.4_mps, 4.4_mps, 0.229_mps}};
 }  // namespace
 
-TEST(MecanumDriveWheelSpeedsStructTest, Roundtrip) {
+TEST(MecanumDriveWheelVelocitiesStructTest, Roundtrip) {
   uint8_t buffer[StructType::GetSize()];
   std::memset(buffer, 0, StructType::GetSize());
   StructType::Pack(buffer, kExpectedData);

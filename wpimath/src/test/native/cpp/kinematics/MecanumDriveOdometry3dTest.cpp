@@ -131,7 +131,7 @@ TEST_F(MecanumDriveOdometry3dTest, AccuracyFacingTrajectory) {
   while (t < trajectory.TotalTime()) {
     wpi::math::Trajectory::State groundTruthState = trajectory.Sample(t);
 
-    auto wheelSpeeds = kinematics.ToWheelSpeeds(
+    auto wheelSpeeds = kinematics.ToWheelVelocities(
         {groundTruthState.velocity, 0_mps,
          groundTruthState.velocity * groundTruthState.curvature});
 
@@ -198,7 +198,7 @@ TEST_F(MecanumDriveOdometry3dTest, AccuracyFacingXAxis) {
   while (t < trajectory.TotalTime()) {
     wpi::math::Trajectory::State groundTruthState = trajectory.Sample(t);
 
-    auto wheelSpeeds = kinematics.ToWheelSpeeds(
+    auto wheelSpeeds = kinematics.ToWheelVelocities(
         {groundTruthState.velocity * groundTruthState.pose.Rotation().Cos(),
          groundTruthState.velocity * groundTruthState.pose.Rotation().Sin(),
          0_rad_per_s});
