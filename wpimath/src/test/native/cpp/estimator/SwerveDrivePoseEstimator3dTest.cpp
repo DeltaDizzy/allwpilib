@@ -83,7 +83,7 @@ void testFollowTrajectory(
 
     auto chassisSpeeds = chassisSpeedsGenerator(groundTruthState);
 
-    auto moduleStates = kinematics.ToSwerveModuleStates(chassisSpeeds);
+    auto moduleStates = kinematics.ToSwerveModuleVelocitys(chassisSpeeds);
 
     for (size_t i = 0; i < 4; i++) {
       positions[i].distance += moduleStates[i].speed * dt;

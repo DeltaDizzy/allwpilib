@@ -31,7 +31,7 @@ class SwerveDriveKinematicsConstraint : public TrajectoryConstraint {
       wpi::units::meters_per_second_t velocity) const override {
     auto xVelocity = velocity * pose.Rotation().Cos();
     auto yVelocity = velocity * pose.Rotation().Sin();
-    auto wheelSpeeds = m_kinematics.ToSwerveModuleStates(
+    auto wheelSpeeds = m_kinematics.ToSwerveModuleVelocitys(
         {xVelocity, yVelocity, velocity * curvature});
     m_kinematics.DesaturateWheelSpeeds(&wheelSpeeds, m_maxSpeed);
 

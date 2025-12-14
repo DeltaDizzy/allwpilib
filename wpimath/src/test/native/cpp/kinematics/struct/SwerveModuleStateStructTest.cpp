@@ -4,23 +4,23 @@
 
 #include <gtest/gtest.h>
 
-#include "wpi/math/kinematics/SwerveModuleState.hpp"
+#include "wpi/math/kinematics/SwerveModuleVelocity.hpp"
 
 using namespace wpi::math;
 
 namespace {
 
-using StructType = wpi::util::Struct<wpi::math::SwerveModuleState>;
-const SwerveModuleState kExpectedData{
-    SwerveModuleState{22.9_mps, Rotation2d{3.3_rad}}};
+using StructType = wpi::util::Struct<wpi::math::SwerveModuleVelocity>;
+const SwerveModuleVelocity kExpectedData{
+    SwerveModuleVelocity{22.9_mps, Rotation2d{3.3_rad}}};
 }  // namespace
 
-TEST(SwerveModuleStateStructTest, Roundtrip) {
+TEST(SwerveModuleVelocityStructTest, Roundtrip) {
   uint8_t buffer[StructType::GetSize()];
   std::memset(buffer, 0, StructType::GetSize());
   StructType::Pack(buffer, kExpectedData);
 
-  SwerveModuleState unpacked_data = StructType::Unpack(buffer);
+  SwerveModuleVelocity unpacked_data = StructType::Unpack(buffer);
 
   EXPECT_EQ(kExpectedData.speed.value(), unpacked_data.speed.value());
   EXPECT_EQ(kExpectedData.angle, unpacked_data.angle);

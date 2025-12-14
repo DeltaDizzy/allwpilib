@@ -4,18 +4,18 @@
 
 #include <gtest/gtest.h>
 
-#include "wpi/math/kinematics/SwerveModuleState.hpp"
+#include "wpi/math/kinematics/SwerveModuleVelocity.hpp"
 #include "wpi/util/SmallVector.hpp"
 
 using namespace wpi::math;
 
 namespace {
 
-const SwerveModuleState kExpectedData =
-    SwerveModuleState{22.9_mps, Rotation2d{3.3_rad}};
+const SwerveModuleVelocity kExpectedData =
+    SwerveModuleVelocity{22.9_mps, Rotation2d{3.3_rad}};
 }  // namespace
 
-TEST(SwerveModuleStateProtoTest, Roundtrip) {
+TEST(SwerveModuleVelocityProtoTest, Roundtrip) {
   wpi::util::ProtobufMessage<decltype(kExpectedData)> message;
   wpi::util::SmallVector<uint8_t, 64> buf;
 

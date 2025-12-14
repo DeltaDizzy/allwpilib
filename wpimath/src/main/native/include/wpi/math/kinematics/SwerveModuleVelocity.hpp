@@ -14,7 +14,7 @@ namespace wpi::math {
 /**
  * Represents the state of one swerve module.
  */
-struct WPILIB_DLLEXPORT SwerveModuleState {
+struct WPILIB_DLLEXPORT SwerveModuleVelocity {
   /**
    * Speed of the wheel of the module.
    */
@@ -26,12 +26,12 @@ struct WPILIB_DLLEXPORT SwerveModuleState {
   Rotation2d angle;
 
   /**
-   * Checks equality between this SwerveModuleState and another object.
+   * Checks equality between this SwerveModuleVelocity and another object.
    *
    * @param other The other object.
    * @return Whether the two objects are equal.
    */
-  constexpr bool operator==(const SwerveModuleState& other) const {
+  constexpr bool operator==(const SwerveModuleVelocity& other) const {
     return wpi::units::math::abs(speed - other.speed) < 1E-9_mps &&
            angle == other.angle;
   }
@@ -62,8 +62,8 @@ struct WPILIB_DLLEXPORT SwerveModuleState {
    * @param currentAngle The current module angle.
    */
   [[deprecated("Use instance method instead.")]]
-  constexpr static SwerveModuleState Optimize(
-      const SwerveModuleState& desiredState, const Rotation2d& currentAngle) {
+  constexpr static SwerveModuleVelocity Optimize(
+      const SwerveModuleVelocity& desiredState, const Rotation2d& currentAngle) {
     auto delta = desiredState.angle - currentAngle;
     if (wpi::units::math::abs(delta.Degrees()) > 90_deg) {
       return {-desiredState.speed, desiredState.angle + Rotation2d{180_deg}};
@@ -85,5 +85,5 @@ struct WPILIB_DLLEXPORT SwerveModuleState {
 };
 }  // namespace wpi::math
 
-#include "wpi/math/kinematics/proto/SwerveModuleStateProto.hpp"
-#include "wpi/math/kinematics/struct/SwerveModuleStateStruct.hpp"
+#include "wpi/math/kinematics/proto/SwerveModuleVelocityProto.hpp"
+#include "wpi/math/kinematics/struct/SwerveModuleVelocityStruct.hpp"

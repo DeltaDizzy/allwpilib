@@ -104,7 +104,7 @@ TEST_F(SwerveDriveOdometryTest, AccuracyFacingTrajectory) {
   while (t < trajectory.TotalTime()) {
     Trajectory::State groundTruthState = trajectory.Sample(t);
 
-    auto moduleStates = kinematics.ToSwerveModuleStates(
+    auto moduleStates = kinematics.ToSwerveModuleVelocitys(
         {groundTruthState.velocity, 0_mps,
          groundTruthState.velocity * groundTruthState.curvature});
 
