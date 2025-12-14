@@ -7,7 +7,7 @@
 #include "wpi/math/geometry/Pose2d.hpp"
 #include "wpi/math/kinematics/MecanumDriveKinematics.hpp"
 #include "wpi/math/kinematics/MecanumDriveWheelPositions.hpp"
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 #include "wpi/math/kinematics/Odometry3d.hpp"
 #include "wpi/units/time.hpp"
 #include "wpi/util/SymbolExports.hpp"

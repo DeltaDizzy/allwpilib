@@ -48,7 +48,7 @@ struct WPILIB_DLLEXPORT MecanumDriveWheelVelocities {
    * threshold, while maintaining the ratio of speeds between wheels.
    *
    * @param attainableMaxSpeed The absolute max speed that a wheel can reach.
-   * @return Desaturated MecanumDriveWheelSpeeds.
+   * @return Desaturated MecanumDriveWheelVelocities.
    */
   constexpr MecanumDriveWheelVelocities Desaturate(
       wpi::units::meters_per_second_t attainableMaxSpeed) const {

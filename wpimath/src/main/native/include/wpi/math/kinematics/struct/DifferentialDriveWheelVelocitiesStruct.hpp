@@ -12,7 +12,7 @@ template <>
 struct WPILIB_DLLEXPORT
     wpi::util::Struct<wpi::math::DifferentialDriveWheelVelocities> {
   static constexpr std::string_view GetTypeName() {
-    return "DifferentialDriveWheelSpeeds";
+    return "DifferentialDriveWheelVelocities";
   }
   static constexpr size_t GetSize() { return 16; }
   static constexpr std::string_view GetSchema() {

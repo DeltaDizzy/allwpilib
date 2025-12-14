@@ -19,7 +19,7 @@ namespace wpi::math {
  * Inverse kinematics converts a desired chassis speed into wheel speeds whereas
  * forward kinematics converts wheel speeds into chassis speed.
  */
-template <typename WheelPositions, typename WheelSpeeds,
+template <typename WheelPositions, typename WheelVelocities,
           typename WheelAccelerations>
   requires std::copy_constructible<WheelPositions> &&
            std::assignable_from<WheelPositions&, const WheelPositions&>
@@ -37,7 +37,7 @@ class WPILIB_DLLEXPORT Kinematics {
    * @return The chassis speed.
    */
   virtual ChassisSpeeds ToChassisSpeeds(
-      const WheelSpeeds& wheelSpeeds) const = 0;
+      const WheelVelocities& wheelSpeeds) const = 0;
 
   /**
    * Performs inverse kinematics to return the wheel speeds from a desired
@@ -47,7 +47,7 @@ class WPILIB_DLLEXPORT Kinematics {
    * @param chassisSpeeds The desired chassis speed.
    * @return The wheel speeds.
    */
-  virtual WheelSpeeds ToWheelSpeeds(
+  virtual WheelVelocities ToWheelSpeeds(
       const ChassisSpeeds& chassisSpeeds) const = 0;
 
   /**

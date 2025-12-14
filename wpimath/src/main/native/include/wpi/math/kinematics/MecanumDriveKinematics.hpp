@@ -13,7 +13,7 @@
 #include "wpi/math/kinematics/Kinematics.hpp"
 #include "wpi/math/kinematics/MecanumDriveWheelAccelerations.hpp"
 #include "wpi/math/kinematics/MecanumDriveWheelPositions.hpp"
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 #include "wpi/math/linalg/EigenCore.hpp"
 #include "wpi/math/util/MathShared.hpp"
 #include "wpi/util/SymbolExports.hpp"
@@ -95,7 +95,7 @@ class WPILIB_DLLEXPORT MecanumDriveKinematics
    * @return The wheel speeds. Use caution because they are not normalized.
    *         Sometimes, a user input may cause one of the wheel speeds to go
    *         above the attainable max velocity. Use the
-   *         MecanumDriveWheelSpeeds::Normalize() function to rectify this
+   *         WheelVelocities::Normalize() function to rectify this
    *         issue. In addition, you can leverage the power of C++17 to directly
    *         assign the wheel speeds to variables:
    *
