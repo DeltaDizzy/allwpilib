@@ -11,8 +11,8 @@ using namespace wpi::math;
 
 namespace {
 
-const MecanumDriveWheelSpeeds kExpectedData =
-    MecanumDriveWheelSpeeds{2.29_mps, 17.4_mps, 4.4_mps, 0.229_mps};
+const MecanumDriveWheelVelocities kExpectedData =
+    MecanumDriveWheelVelocities{2.29_mps, 17.4_mps, 4.4_mps, 0.229_mps};
 }  // namespace
 
 TEST(MecanumDriveWheelSpeedsProtoTest, Roundtrip) {

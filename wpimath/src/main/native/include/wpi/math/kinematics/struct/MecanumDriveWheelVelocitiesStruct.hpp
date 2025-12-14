@@ -4,14 +4,14 @@
 
 #pragma once
 
-#include "wpi/math/kinematics/MecanumDriveWheelSpeeds.hpp"
+#include "wpi/math/kinematics/MecanumDriveWheelVelocities.hpp"
 #include "wpi/util/SymbolExports.hpp"
 #include "wpi/util/struct/Struct.hpp"
 
 template <>
-struct WPILIB_DLLEXPORT wpi::util::Struct<wpi::math::MecanumDriveWheelSpeeds> {
+struct WPILIB_DLLEXPORT wpi::util::Struct<wpi::math::MecanumDriveWheelVelocities> {
   static constexpr std::string_view GetTypeName() {
-    return "MecanumDriveWheelSpeeds";
+    return "MecanumDriveWheelVelocities";
   }
   static constexpr size_t GetSize() { return 32; }
   static constexpr std::string_view GetSchema() {
@@ -19,11 +19,11 @@ struct WPILIB_DLLEXPORT wpi::util::Struct<wpi::math::MecanumDriveWheelSpeeds> {
            "double rear_right";
   }
 
-  static wpi::math::MecanumDriveWheelSpeeds Unpack(
+  static wpi::math::MecanumDriveWheelVelocities Unpack(
       std::span<const uint8_t> data);
   static void Pack(std::span<uint8_t> data,
-                   const wpi::math::MecanumDriveWheelSpeeds& value);
+                   const wpi::math::MecanumDriveWheelVelocities& value);
 };
 
 static_assert(
-    wpi::util::StructSerializable<wpi::math::MecanumDriveWheelSpeeds>);
+    wpi::util::StructSerializable<wpi::math::MecanumDriveWheelVelocities>);

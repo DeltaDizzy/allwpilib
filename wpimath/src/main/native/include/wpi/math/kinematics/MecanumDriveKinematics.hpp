@@ -43,7 +43,7 @@ namespace wpi::math {
  * the robot on the field using encoders and a gyro.
  */
 class WPILIB_DLLEXPORT MecanumDriveKinematics
-    : public Kinematics<MecanumDriveWheelPositions, MecanumDriveWheelSpeeds,
+    : public Kinematics<MecanumDriveWheelPositions, MecanumDriveWheelVelocities,
                         MecanumDriveWheelAccelerations> {
  public:
   /**
@@ -103,11 +103,11 @@ class WPILIB_DLLEXPORT MecanumDriveKinematics
    * auto [fl, fr, bl, br] = kinematics.ToWheelSpeeds(chassisSpeeds);
    * @endcode
    */
-  MecanumDriveWheelSpeeds ToWheelSpeeds(
+  MecanumDriveWheelVelocities ToWheelSpeeds(
       const ChassisSpeeds& chassisSpeeds,
       const Translation2d& centerOfRotation) const;
 
-  MecanumDriveWheelSpeeds ToWheelSpeeds(
+  MecanumDriveWheelVelocities ToWheelSpeeds(
       const ChassisSpeeds& chassisSpeeds) const override {
     return ToWheelSpeeds(chassisSpeeds, {});
   }
@@ -123,7 +123,7 @@ class WPILIB_DLLEXPORT MecanumDriveKinematics
    * @return The resulting chassis speed.
    */
   ChassisSpeeds ToChassisSpeeds(
-      const MecanumDriveWheelSpeeds& wheelSpeeds) const override;
+      const MecanumDriveWheelVelocities& wheelSpeeds) const override;
 
   Twist2d ToTwist2d(const MecanumDriveWheelPositions& start,
                     const MecanumDriveWheelPositions& end) const override;

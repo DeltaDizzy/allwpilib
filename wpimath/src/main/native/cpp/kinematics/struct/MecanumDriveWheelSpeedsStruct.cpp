@@ -11,11 +11,11 @@ constexpr size_t kRearLeftOff = kFrontRightOff + 8;
 constexpr size_t kRearRightOff = kRearLeftOff + 8;
 }  // namespace
 
-using StructType = wpi::util::Struct<wpi::math::MecanumDriveWheelSpeeds>;
+using StructType = wpi::util::Struct<wpi::math::MecanumDriveWheelVelocities>;
 
-wpi::math::MecanumDriveWheelSpeeds StructType::Unpack(
+wpi::math::MecanumDriveWheelVelocities StructType::Unpack(
     std::span<const uint8_t> data) {
-  return wpi::math::MecanumDriveWheelSpeeds{
+  return wpi::math::MecanumDriveWheelVelocities{
       wpi::units::meters_per_second_t{
           wpi::util::UnpackStruct<double, kFrontLeftOff>(data)},
       wpi::units::meters_per_second_t{
@@ -28,7 +28,7 @@ wpi::math::MecanumDriveWheelSpeeds StructType::Unpack(
 }
 
 void StructType::Pack(std::span<uint8_t> data,
-                      const wpi::math::MecanumDriveWheelSpeeds& value) {
+                      const wpi::math::MecanumDriveWheelVelocities& value) {
   wpi::util::PackStruct<kFrontLeftOff>(data, value.frontLeft.value());
   wpi::util::PackStruct<kFrontRightOff>(data, value.frontRight.value());
   wpi::util::PackStruct<kRearLeftOff>(data, value.rearLeft.value());

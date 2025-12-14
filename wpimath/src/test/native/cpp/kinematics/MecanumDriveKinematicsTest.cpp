@@ -34,7 +34,7 @@ TEST_F(MecanumDriveKinematicsTest, StraightLineInverseKinematics) {
 }
 
 TEST_F(MecanumDriveKinematicsTest, StraightLineForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{5_mps, 5_mps, 5_mps, 5_mps};
+  MecanumDriveWheelVelocities wheelSpeeds{5_mps, 5_mps, 5_mps, 5_mps};
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
   EXPECT_NEAR(5.0, chassisSpeeds.vx.value(), 0.1);
@@ -62,7 +62,7 @@ TEST_F(MecanumDriveKinematicsTest, StrafeInverseKinematics) {
 }
 
 TEST_F(MecanumDriveKinematicsTest, StrafeForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{-5_mps, 5_mps, 5_mps, -5_mps};
+  MecanumDriveWheelVelocities wheelSpeeds{-5_mps, 5_mps, 5_mps, -5_mps};
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
   EXPECT_NEAR(0.0, chassisSpeeds.vx.value(), 0.1);
@@ -91,7 +91,7 @@ TEST_F(MecanumDriveKinematicsTest, RotationInverseKinematics) {
 }
 
 TEST_F(MecanumDriveKinematicsTest, RotationForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{-150.79644737_mps, 150.79644737_mps,
+  MecanumDriveWheelVelocities wheelSpeeds{-150.79644737_mps, 150.79644737_mps,
                                       -150.79644737_mps, 150.79644737_mps};
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
@@ -121,7 +121,7 @@ TEST_F(MecanumDriveKinematicsTest, MixedRotationTranslationInverseKinematics) {
 }
 
 TEST_F(MecanumDriveKinematicsTest, MixedRotationTranslationForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{-17.677670_mps, 20.506097_mps,
+  MecanumDriveWheelVelocities wheelSpeeds{-17.677670_mps, 20.506097_mps,
                                       -13.435_mps, 16.26_mps};
 
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
@@ -154,7 +154,7 @@ TEST_F(MecanumDriveKinematicsTest, OffCenterRotationInverseKinematics) {
 }
 
 TEST_F(MecanumDriveKinematicsTest, OffCenterRotationForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{0_mps, 16.971_mps, -16.971_mps,
+  MecanumDriveWheelVelocities wheelSpeeds{0_mps, 16.971_mps, -16.971_mps,
                                       33.941_mps};
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
@@ -186,7 +186,7 @@ TEST_F(MecanumDriveKinematicsTest,
 
 TEST_F(MecanumDriveKinematicsTest,
        OffCenterTranslationRotationForwardKinematics) {
-  MecanumDriveWheelSpeeds wheelSpeeds{2.12_mps, 21.92_mps, -12.02_mps,
+  MecanumDriveWheelVelocities wheelSpeeds{2.12_mps, 21.92_mps, -12.02_mps,
                                       36.06_mps};
   auto chassisSpeeds = kinematics.ToChassisSpeeds(wheelSpeeds);
 
@@ -207,7 +207,7 @@ TEST_F(MecanumDriveKinematicsTest,
 
 TEST_F(MecanumDriveKinematicsTest, Desaturate) {
   auto wheelSpeeds =
-      MecanumDriveWheelSpeeds{5_mps, 6_mps, 4_mps, 7_mps}.Desaturate(5.5_mps);
+      MecanumDriveWheelVelocities{5_mps, 6_mps, 4_mps, 7_mps}.Desaturate(5.5_mps);
 
   double kFactor = 5.5 / 7.0;
 
@@ -219,7 +219,7 @@ TEST_F(MecanumDriveKinematicsTest, Desaturate) {
 
 TEST_F(MecanumDriveKinematicsTest, DesaturateNegativeSpeeds) {
   auto wheelSpeeds =
-      MecanumDriveWheelSpeeds{-5_mps, 6_mps, 4_mps, -7_mps}.Desaturate(5.5_mps);
+      MecanumDriveWheelVelocities{-5_mps, 6_mps, 4_mps, -7_mps}.Desaturate(5.5_mps);
 
   constexpr double kFactor = 5.5 / 7.0;
 

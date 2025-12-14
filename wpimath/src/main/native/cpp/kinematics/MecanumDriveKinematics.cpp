@@ -6,7 +6,7 @@
 
 using namespace wpi::math;
 
-MecanumDriveWheelSpeeds MecanumDriveKinematics::ToWheelSpeeds(
+MecanumDriveWheelVelocities MecanumDriveKinematics::ToWheelSpeeds(
     const ChassisSpeeds& chassisSpeeds,
     const Translation2d& centerOfRotation) const {
   // We have a new center of rotation. We need to compute the matrix again.
@@ -27,7 +27,7 @@ MecanumDriveWheelSpeeds MecanumDriveKinematics::ToWheelSpeeds(
 
   Eigen::Vector4d wheelsVector = m_inverseKinematics * chassisSpeedsVector;
 
-  MecanumDriveWheelSpeeds wheelSpeeds;
+  MecanumDriveWheelVelocities wheelSpeeds;
   wheelSpeeds.frontLeft = wpi::units::meters_per_second_t{wheelsVector(0)};
   wheelSpeeds.frontRight = wpi::units::meters_per_second_t{wheelsVector(1)};
   wheelSpeeds.rearLeft = wpi::units::meters_per_second_t{wheelsVector(2)};
@@ -36,7 +36,7 @@ MecanumDriveWheelSpeeds MecanumDriveKinematics::ToWheelSpeeds(
 }
 
 ChassisSpeeds MecanumDriveKinematics::ToChassisSpeeds(
-    const MecanumDriveWheelSpeeds& wheelSpeeds) const {
+    const MecanumDriveWheelVelocities& wheelSpeeds) const {
   Eigen::Vector4d wheelSpeedsVector{
       wheelSpeeds.frontLeft.value(), wheelSpeeds.frontRight.value(),
       wheelSpeeds.rearLeft.value(), wheelSpeeds.rearRight.value()};

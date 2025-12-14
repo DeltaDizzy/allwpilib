@@ -16,7 +16,7 @@ namespace wpi::math {
 /**
  * Represents the wheel speeds for a mecanum drive drivetrain.
  */
-struct WPILIB_DLLEXPORT MecanumDriveWheelSpeeds {
+struct WPILIB_DLLEXPORT MecanumDriveWheelVelocities {
   /**
    * Speed of the front-left wheel.
    */
@@ -50,7 +50,7 @@ struct WPILIB_DLLEXPORT MecanumDriveWheelSpeeds {
    * @param attainableMaxSpeed The absolute max speed that a wheel can reach.
    * @return Desaturated MecanumDriveWheelSpeeds.
    */
-  constexpr MecanumDriveWheelSpeeds Desaturate(
+  constexpr MecanumDriveWheelVelocities Desaturate(
       wpi::units::meters_per_second_t attainableMaxSpeed) const {
     std::array<wpi::units::meters_per_second_t, 4> wheelSpeeds{
         frontLeft, frontRight, rearLeft, rearRight};
@@ -65,7 +65,7 @@ struct WPILIB_DLLEXPORT MecanumDriveWheelSpeeds {
       for (int i = 0; i < 4; ++i) {
         wheelSpeeds[i] = wheelSpeeds[i] / realMaxSpeed * attainableMaxSpeed;
       }
-      return MecanumDriveWheelSpeeds{wheelSpeeds[0], wheelSpeeds[1],
+      return MecanumDriveWheelVelocities{wheelSpeeds[0], wheelSpeeds[1],
                                      wheelSpeeds[2], wheelSpeeds[3]};
     }
 
@@ -73,78 +73,78 @@ struct WPILIB_DLLEXPORT MecanumDriveWheelSpeeds {
   }
 
   /**
-   * Adds two MecanumDriveWheelSpeeds and returns the sum.
+   * Adds two MecanumDriveWheelVelocities and returns the sum.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{1.0, 0.5, 2.0, 1.5} +
-   * MecanumDriveWheelSpeeds{2.0, 1.5, 0.5, 1.0} =
-   * MecanumDriveWheelSpeeds{3.0, 2.0, 2.5, 2.5}
+   * <p>For example, MecanumDriveWheelVelocities{1.0, 0.5, 2.0, 1.5} +
+   * MecanumDriveWheelVelocities{2.0, 1.5, 0.5, 1.0} =
+   * MecanumDriveWheelVelocities{3.0, 2.0, 2.5, 2.5}
    *
-   * @param other The MecanumDriveWheelSpeeds to add.
-   * @return The sum of the MecanumDriveWheelSpeeds.
+   * @param other The MecanumDriveWheelVelocities to add.
+   * @return The sum of the MecanumDriveWheelVelocities.
    */
-  constexpr MecanumDriveWheelSpeeds operator+(
-      const MecanumDriveWheelSpeeds& other) const {
+  constexpr MecanumDriveWheelVelocities operator+(
+      const MecanumDriveWheelVelocities& other) const {
     return {frontLeft + other.frontLeft, frontRight + other.frontRight,
             rearLeft + other.rearLeft, rearRight + other.rearRight};
   }
 
   /**
-   * Subtracts the other MecanumDriveWheelSpeeds from the current
-   * MecanumDriveWheelSpeeds and returns the difference.
+   * Subtracts the other MecanumDriveWheelVelocities from the current
+   * MecanumDriveWheelVelocities and returns the difference.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{5.0, 4.0, 6.0, 2.5} -
-   * MecanumDriveWheelSpeeds{1.0, 2.0, 3.0, 0.5} =
-   * MecanumDriveWheelSpeeds{4.0, 2.0, 3.0, 2.0}
+   * <p>For example, MecanumDriveWheelVelocities{5.0, 4.0, 6.0, 2.5} -
+   * MecanumDriveWheelVelocities{1.0, 2.0, 3.0, 0.5} =
+   * MecanumDriveWheelVelocities{4.0, 2.0, 3.0, 2.0}
    *
-   * @param other The MecanumDriveWheelSpeeds to subtract.
-   * @return The difference between the two MecanumDriveWheelSpeeds.
+   * @param other The MecanumDriveWheelVelocities to subtract.
+   * @return The difference between the two MecanumDriveWheelVelocities.
    */
-  constexpr MecanumDriveWheelSpeeds operator-(
-      const MecanumDriveWheelSpeeds& other) const {
+  constexpr MecanumDriveWheelVelocities operator-(
+      const MecanumDriveWheelVelocities& other) const {
     return *this + -other;
   }
 
   /**
-   * Returns the inverse of the current MecanumDriveWheelSpeeds.
+   * Returns the inverse of the current MecanumDriveWheelVelocities.
    * This is equivalent to negating all components of the
-   * MecanumDriveWheelSpeeds.
+   * MecanumDriveWheelVelocities.
    *
-   * @return The inverse of the current MecanumDriveWheelSpeeds.
+   * @return The inverse of the current MecanumDriveWheelVelocities.
    */
-  constexpr MecanumDriveWheelSpeeds operator-() const {
+  constexpr MecanumDriveWheelVelocities operator-() const {
     return {-frontLeft, -frontRight, -rearLeft, -rearRight};
   }
 
   /**
-   * Multiplies the MecanumDriveWheelSpeeds by a scalar and returns the new
-   * MecanumDriveWheelSpeeds.
+   * Multiplies the MecanumDriveWheelVelocities by a scalar and returns the new
+   * MecanumDriveWheelVelocities.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{2.0, 2.5, 3.0, 3.5} * 2 =
-   * MecanumDriveWheelSpeeds{4.0, 5.0, 6.0, 7.0}
+   * <p>For example, MecanumDriveWheelVelocities{2.0, 2.5, 3.0, 3.5} * 2 =
+   * MecanumDriveWheelVelocities{4.0, 5.0, 6.0, 7.0}
    *
    * @param scalar The scalar to multiply by.
-   * @return The scaled MecanumDriveWheelSpeeds.
+   * @return The scaled MecanumDriveWheelVelocities.
    */
-  constexpr MecanumDriveWheelSpeeds operator*(double scalar) const {
+  constexpr MecanumDriveWheelVelocities operator*(double scalar) const {
     return {scalar * frontLeft, scalar * frontRight, scalar * rearLeft,
             scalar * rearRight};
   }
 
   /**
-   * Divides the MecanumDriveWheelSpeeds by a scalar and returns the new
-   * MecanumDriveWheelSpeeds.
+   * Divides the MecanumDriveWheelVelocities by a scalar and returns the new
+   * MecanumDriveWheelVelocities.
    *
-   * <p>For example, MecanumDriveWheelSpeeds{2.0, 2.5, 1.5, 1.0} / 2 =
-   * MecanumDriveWheelSpeeds{1.0, 1.25, 0.75, 0.5}
+   * <p>For example, MecanumDriveWheelVelocities{2.0, 2.5, 1.5, 1.0} / 2 =
+   * MecanumDriveWheelVelocities{1.0, 1.25, 0.75, 0.5}
    *
    * @param scalar The scalar to divide by.
-   * @return The scaled MecanumDriveWheelSpeeds.
+   * @return The scaled MecanumDriveWheelVelocities.
    */
-  constexpr MecanumDriveWheelSpeeds operator/(double scalar) const {
+  constexpr MecanumDriveWheelVelocities operator/(double scalar) const {
     return operator*(1.0 / scalar);
   }
 };
 }  // namespace wpi::math
 
-#include "wpi/math/kinematics/proto/MecanumDriveWheelSpeedsProto.hpp"
-#include "wpi/math/kinematics/struct/MecanumDriveWheelSpeedsStruct.hpp"
+#include "wpi/math/kinematics/proto/MecanumDriveWheelVelocitiesProto.hpp"
+#include "wpi/math/kinematics/struct/MecanumDriveWheelVelocitiesStruct.hpp"
